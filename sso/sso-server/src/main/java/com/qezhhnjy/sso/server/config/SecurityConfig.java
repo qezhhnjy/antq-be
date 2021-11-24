@@ -1,27 +1,21 @@
 package com.qezhhnjy.sso.server.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qezhhnjy.antq.common.BaseResult;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.PrintWriter;
 
-/**
- * @作者 江南一点雨
- * @公众号 江南一点雨
- * @微信号 a_java_boy
- * @GitHub https://github.com/lenve
- * @博客 http://wangsong.blog.csdn.net
- * @网站 http://www.javaboy.org
- */
 @Configuration
+@Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -42,19 +36,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .requestMatchers()
+                .antMatchers("/login")
+                .antMatchers("/oauth/authorize")
+                .and()
+                .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 // .loginPage("/login.html")
-                .loginProcessingUrl("/doLogin")
+                .loginProcessingUrl("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .successHandler((req, resp, authentication) -> {
                     Object principal = authentication.getPrincipal();
                     resp.setContentType("application/json;charset=utf-8");
                     PrintWriter out = resp.getWriter();
-                    out.write(new ObjectMapper().writeValueAsString(principal));
+                    out.write(new ObjectMapper().writeValueAsString(BaseResult.success(principal)));
                     out.flush();
                     out.close();
                 })
@@ -72,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler((req, resp, authentication) -> {
                     resp.setContentType("application/json;charset=utf-8");
                     PrintWriter out = resp.getWriter();
-                    out.write("注销成功");
+                    out.write(new ObjectMapper().writeValueAsString(BaseResult.success("注销成功!")));
                     out.flush();
                     out.close();
                 })
@@ -82,10 +81,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint((req, resp, authException) -> {
                             resp.setContentType("application/json;charset=utf-8");
                             PrintWriter out = resp.getWriter();
-                            out.write("尚未登录，请先登录");
+                            out.write(new ObjectMapper().writeValueAsString(BaseResult.success("尚未登录，请先登录!")));
                             out.flush();
                             out.close();
                         }
-                );
+                ).and().csrf().disable().cors();
     }
 }
