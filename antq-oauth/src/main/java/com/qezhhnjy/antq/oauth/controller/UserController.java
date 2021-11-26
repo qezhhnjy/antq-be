@@ -3,6 +3,7 @@ package com.qezhhnjy.antq.oauth.controller;
 import com.qezhhnjy.antq.common.BaseResult;
 import com.qezhhnjy.antq.entity.sys.User;
 import com.qezhhnjy.antq.service.sys.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     @Resource
@@ -47,5 +49,19 @@ public class UserController {
     public BaseResult<List<User>> list() {
         List<User> userList = userService.list();
         return BaseResult.success(userList);
+    }
+
+    @PostMapping("/login")
+    public BaseResult<User> login(@RequestBody User user) {
+        log.info("user=>{}", user);
+        return BaseResult.success(user);
+    }
+
+    @GetMapping("/currentUser")
+    public BaseResult<User> currentUser() {
+        User user = new User();
+        user.setUsername("qezhhnjy");
+        user.setPassword("123456");
+        return BaseResult.success(user);
     }
 }

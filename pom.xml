@@ -14,7 +14,7 @@
         <module>antq-service</module>
         <module>antq-oauth</module>
         <module>antq-common</module>
-        <module>sso</module>
+      <module>antq-gateway</module>
     </modules>
 
     <properties>

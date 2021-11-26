@@ -17,9 +17,9 @@ spring:
       testOnReturn: false
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
-      username: root
+      username: aims
       password: aims2016
-      url: jdbc:mysql://192.168.16.28/antq?useUnicode=true&useSSL=false&characterEncoding=utf8
+      url: jdbc:mysql://172.24.68.250/JPZS_ANALYSIS?useUnicode=true&useSSL=false&characterEncoding=utf8
       driver-class-name: com.mysql.cj.jdbc.Driver
 
   redis:

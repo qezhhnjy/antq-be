@@ -32,7 +32,7 @@ spring:
       thread-name-prefix: ${spring.application.name}-scheduler-
 
 server:
-  port: 10001
+  port: 10000
   servlet:
     context-path: /${spring.application.name}
   undertow:
