@@ -21,9 +21,5 @@
             <groupId>com.qezhhnjy</groupId>
             <artifactId>antq-mapper</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.qezhhnjy</groupId>
-            <artifactId>antq-common</artifactId>
-        </dependency>
     </dependencies>
 </project>

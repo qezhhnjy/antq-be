@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.qezhhnjy</groupId>
-            <artifactId>antq-entity</artifactId>
+            <artifactId>antq-common</artifactId>
         </dependency>
     </dependencies>
 </project>
