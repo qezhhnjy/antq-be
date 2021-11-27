@@ -1,4 +1,4 @@
-package com.qezhhnjy.antq.oauth.config;
+package com.qezhhnjy.antq.gateway.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

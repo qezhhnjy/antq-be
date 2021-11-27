@@ -34,8 +34,7 @@ spring:
       discovery:
         server-addr: localhost:8848
   jackson:
-    time-zone: GMT+8
-    locale: zh_CN
+    date-format: yyyy-MM-dd HH:mm:ss
 
 management:
   endpoints:

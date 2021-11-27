@@ -15,6 +15,7 @@
         <module>antq-oauth</module>
         <module>antq-common</module>
       <module>antq-gateway</module>
+        <module>antq-web</module>
     </modules>
 
     <properties>

@@ -20,17 +20,11 @@ public class BaseResult<T> implements Serializable {
     private int    code;
     private String msg;
     private T      data;
-    private int    count;
 
     private BaseResult(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
-    }
-
-    public BaseResult<T> count(int count) {
-        this.count = count;
-        return this;
     }
 
     public static <T> BaseResult<T> success() {
@@ -47,5 +41,9 @@ public class BaseResult<T> implements Serializable {
 
     public static <T> BaseResult<T> error(String msg) {
         return new BaseResult<>(FAILED.code, msg, null);
+    }
+
+    public static <T> BaseResult<T> error(ResultCode resultCode) {
+        return new BaseResult<>(resultCode.code, resultCode.msg, null);
     }
 }

@@ -2,7 +2,7 @@
 <!--debug 要不要打印 logback内部日志信息，true则表示要打印。建议开启-->
 <configuration scan="true" debug="true">
 
-    <property name="application.name" value="antq-oauth"/>
+    <property name="application.name" value="antq-gateway"/>
     <property name="log.path" value="/data/logs/antq"/>
     <property name="file-size" value="100MB"/>
     <property name="retain-days" value="30"/>
