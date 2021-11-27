@@ -1,6 +1,6 @@
 package com.qezhhnjy.antq.oauth.controller;
 
-import com.qezhhnjy.antq.common.BaseResult;
+import com.qezhhnjy.antq.common.consts.BaseResult;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.web.HttpRequestMethodNotSupportedException;

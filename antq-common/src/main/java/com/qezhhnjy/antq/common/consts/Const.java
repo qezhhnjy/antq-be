@@ -1,4 +1,4 @@
-package com.qezhhnjy.antq.common;
+package com.qezhhnjy.antq.common.consts;
 
 /**
  * @author zhaoyangfu

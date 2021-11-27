@@ -1,7 +1,7 @@
 package com.qezhhnjy.antq.gateway.component;
 
 import cn.hutool.json.JSONUtil;
-import com.qezhhnjy.antq.common.BaseResult;
+import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.common.enums.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;

@@ -1,7 +1,7 @@
 package com.qezhhnjy.antq.oauth.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.qezhhnjy.antq.common.Const;
+import com.qezhhnjy.antq.common.consts.Const;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.context.annotation.Configuration;

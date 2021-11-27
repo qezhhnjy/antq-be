@@ -1,6 +1,7 @@
 package com.qezhhnjy.antq.entity.sys;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qezhhnjy.antq.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,6 +17,7 @@ public class User extends BaseEntity {
     private Long id;
     private String avatar;
     private String username;
+    @JsonIgnore
     private String password;
     private String salt;
     private String nickName;

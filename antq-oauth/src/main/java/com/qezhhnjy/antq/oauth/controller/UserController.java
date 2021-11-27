@@ -1,13 +1,16 @@
 package com.qezhhnjy.antq.oauth.controller;
 
-import com.qezhhnjy.antq.common.BaseResult;
-import com.qezhhnjy.antq.entity.sys.User;
+import com.qezhhnjy.antq.common.consts.BaseResult;
+import com.qezhhnjy.antq.common.query.Query;
+import com.qezhhnjy.antq.common.vo.sys.UserVO;
 import com.qezhhnjy.antq.service.sys.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author zhaoyangfu
@@ -19,49 +22,38 @@ import java.util.List;
 public class UserController {
 
     @Resource
-    private UserService userService;
+    private UserService     userService;
+    @Resource
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/add")
-    public BaseResult<Void> add(@RequestBody User user) {
-        userService.save(user);
+    public BaseResult<Void> add(@RequestBody UserVO vo) {
+        userService.add(vo);
         return BaseResult.success();
     }
 
     @DeleteMapping("/delete")
     public BaseResult<Void> delete(Long id) {
-        userService.removeById(id);
+        userService.remove(id);
         return BaseResult.success();
     }
 
     @PutMapping("/update")
-    public BaseResult<User> update(@RequestBody User user) {
-        userService.updateById(user);
-        return BaseResult.success(user);
+    public BaseResult<UserVO> update(@RequestBody UserVO vo) {
+        userService.update(vo);
+        return BaseResult.success(vo);
     }
 
     @GetMapping("/detail")
-    public BaseResult<User> detail(Long id) {
-        User user = userService.getById(id);
-        return BaseResult.success(user);
+    public BaseResult<UserVO> detail(Long id) {
+        UserVO vo = userService.detail(id);
+        return BaseResult.success(vo);
     }
 
-    @GetMapping("/list")
-    public BaseResult<List<User>> list() {
-        List<User> userList = userService.list();
+    @PostMapping("/list")
+    public BaseResult<List<UserVO>> list(@RequestBody Query query) {
+        userService.list(query);
+        List<UserVO> userList = userService.list().stream().map(user -> new UserVO(user, null)).collect(Collectors.toList());
         return BaseResult.success(userList);
-    }
-
-    @PostMapping("/login")
-    public BaseResult<User> login(@RequestBody User user) {
-        log.info("user=>{}", user);
-        return BaseResult.success(user);
-    }
-
-    @GetMapping("/currentUser")
-    public BaseResult<User> currentUser() {
-        User user = new User();
-        user.setUsername("qezhhnjy");
-        user.setPassword("123456");
-        return BaseResult.success(user);
     }
 }

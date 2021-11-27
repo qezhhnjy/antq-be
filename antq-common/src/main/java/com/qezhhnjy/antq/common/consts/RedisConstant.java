@@ -1,4 +1,4 @@
-package com.qezhhnjy.antq.common;
+package com.qezhhnjy.antq.common.consts;
 
 /**
  * Created by macro on 2020/6/19.

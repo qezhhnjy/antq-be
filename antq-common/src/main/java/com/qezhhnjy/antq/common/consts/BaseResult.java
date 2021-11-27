@@ -1,4 +1,4 @@
-package com.qezhhnjy.antq.common;
+package com.qezhhnjy.antq.common.consts;
 
 import com.qezhhnjy.antq.common.enums.ResultCode;
 import lombok.Data;

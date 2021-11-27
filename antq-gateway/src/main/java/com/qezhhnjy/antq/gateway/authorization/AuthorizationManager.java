@@ -1,8 +1,8 @@
 package com.qezhhnjy.antq.gateway.authorization;
 
 import cn.hutool.core.convert.Convert;
-import com.qezhhnjy.antq.common.AuthConstant;
-import com.qezhhnjy.antq.common.RedisConstant;
+import com.qezhhnjy.antq.common.consts.AuthConstant;
+import com.qezhhnjy.antq.common.consts.RedisConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authorization.AuthorizationDecision;

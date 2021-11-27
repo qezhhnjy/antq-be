@@ -1,7 +1,9 @@
 package com.qezhhnjy.antq.gateway.filter;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.nimbusds.jose.JWSObject;
+import com.qezhhnjy.antq.common.consts.AuthConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -36,7 +38,8 @@ public class AuthGlobalFilter implements GlobalFilter {
             JWSObject jwsObject = JWSObject.parse(realToken);
             String userStr = jwsObject.getPayload().toString();
             log.info("AuthGlobalFilter.filter() user:{}", userStr);
-            ServerHttpRequest request = exchange.getRequest().mutate().header("user", userStr).build();
+            Long userId = JSONUtil.parseObj(userStr).getLong("id");
+            ServerHttpRequest request = exchange.getRequest().mutate().header(AuthConstant.HEADER_USER_ID, String.valueOf(userId)).build();
             exchange = exchange.mutate().request(request).build();
         } catch (ParseException e) {
             e.printStackTrace();

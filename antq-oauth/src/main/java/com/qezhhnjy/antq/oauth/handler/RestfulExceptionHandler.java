@@ -1,7 +1,7 @@
 package com.qezhhnjy.antq.oauth.handler;
 
 import cn.hutool.core.util.StrUtil;
-import com.qezhhnjy.antq.common.BaseResult;
+import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.common.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;

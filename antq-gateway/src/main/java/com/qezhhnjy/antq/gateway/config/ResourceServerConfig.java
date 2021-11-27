@@ -1,11 +1,11 @@
 package com.qezhhnjy.antq.gateway.config;
 
+import cn.hutool.core.util.ArrayUtil;
+import com.qezhhnjy.antq.common.consts.AuthConstant;
 import com.qezhhnjy.antq.gateway.authorization.AuthorizationManager;
 import com.qezhhnjy.antq.gateway.component.RestAuthenticationEntryPoint;
 import com.qezhhnjy.antq.gateway.component.RestfulAccessDeniedHandler;
-import com.qezhhnjy.antq.common.AuthConstant;
 import com.qezhhnjy.antq.gateway.filter.IgnoreUrlsRemoveJwtFilter;
-import cn.hutool.core.util.ArrayUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,13 +1,13 @@
 package com.qezhhnjy.antq.oauth.service;
 
 import cn.hutool.core.collection.CollUtil;
-import com.qezhhnjy.antq.common.MessageConstant;
+import com.qezhhnjy.antq.common.enums.ResultCode;
 import com.qezhhnjy.antq.oauth.component.SecurityUser;
-import com.qezhhnjy.antq.oauth.component.UserDTO;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,7 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 /**
  * 用户管理业务类
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Service
 public class SecurityUserService implements UserDetailsService {
 
-    private List<UserDTO> userList;
+    private static final List<SecurityUser> userList = new ArrayList<>();
 
     @Resource
     private PasswordEncoder passwordEncoder;
@@ -35,26 +35,39 @@ public class SecurityUserService implements UserDetailsService {
     @PostConstruct
     public void initData() {
         String password = passwordEncoder.encode("123456");
-        userList = new ArrayList<>();
-        userList.add(new UserDTO(1L,"macro", password,1, CollUtil.toList("ADMIN")));
-        userList.add(new UserDTO(2L,"andy", password,1, CollUtil.toList("TEST")));
+
+        SecurityUser macro = new SecurityUser();
+        macro.setId(1L);
+        macro.setUsername("macro");
+        macro.setPassword(password);
+        macro.setEnabled(true);
+        macro.setAuthorities(CollUtil.toList(new SimpleGrantedAuthority("ADMIN")));
+
+        SecurityUser andy = new SecurityUser();
+        andy.setId(2L);
+        andy.setUsername("andy");
+        andy.setPassword(password);
+        andy.setEnabled(false);
+        andy.setAuthorities(CollUtil.toList(new SimpleGrantedAuthority("TEST")));
+
+        userList.add(macro);
+        userList.add(andy);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<UserDTO> findUserList = userList.stream().filter(item -> item.getUsername().equals(username)).collect(Collectors.toList());
-        if (CollUtil.isEmpty(findUserList)) {
-            throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);
-        }
-        SecurityUser securityUser = new SecurityUser(findUserList.get(0));
+        SecurityUser securityUser = userList.stream()
+                .filter(user -> Objects.equals(user.getUsername(), username))
+                .findFirst()
+                .orElseThrow(() -> new UsernameNotFoundException(ResultCode.USERNAME_PASSWORD_ERROR.msg));
         if (!securityUser.isEnabled()) {
-            throw new DisabledException(MessageConstant.ACCOUNT_DISABLED);
+            throw new DisabledException(ResultCode.ACCOUNT_DISABLED.msg);
         } else if (!securityUser.isAccountNonLocked()) {
-            throw new LockedException(MessageConstant.ACCOUNT_LOCKED);
+            throw new LockedException(ResultCode.ACCOUNT_LOCKED.msg);
         } else if (!securityUser.isAccountNonExpired()) {
-            throw new AccountExpiredException(MessageConstant.ACCOUNT_EXPIRED);
+            throw new AccountExpiredException(ResultCode.ACCOUNT_EXPIRED.msg);
         } else if (!securityUser.isCredentialsNonExpired()) {
-            throw new CredentialsExpiredException(MessageConstant.CREDENTIALS_EXPIRED);
+            throw new CredentialsExpiredException(ResultCode.CREDENTIALS_EXPIRED.msg);
         }
         return securityUser;
     }

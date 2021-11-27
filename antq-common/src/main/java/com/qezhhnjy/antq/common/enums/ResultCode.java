@@ -6,14 +6,16 @@ package com.qezhhnjy.antq.common.enums;
  */
 public enum ResultCode {
 
-    VALIDATE_FAILED(404, "参数检验失败"),
     UNAUTHORIZED(401, "暂未登录或token已经过期"),
     FORBIDDEN(403, "没有相关权限"),
     SUCCESS(1000, "响应成功"),
-    FAILED(1100, "响应失败"),
-    FTP_ERROR(2000, "FTP错误"),
-    DATA_NOT_EXIST(3000, "数据不存在"),
-    UNKNOWN(-1, "未知响应");
+    USERNAME_PASSWORD_ERROR(1001, "用户名或密码错误"),
+    CREDENTIALS_EXPIRED(1002, "该账户的登录凭证已过期，请重新登录!"),
+    ACCOUNT_DISABLED(1003, "该账户已被禁用，请联系管理员!"),
+    ACCOUNT_LOCKED(1004, "该账号已被锁定，请联系管理员!"),
+    ACCOUNT_EXPIRED(1005, "该账号已过期，请联系管理员!"),
+    PERMISSION_DENIED(1006, "没有访问权限，请联系管理员!"),
+    FAILED(9999, "响应失败");
 
     public final int    code;
     public final String msg;

@@ -1,7 +1,7 @@
 package com.qezhhnjy.antq.oauth.service;
 
 import cn.hutool.core.collection.CollUtil;
-import com.qezhhnjy.antq.common.RedisConstant;
+import com.qezhhnjy.antq.common.consts.RedisConstant;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +25,7 @@ public class ResourceService {
     public void initData() {
         Map<String, List<String>> resourceRolesMap = new TreeMap<>();
         resourceRolesMap.put("/api/hello", CollUtil.toList("ADMIN"));
+        resourceRolesMap.put("/oauth/user/list", CollUtil.toList("ADMIN"));
         resourceRolesMap.put("/web/hello/user", CollUtil.toList("ADMIN"));
         resourceRolesMap.put("/api/user/currentUser", CollUtil.toList("ADMIN", "TEST"));
         redisTemplate.opsForHash().putAll(RedisConstant.RESOURCE_ROLES_MAP, resourceRolesMap);
