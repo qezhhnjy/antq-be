@@ -22,4 +22,6 @@ public interface UserService extends IService<User> {
     UserVO detail(Long id);
 
     List<UserVO> list(Query query);
+
+    UserVO getByUserName(String username);
 }

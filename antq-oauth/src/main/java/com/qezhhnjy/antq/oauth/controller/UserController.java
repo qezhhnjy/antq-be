@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author zhaoyangfu
@@ -27,9 +26,10 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/add")
-    public BaseResult<Void> add(@RequestBody UserVO vo) {
+    public BaseResult<UserVO> add(@RequestBody UserVO vo) {
+        vo.getUser().setPassword(passwordEncoder.encode(vo.getUser().getPassword()));
         userService.add(vo);
-        return BaseResult.success();
+        return BaseResult.success(vo);
     }
 
     @DeleteMapping("/delete")
@@ -40,6 +40,7 @@ public class UserController {
 
     @PutMapping("/update")
     public BaseResult<UserVO> update(@RequestBody UserVO vo) {
+        vo.getUser().setPassword(passwordEncoder.encode(vo.getUser().getPassword()));
         userService.update(vo);
         return BaseResult.success(vo);
     }
@@ -52,8 +53,7 @@ public class UserController {
 
     @PostMapping("/list")
     public BaseResult<List<UserVO>> list(@RequestBody Query query) {
-        userService.list(query);
-        List<UserVO> userList = userService.list().stream().map(user -> new UserVO(user, null)).collect(Collectors.toList());
-        return BaseResult.success(userList);
+        List<UserVO> list = userService.list(query);
+        return BaseResult.success(list);
     }
 }

@@ -35,6 +35,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     public void add(MenuVO vo) {
         Menu menu = vo.getMenu();
         Objects.requireNonNull(menu);
+        String path = menu.getPath();
+        if (lambdaQuery().eq(Menu::getPath, path).count() > 0) throw new RuntimeException("菜单路径已存在");
         save(menu);
 
         List<Role> roleList = vo.getRoleList();
@@ -53,7 +55,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         Menu menu = vo.getMenu();
         Objects.requireNonNull(menu);
         Long menuId = menu.getId();
+        String path = menu.getPath();
         Objects.requireNonNull(menuId);
+        if (lambdaQuery().eq(Menu::getPath, path).count() > 0) throw new RuntimeException("菜单路径已存在");
         updateById(menu);
         roleMenuService.removeByMenuId(menuId);
 
@@ -74,7 +78,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public List<MenuVO> list(Query query) {
-        return list().stream().map(menu -> detail(menu.getId())).collect(Collectors.toList());
+        return list().stream().map(menu -> new MenuVO(menu, baseMapper.roleListById(menu.getId()))).collect(Collectors.toList());
     }
 
     @Override

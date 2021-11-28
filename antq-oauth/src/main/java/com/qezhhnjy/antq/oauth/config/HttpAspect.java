@@ -39,7 +39,7 @@ public class HttpAspect {
         // log.debug("ip:port: {}:{}", req.getRemoteHost(), req.getRemotePort());
         // log.debug("method: {}.{}", point.getSignature().getDeclaringTypeName(), point.getSignature().getName());
         Object result = point.proceed();
-        log.debug("{} response=>{}", time, result);
+        log.info("{} response=>{}", time, result);
         return result;
     }
 

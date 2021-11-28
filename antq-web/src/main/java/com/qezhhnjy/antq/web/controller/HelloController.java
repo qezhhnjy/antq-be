@@ -1,6 +1,7 @@
 package com.qezhhnjy.antq.web.controller;
 
 import com.qezhhnjy.antq.common.consts.BaseResult;
+import com.qezhhnjy.antq.common.vo.sys.UserVO;
 import com.qezhhnjy.antq.web.holder.LoginUserHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class HelloController {
     private LoginUserHolder loginUserHolder;
 
     @GetMapping("/user")
-    public BaseResult<Long> user() {
+    public BaseResult<UserVO> user() {
         return BaseResult.success(loginUserHolder.getCurrentUser());
     }
 }

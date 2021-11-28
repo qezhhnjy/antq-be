@@ -1,6 +1,7 @@
 package com.qezhhnjy.antq.service.sys.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.RoleVO;
@@ -38,6 +39,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public void add(RoleVO vo) {
         Role role = vo.getRole();
         Objects.requireNonNull(role);
+        String roleName = role.getRoleName();
+        if (StrUtil.isBlank(roleName)) throw new RuntimeException("角色名称不能为空");
+        if (lambdaQuery().eq(Role::getRoleName, roleName).count() > 0) throw new RuntimeException("角色名已存在");
         save(role);
         List<Menu> menuList = vo.getMenuList();
         if (CollUtil.isEmpty(menuList)) return;
@@ -53,7 +57,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         Role role = vo.getRole();
         Objects.requireNonNull(role);
         Long roleId = role.getId();
+        String roleName = role.getRoleName();
         Objects.requireNonNull(roleId);
+        if (lambdaQuery().eq(Role::getRoleName, roleName).count() > 0) throw new RuntimeException("角色名已存在");
         updateById(role);
         roleMenuService.removeByRoleId(roleId);
 
@@ -75,7 +81,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     public List<RoleVO> list(Query query) {
-        return list().stream().map(role -> detail(role.getId())).collect(Collectors.toList());
+        return list().stream().map(role -> new RoleVO(role, baseMapper.menuListById(role.getId()))).collect(Collectors.toList());
     }
 
     @Override

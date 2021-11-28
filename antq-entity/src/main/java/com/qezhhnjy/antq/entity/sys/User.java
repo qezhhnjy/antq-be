@@ -1,7 +1,7 @@
 package com.qezhhnjy.antq.entity.sys;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qezhhnjy.antq.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,15 +14,15 @@ import lombok.EqualsAndHashCode;
 @Data
 @TableName("sys_user")
 public class User extends BaseEntity {
-    private Long id;
+    private Long   id;
     private String avatar;
     private String username;
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String salt;
-    private String nickName;
+    private String nickname;
     private String phone;
     private String email;
-    private Byte gender;
-    private Byte status;
+    private Byte   gender;
+    private Byte   status;
 }

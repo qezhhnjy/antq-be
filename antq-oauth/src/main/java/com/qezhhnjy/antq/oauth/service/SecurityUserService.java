@@ -2,7 +2,10 @@ package com.qezhhnjy.antq.oauth.service;
 
 import cn.hutool.core.collection.CollUtil;
 import com.qezhhnjy.antq.common.enums.ResultCode;
+import com.qezhhnjy.antq.common.vo.sys.UserVO;
+import com.qezhhnjy.antq.entity.sys.User;
 import com.qezhhnjy.antq.oauth.component.SecurityUser;
+import com.qezhhnjy.antq.service.sys.UserService;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
@@ -19,6 +22,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 用户管理业务类
@@ -31,6 +35,8 @@ public class SecurityUserService implements UserDetailsService {
 
     @Resource
     private PasswordEncoder passwordEncoder;
+    @Resource
+    private UserService     userService;
 
     @PostConstruct
     public void initData() {
@@ -56,10 +62,24 @@ public class SecurityUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SecurityUser securityUser = userList.stream()
-                .filter(user -> Objects.equals(user.getUsername(), username))
-                .findFirst()
-                .orElseThrow(() -> new UsernameNotFoundException(ResultCode.USERNAME_PASSWORD_ERROR.msg));
+        UserVO vo = userService.getByUserName(username);
+        SecurityUser securityUser;
+        if (vo != null) {
+            User user = vo.getUser();
+            securityUser = new SecurityUser();
+            securityUser.setId(user.getId());
+            securityUser.setUsername(user.getUsername());
+            securityUser.setPassword(user.getPassword());
+            securityUser.setEnabled(user.getStatus() == 0);
+            securityUser.setAuthorities(vo.getRoleList().stream()
+                    .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
+                    .collect(Collectors.toList()));
+        } else {
+            securityUser = userList.stream()
+                    .filter(user -> Objects.equals(user.getUsername(), username))
+                    .findFirst()
+                    .orElseThrow(() -> new UsernameNotFoundException(ResultCode.USERNAME_PASSWORD_ERROR.msg));
+        }
         if (!securityUser.isEnabled()) {
             throw new DisabledException(ResultCode.ACCOUNT_DISABLED.msg);
         } else if (!securityUser.isAccountNonLocked()) {

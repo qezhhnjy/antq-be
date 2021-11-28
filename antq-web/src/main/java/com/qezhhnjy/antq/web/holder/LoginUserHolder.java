@@ -1,11 +1,14 @@
 package com.qezhhnjy.antq.web.holder;
 
 import com.qezhhnjy.antq.common.consts.AuthConstant;
+import com.qezhhnjy.antq.common.vo.sys.UserVO;
+import com.qezhhnjy.antq.service.sys.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
@@ -17,10 +20,14 @@ import java.util.Objects;
 @Slf4j
 public class LoginUserHolder {
 
-    public Long getCurrentUser() {
+    @Resource
+    private UserService userService;
+
+    public UserVO getCurrentUser() {
         //从Header中获取用户信息
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = Objects.requireNonNull(attributes).getRequest();
-        return Long.valueOf(request.getHeader(AuthConstant.HEADER_USER_ID));
+        Long userId = Long.valueOf(request.getHeader(AuthConstant.HEADER_USER_ID));
+        return userService.detail(userId);
     }
 }

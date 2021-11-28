@@ -35,6 +35,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void add(UserVO vo) {
         User user = vo.getUser();
         Objects.requireNonNull(user);
+        String username = user.getUsername();
+        if (lambdaQuery().eq(User::getUsername, username).count() > 0) throw new RuntimeException("用户名已存在");
         save(user);
 
         List<Role> roleList = vo.getRoleList();
@@ -60,7 +62,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = vo.getUser();
         Objects.requireNonNull(user);
         Long userId = user.getId();
+        String username = user.getUsername();
         Objects.requireNonNull(userId);
+        if (lambdaQuery().eq(User::getUsername, username).count() > 0) throw new RuntimeException("用户名已存在");
         updateById(user);
         userRoleService.removeByUserId(userId);
 
@@ -81,6 +85,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public List<UserVO> list(Query query) {
-        return list().stream().map(user -> detail(user.getId())).collect(Collectors.toList());
+        return list().stream().map(user -> new UserVO(user, baseMapper.roleListById(user.getId()))).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserVO getByUserName(String username) {
+        Objects.requireNonNull(username);
+        User user = lambdaQuery().eq(User::getUsername, username).one();
+        if (user == null) return null;
+        List<Role> roleList = baseMapper.roleListById(user.getId());
+        return new UserVO(user, roleList);
     }
 }
