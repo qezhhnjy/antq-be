@@ -8,4 +8,6 @@ import lombok.Data;
  */
 @Data
 public class Query {
+
+    private String search;
 }

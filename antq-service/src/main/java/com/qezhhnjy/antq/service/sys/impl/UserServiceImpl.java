@@ -1,6 +1,8 @@
 package com.qezhhnjy.antq.service.sys.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.UserVO;
@@ -62,11 +64,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Transactional(rollbackFor = Exception.class)
     public void update(UserVO vo) {
         User user = vo.getUser();
-        Objects.requireNonNull(user);
+        Objects.requireNonNull(user, "用户信息不能为空");
         Long userId = user.getId();
         String username = user.getUsername();
-        Objects.requireNonNull(userId);
-        if (lambdaQuery().eq(User::getUsername, username).count() > 0) throw new RuntimeException("用户名已存在");
+        Objects.requireNonNull(userId, "用户id不能为空");
         updateById(user);
         userRoleService.removeByUserId(userId);
 
@@ -87,7 +88,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public List<UserVO> list(Query query) {
-        return list().stream().map(user -> new UserVO(user, baseMapper.roleListById(user.getId()))).collect(Collectors.toList());
+        String search = query.getSearch();
+        boolean notBlank = StrUtil.isNotBlank(search);
+        return list(Wrappers.<User>lambdaQuery().like(notBlank, User::getUsername, search).or().like(notBlank, User::getNickname, search))
+                .stream().map(user -> new UserVO(user, baseMapper.roleListById(user.getId()))).collect(Collectors.toList());
     }
 
     @Override
