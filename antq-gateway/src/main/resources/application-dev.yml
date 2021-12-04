@@ -17,3 +17,17 @@ spring:
       password: aims2016
       url: jdbc:mysql://localhost:3306/antq?serverTimezone=Asia/Shanghai&useUnicode=true&useSSL=false&characterEncoding=utf8
       driver-class-name: com.mysql.cj.jdbc.Driver
+
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:11000/antq-gateway
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @TableName("sys_menu")
 public class Menu extends BaseEntity {
-    private Long id;
+    private Long   id;
     private String menuName;
     private String permission;
     private String path;

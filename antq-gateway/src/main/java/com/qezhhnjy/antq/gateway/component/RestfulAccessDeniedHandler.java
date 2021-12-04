@@ -29,7 +29,7 @@ public class RestfulAccessDeniedHandler implements ServerAccessDeniedHandler {
         response.setStatusCode(HttpStatus.OK);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         String body = JSONUtil.toJsonStr(BaseResult.error(ResultCode.FORBIDDEN));
-        DataBuffer buffer =  response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
+        DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer));
     }
 }

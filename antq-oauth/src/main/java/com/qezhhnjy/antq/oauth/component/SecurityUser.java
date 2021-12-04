@@ -17,19 +17,19 @@ public class SecurityUser implements UserDetails {
     /**
      * ID
      */
-    private Long id;
+    private Long                               id;
     /**
      * 用户名
      */
-    private String username;
+    private String                             username;
     /**
      * 用户密码
      */
-    private String password;
+    private String                             password;
     /**
      * 用户状态
      */
-    private Boolean enabled;
+    private Boolean                            enabled;
     /**
      * 权限数据
      */

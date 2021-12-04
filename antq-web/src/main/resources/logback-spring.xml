@@ -2,153 +2,153 @@
 <!--debug 要不要打印 logback内部日志信息，true则表示要打印。建议开启-->
 <configuration scan="true" debug="true">
 
-    <property name="application.name" value="antq-web"/>
-    <property name="log.path" value="/data/logs/antq"/>
-    <property name="file-size" value="100MB"/>
-    <property name="retain-days" value="30"/>
-    <property name="total-capacity" value="10GB"/>
+  <property name="application.name" value="antq-web"/>
+  <property name="log.path" value="/data/logs/antq"/>
+  <property name="file-size" value="100MB"/>
+  <property name="retain-days" value="30"/>
+  <property name="total-capacity" value="10GB"/>
 
-    <!--输出到控制台 -->
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%t] (%F:%L\) %5level - %highlight(%m) %n</pattern>
-        </encoder>
-    </appender>
+  <!--输出到控制台 -->
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%t] (%F:%L\) %5level - %highlight(%m) %n</pattern>
+    </encoder>
+  </appender>
 
-    <!-- debug级别日志控制: 只输出debug日志 -->
-    <appender name="debug_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 文件路径 -->
-        <file>${log.path}/${application.name}/debug.log</file>
-        <!-- 是否追加 默认为true -->
-        <append>true</append>
-        <!-- 滚动策略 日期+大小 策略 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/${application.name}/debug/%d{yy-MM-dd}-%i.zip</fileNamePattern>
-            <!-- 单个日志大小 -->
-            <maxFileSize>${file-size}</maxFileSize>
-            <!-- 日志保存周期 -->
-            <maxHistory>${retain-days}</maxHistory>
-            <!-- 总大小 -->
-            <totalSizeCap>${total-capacity}</totalSizeCap>
-        </rollingPolicy>
-        <!-- 格式化 -->
-        <encoder>
-            <pattern>%date{yy-MM-dd HH:mm:ss.SSS} [%t](%F:%L\) %-5level - %m%n</pattern>
-        </encoder>
-        <!-- 级别过滤 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>DEBUG</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
+  <!-- debug级别日志控制: 只输出debug日志 -->
+  <appender name="debug_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 文件路径 -->
+    <file>${log.path}/${application.name}/debug.log</file>
+    <!-- 是否追加 默认为true -->
+    <append>true</append>
+    <!-- 滚动策略 日期+大小 策略 -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${log.path}/${application.name}/debug/%d{yy-MM-dd}-%i.zip</fileNamePattern>
+      <!-- 单个日志大小 -->
+      <maxFileSize>${file-size}</maxFileSize>
+      <!-- 日志保存周期 -->
+      <maxHistory>${retain-days}</maxHistory>
+      <!-- 总大小 -->
+      <totalSizeCap>${total-capacity}</totalSizeCap>
+    </rollingPolicy>
+    <!-- 格式化 -->
+    <encoder>
+      <pattern>%date{yy-MM-dd HH:mm:ss.SSS} [%t](%F:%L\) %-5level - %m%n</pattern>
+    </encoder>
+    <!-- 级别过滤 -->
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>DEBUG</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+  </appender>
 
-    <!-- info级别日志控制: 输出info级别及以上的日志 -->
-    <appender name="info_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 文件路径 -->
-        <file>${log.path}/${application.name}/info.log</file>
-        <!-- 是否追加 默认为true -->
-        <append>true</append>
-        <!-- 滚动策略 日期+大小 策略 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/${application.name}/info/%d{yy-MM-dd}-%i.zip</fileNamePattern>
-            <!-- 单个日志大小 -->
-            <maxFileSize>${file-size}</maxFileSize>
-            <!-- 日志保存周期 -->
-            <maxHistory>${retain-days}</maxHistory>
-            <!-- 总大小 -->
-            <totalSizeCap>${total-capacity}</totalSizeCap>
-        </rollingPolicy>
-        <!-- 格式化 -->
-        <encoder>
-            <pattern>%date{yy-MM-dd HH:mm:ss.SSS} [%t](%F:%L\) %-5level - %m%n</pattern>
-        </encoder>
-        <!-- 级别过滤 -->
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-    </appender>
+  <!-- info级别日志控制: 输出info级别及以上的日志 -->
+  <appender name="info_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 文件路径 -->
+    <file>${log.path}/${application.name}/info.log</file>
+    <!-- 是否追加 默认为true -->
+    <append>true</append>
+    <!-- 滚动策略 日期+大小 策略 -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${log.path}/${application.name}/info/%d{yy-MM-dd}-%i.zip</fileNamePattern>
+      <!-- 单个日志大小 -->
+      <maxFileSize>${file-size}</maxFileSize>
+      <!-- 日志保存周期 -->
+      <maxHistory>${retain-days}</maxHistory>
+      <!-- 总大小 -->
+      <totalSizeCap>${total-capacity}</totalSizeCap>
+    </rollingPolicy>
+    <!-- 格式化 -->
+    <encoder>
+      <pattern>%date{yy-MM-dd HH:mm:ss.SSS} [%t](%F:%L\) %-5level - %m%n</pattern>
+    </encoder>
+    <!-- 级别过滤 -->
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+  </appender>
 
-    <!-- warn级别日志控制 -->
-    <appender name="warn_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 文件路径 -->
-        <file>${log.path}/${application.name}/warn.log</file>
-        <!-- 是否追加 默认为true -->
-        <append>true</append>
-        <!-- 滚动策略 日期+大小 策略 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/${application.name}/warn/%d{yy-MM-dd}-%i.zip</fileNamePattern>
-            <!-- 单个日志大小 -->
-            <maxFileSize>${file-size}</maxFileSize>
-            <!-- 日志保存周期 -->
-            <maxHistory>${retain-days}</maxHistory>
-            <!-- 总大小 -->
-            <totalSizeCap>${total-capacity}</totalSizeCap>
-        </rollingPolicy>
-        <!-- 格式化 -->
-        <encoder>
-            <pattern>%date{yy-MM-dd HH:mm:ss.SSS} [%t](%F:%L\) %-5level - %m%n</pattern>
-        </encoder>
-        <!-- 级别过滤 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>WARN</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
+  <!-- warn级别日志控制 -->
+  <appender name="warn_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 文件路径 -->
+    <file>${log.path}/${application.name}/warn.log</file>
+    <!-- 是否追加 默认为true -->
+    <append>true</append>
+    <!-- 滚动策略 日期+大小 策略 -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${log.path}/${application.name}/warn/%d{yy-MM-dd}-%i.zip</fileNamePattern>
+      <!-- 单个日志大小 -->
+      <maxFileSize>${file-size}</maxFileSize>
+      <!-- 日志保存周期 -->
+      <maxHistory>${retain-days}</maxHistory>
+      <!-- 总大小 -->
+      <totalSizeCap>${total-capacity}</totalSizeCap>
+    </rollingPolicy>
+    <!-- 格式化 -->
+    <encoder>
+      <pattern>%date{yy-MM-dd HH:mm:ss.SSS} [%t](%F:%L\) %-5level - %m%n</pattern>
+    </encoder>
+    <!-- 级别过滤 -->
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>WARN</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
 
-    </appender>
-    <!-- error级别日志控制 -->
-    <appender name="error_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 文件路径 -->
-        <file>${log.path}/${application.name}/error.log</file>
-        <!-- 是否追加 默认为true -->
-        <append>true</append>
-        <!-- 滚动策略 日期+大小 策略 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/${application.name}/error/%d{yy-MM-dd}-%i.zip</fileNamePattern>
-            <!-- 单个日志大小 -->
-            <maxFileSize>${file-size}</maxFileSize>
-            <!-- 日志保存周期 -->
-            <maxHistory>${retain-days}</maxHistory>
-            <!-- 总大小 -->
-            <totalSizeCap>${total-capacity}</totalSizeCap>
-        </rollingPolicy>
-        <!-- 格式化 -->
-        <encoder>
-            <pattern>%date{yy-MM-dd HH:mm:ss.SSS} [%t](%F:%L\) %-5level - %m%n</pattern>
-        </encoder>
-        <!-- 级别过滤 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
+  </appender>
+  <!-- error级别日志控制 -->
+  <appender name="error_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 文件路径 -->
+    <file>${log.path}/${application.name}/error.log</file>
+    <!-- 是否追加 默认为true -->
+    <append>true</append>
+    <!-- 滚动策略 日期+大小 策略 -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${log.path}/${application.name}/error/%d{yy-MM-dd}-%i.zip</fileNamePattern>
+      <!-- 单个日志大小 -->
+      <maxFileSize>${file-size}</maxFileSize>
+      <!-- 日志保存周期 -->
+      <maxHistory>${retain-days}</maxHistory>
+      <!-- 总大小 -->
+      <totalSizeCap>${total-capacity}</totalSizeCap>
+    </rollingPolicy>
+    <!-- 格式化 -->
+    <encoder>
+      <pattern>%date{yy-MM-dd HH:mm:ss.SSS} [%t](%F:%L\) %-5level - %m%n</pattern>
+    </encoder>
+    <!-- 级别过滤 -->
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>ERROR</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+  </appender>
 
-    <!-- 开发、默认环境 只输出到控制台 -->
-    <springProfile name="default,dev">
-        <root level="info">
-            <appender-ref ref="console"/>
-        </root>
-    </springProfile>
-    <!-- 测试环境 输出info及以上日志 -->
-    <springProfile name="test">
-        <root level="info">
-            <appender-ref ref="console"/>
-            <appender-ref ref="debug_file"/>
-            <appender-ref ref="info_file"/>
-            <appender-ref ref="warn_file"/>
-            <appender-ref ref="error_file"/>
-        </root>
-    </springProfile>
-    <!-- 正式环境 输出warn及以上日志 -->
-    <springProfile name="prod">
-        <root level="info">
-            <appender-ref ref="console"/>
-            <appender-ref ref="debug_file"/>
-            <appender-ref ref="info_file"/>
-            <appender-ref ref="warn_file"/>
-            <appender-ref ref="error_file"/>
-        </root>
-    </springProfile>
+  <!-- 开发、默认环境 只输出到控制台 -->
+  <springProfile name="default,dev">
+    <root level="info">
+      <appender-ref ref="console"/>
+    </root>
+  </springProfile>
+  <!-- 测试环境 输出info及以上日志 -->
+  <springProfile name="test">
+    <root level="info">
+      <appender-ref ref="console"/>
+      <appender-ref ref="debug_file"/>
+      <appender-ref ref="info_file"/>
+      <appender-ref ref="warn_file"/>
+      <appender-ref ref="error_file"/>
+    </root>
+  </springProfile>
+  <!-- 正式环境 输出warn及以上日志 -->
+  <springProfile name="prod">
+    <root level="info">
+      <appender-ref ref="console"/>
+      <appender-ref ref="debug_file"/>
+      <appender-ref ref="info_file"/>
+      <appender-ref ref="warn_file"/>
+      <appender-ref ref="error_file"/>
+    </root>
+  </springProfile>
 </configuration>

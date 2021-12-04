@@ -37,8 +37,16 @@ spring:
     time-zone: GMT+8
     locale: zh_CN
 
+  boot:
+    admin:
+      client:
+        url: http://localhost:11000/gateway
+
 management:
+  endpoint:
+    health:
+      show-details: always
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: '*'
