@@ -21,7 +21,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://127.0.0.1:11000/
+        url: http://127.0.0.1:11000/gateway
 
 management:
   endpoint:

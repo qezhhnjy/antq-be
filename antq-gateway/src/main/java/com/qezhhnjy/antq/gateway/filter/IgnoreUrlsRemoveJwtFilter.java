@@ -32,6 +32,7 @@ public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         URI uri = request.getURI();
+        log.debug("uri=>{}", uri);
         PathMatcher pathMatcher = new AntPathMatcher();
         //白名单路径移除JWT请求头
         List<String> ignoreUrls = ignoreUrlsConfig.getUrls();
