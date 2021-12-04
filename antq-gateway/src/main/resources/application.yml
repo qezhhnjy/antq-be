@@ -42,8 +42,6 @@ spring:
 secure:
   ignore:
     urls: #配置白名单路径
-      - /gateway/**
-      - /actuator/**
       - /oauth/oauth/token
       - /oauth/user/**
       - /oauth/role/**

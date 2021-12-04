@@ -16,6 +16,7 @@
     <module>antq-common</module>
     <module>antq-gateway</module>
     <module>antq-web</module>
+    <module>antq-monitor</module>
   </modules>
 
   <properties>

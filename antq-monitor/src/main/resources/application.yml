@@ -1,0 +1,18 @@
+server:
+  port: 11003
+spring:
+  profiles:
+    active: dev
+  application:
+    name: antq-monitor
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+

@@ -1,7 +1,3 @@
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
 spring:
   datasource:
     druid:
@@ -21,22 +17,6 @@ spring:
       password: aims2016
       url: jdbc:mysql://localhost:3306/antq?serverTimezone=Asia/Shanghai&useUnicode=true&useSSL=false&characterEncoding=utf8
       driver-class-name: com.mysql.cj.jdbc.Driver
-
-  redis:
-    database: 1
-    host: localhost
-    port: 6379
-    timeout: 3000
-    password: aims2016
-
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
-  jackson:
-    time-zone: GMT+8
-    locale: zh_CN
-
   boot:
     admin:
       client:
