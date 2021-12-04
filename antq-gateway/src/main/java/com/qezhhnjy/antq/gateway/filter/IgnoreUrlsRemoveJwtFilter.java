@@ -2,6 +2,7 @@ package com.qezhhnjy.antq.gateway.filter;
 
 import cn.hutool.core.util.StrUtil;
 import com.qezhhnjy.antq.gateway.config.IgnoreUrlsConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,7 @@ import java.util.List;
  * Created by macro on 2020/7/24.
  */
 @Component
+@Slf4j
 public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
 
     @Resource

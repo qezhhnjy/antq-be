@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public BaseResult<Void> delete(Long id) {
+    public BaseResult<Void> delete(@RequestParam Long id) {
         userService.remove(id);
         return BaseResult.success();
     }
@@ -53,6 +53,7 @@ public class UserController {
 
     @PostMapping("/list")
     public BaseResult<List<UserVO>> list(@RequestBody Query query) {
+        // throw new RuntimeException("用户列表为空");
         List<UserVO> list = userService.list(query);
         return BaseResult.success(list);
     }

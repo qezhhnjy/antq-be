@@ -52,6 +52,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void remove(Long id) {
+        User user = getById(id);
+        Objects.requireNonNull(user, "用户不存在!!");
         removeById(id);
         userRoleService.removeByUserId(id);
     }
