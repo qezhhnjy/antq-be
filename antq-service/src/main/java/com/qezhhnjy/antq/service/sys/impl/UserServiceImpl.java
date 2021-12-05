@@ -4,6 +4,8 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.UserVO;
 import com.qezhhnjy.antq.entity.sys.Role;
@@ -101,5 +103,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (user == null) return null;
         List<Role> roleList = baseMapper.roleListById(user.getId());
         return new UserVO(user, roleList);
+    }
+
+    @Override
+    public PageInfo<UserVO> query(Query query) {
+        String search = query.getSearch();
+        boolean isSearch = StrUtil.isNotBlank(search);
+        PageHelper.startPage(query.getPageNum(), query.getPageSize());
+        List<User> userList = lambdaQuery().like(isSearch, User::getUsername, search)
+                .or()
+                .like(isSearch, User::getNickname, search)
+                .list();
+        PageInfo<UserVO> pageInfo = new PageInfo(userList);
+        List<UserVO> result = userList.stream().map(user -> new UserVO(user, baseMapper.roleListById(user.getId())))
+                .collect(Collectors.toList());
+        pageInfo.setList(result);
+        return pageInfo;
     }
 }

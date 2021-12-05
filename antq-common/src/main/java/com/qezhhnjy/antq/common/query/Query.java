@@ -10,4 +10,8 @@ import lombok.Data;
 public class Query {
 
     private String search;
+
+    private int pageNum;
+
+    private int pageSize;
 }

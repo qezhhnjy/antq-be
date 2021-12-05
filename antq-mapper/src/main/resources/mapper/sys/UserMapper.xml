@@ -9,4 +9,9 @@
       AND ur.user_id = #{id}
     </if>
   </select>
+  <select id="query" resultType="com.qezhhnjy.antq.entity.sys.User">
+    SELECT *
+    FROM sys_user
+    WHERE delete_flag = 0
+  </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.qezhhnjy.antq.service.sys;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.UserVO;
 import com.qezhhnjy.antq.entity.sys.User;
@@ -24,4 +25,6 @@ public interface UserService extends IService<User> {
     List<UserVO> list(Query query);
 
     UserVO getByUserName(String username);
+
+    PageInfo<UserVO> query(Query query);
 }

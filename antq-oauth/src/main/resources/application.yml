@@ -58,3 +58,9 @@ mybatis-plus:
   configuration:
     #开启驼峰自动转换
     map-underscore-to-camel-case: true
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: false
+  params: count=countSql

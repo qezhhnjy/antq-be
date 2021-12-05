@@ -97,7 +97,11 @@
         <artifactId>spring-security-jwt</artifactId>
         <version>1.1.0.RELEASE</version>
       </dependency>
-
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper-spring-boot-starter</artifactId>
+        <version>1.4.1</version>
+      </dependency>
       <dependency>
         <groupId>com.qezhhnjy</groupId>
         <artifactId>antq-entity</artifactId>

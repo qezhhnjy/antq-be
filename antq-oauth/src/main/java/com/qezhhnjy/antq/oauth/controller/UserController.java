@@ -1,5 +1,6 @@
 package com.qezhhnjy.antq.oauth.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.UserVO;
@@ -56,5 +57,11 @@ public class UserController {
         // throw new RuntimeException("用户列表为空");
         List<UserVO> list = userService.list(query);
         return BaseResult.success(list);
+    }
+
+    @PostMapping("/query")
+    public BaseResult<PageInfo<UserVO>> query(@RequestBody Query query) {
+        PageInfo<UserVO> pageInfo = userService.query(query);
+        return BaseResult.success(pageInfo);
     }
 }
