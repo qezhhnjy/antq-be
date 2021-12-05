@@ -1,6 +1,7 @@
 package com.qezhhnjy.antq.service.sys;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.RoleVO;
 import com.qezhhnjy.antq.entity.sys.Role;
@@ -22,4 +23,6 @@ public interface RoleService extends IService<Role> {
     List<RoleVO> list(Query query);
 
     void remove(Long id);
+
+    PageInfo<RoleVO> query(Query query);
 }

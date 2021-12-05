@@ -1,5 +1,6 @@
 package com.qezhhnjy.antq.oauth.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.RoleVO;
@@ -50,6 +51,12 @@ public class RoleController {
     public BaseResult<List<RoleVO>> list(@RequestBody Query query) {
         List<RoleVO> list = roleService.list(query);
         return BaseResult.success(list);
+    }
+
+    @PostMapping("/query")
+    public BaseResult<PageInfo<RoleVO>> query(@RequestBody Query query) {
+        PageInfo<RoleVO> pageInfo = roleService.query(query);
+        return BaseResult.success(pageInfo);
     }
 
 }

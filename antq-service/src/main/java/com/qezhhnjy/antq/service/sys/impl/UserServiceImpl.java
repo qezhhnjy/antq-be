@@ -68,7 +68,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = vo.getUser();
         Objects.requireNonNull(user, "用户信息不能为空");
         Long userId = user.getId();
-        String username = user.getUsername();
         Objects.requireNonNull(userId, "用户id不能为空");
         updateById(user);
         userRoleService.removeByUserId(userId);

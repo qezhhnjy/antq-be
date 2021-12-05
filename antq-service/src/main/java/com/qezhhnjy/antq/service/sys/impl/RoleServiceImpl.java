@@ -3,6 +3,8 @@ package com.qezhhnjy.antq.service.sys.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.RoleVO;
 import com.qezhhnjy.antq.entity.sys.Menu;
@@ -38,7 +40,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Transactional(rollbackFor = Exception.class)
     public void add(RoleVO vo) {
         Role role = vo.getRole();
-        Objects.requireNonNull(role);
+        Objects.requireNonNull(role, "角色不能为空");
         String roleName = role.getRoleName();
         if (StrUtil.isBlank(roleName)) throw new RuntimeException("角色名称不能为空");
         if (lambdaQuery().eq(Role::getRoleName, roleName).count() > 0) throw new RuntimeException("角色名已存在");
@@ -57,9 +59,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         Role role = vo.getRole();
         Objects.requireNonNull(role);
         Long roleId = role.getId();
-        String roleName = role.getRoleName();
         Objects.requireNonNull(roleId);
-        if (lambdaQuery().eq(Role::getRoleName, roleName).count() > 0) throw new RuntimeException("角色名已存在");
         updateById(role);
         roleMenuService.removeByRoleId(roleId);
 
@@ -90,6 +90,21 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         removeById(id);
         roleMenuService.removeByRoleId(id);
         userRoleService.removeByRoleId(id);
+    }
+
+    @Override
+    public PageInfo<RoleVO> query(Query query) {
+        String search = query.getSearch();
+        boolean isSearch = StrUtil.isNotBlank(search);
+        PageHelper.startPage(query.getPageNum(), query.getPageSize());
+
+        List<Role> roleList = lambdaQuery().like(isSearch, Role::getRoleName, search)
+                .list();
+        PageInfo<RoleVO> pageInfo = new PageInfo(roleList);
+        List<RoleVO> result = roleList.stream().map(role -> new RoleVO(role, baseMapper.menuListById(role.getId())))
+                .collect(Collectors.toList());
+        pageInfo.setList(result);
+        return pageInfo;
     }
 
 }
