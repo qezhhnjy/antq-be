@@ -1,7 +1,10 @@
 package com.qezhhnjy.antq.service.sys.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.MenuVO;
 import com.qezhhnjy.antq.entity.sys.Menu;
@@ -53,11 +56,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Transactional(rollbackFor = Exception.class)
     public void update(MenuVO vo) {
         Menu menu = vo.getMenu();
-        Objects.requireNonNull(menu);
+        Objects.requireNonNull(menu, "菜单信息不能为空");
         Long menuId = menu.getId();
-        String path = menu.getPath();
         Objects.requireNonNull(menuId);
-        if (lambdaQuery().eq(Menu::getPath, path).count() > 0) throw new RuntimeException("菜单路径已存在");
         updateById(menu);
         roleMenuService.removeByMenuId(menuId);
 
@@ -86,5 +87,23 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     public void remove(Long id) {
         removeById(id);
         roleMenuService.removeByMenuId(id);
+    }
+
+    @Override
+    public PageInfo<MenuVO> query(Query query) {
+        String search = query.getSearch();
+        boolean isSearch = StrUtil.isNotBlank(search);
+        PageHelper.startPage(query.getPageNum(), query.getPageSize());
+
+        List<Menu> menuList = lambdaQuery().like(isSearch, Menu::getMenuName, search)
+                .or().like(isSearch, Menu::getPermission, search)
+                .or().like(isSearch, Menu::getPath, search)
+                .list();
+
+        PageInfo<MenuVO> pageInfo = new PageInfo(menuList);
+        List<MenuVO> result = menuList.stream().map(menu -> new MenuVO(menu, baseMapper.roleListById(menu.getId())))
+                .collect(Collectors.toList());
+        pageInfo.setList(result);
+        return pageInfo;
     }
 }

@@ -27,7 +27,7 @@ public class AuthGlobalFilter implements GlobalFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.info("exchange.getRequest()=>{}", exchange.getRequest());
+        log.debug("exchange.getRequest()=>{}", exchange.getRequest());
         String token = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         if (StrUtil.isEmpty(token)) {
             return chain.filter(exchange);

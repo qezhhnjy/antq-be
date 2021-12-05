@@ -1,5 +1,6 @@
 package com.qezhhnjy.antq.oauth.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.MenuVO;
@@ -50,6 +51,12 @@ public class MenuController {
     public BaseResult<List<MenuVO>> list(@RequestBody Query query) {
         List<MenuVO> list = menuService.list(query);
         return BaseResult.success(list);
+    }
+
+    @PostMapping("/query")
+    public BaseResult<PageInfo<MenuVO>> query(@RequestBody Query query) {
+        PageInfo<MenuVO> paeInfo = menuService.query(query);
+        return BaseResult.success(paeInfo);
     }
 
 }
