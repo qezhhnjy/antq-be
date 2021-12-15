@@ -29,7 +29,7 @@ pid() {
   echo "${pid}"
 }
 
-log(){
+log() {
   tail -f ${log}
 }
 
