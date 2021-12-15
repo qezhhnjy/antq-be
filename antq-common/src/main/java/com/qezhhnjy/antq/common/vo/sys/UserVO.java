@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhaoyangfu
@@ -21,4 +22,10 @@ public class UserVO {
 
     private List<Role> roleList;
 
+    private Map<String, Boolean> menuMap;
+
+    public UserVO(User user, List<Role> roleList) {
+        this.user = user;
+        this.roleList = roleList;
+    }
 }

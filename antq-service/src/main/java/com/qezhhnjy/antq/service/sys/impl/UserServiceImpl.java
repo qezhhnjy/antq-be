@@ -8,10 +8,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.UserVO;
+import com.qezhhnjy.antq.entity.sys.Menu;
 import com.qezhhnjy.antq.entity.sys.Role;
 import com.qezhhnjy.antq.entity.sys.User;
 import com.qezhhnjy.antq.entity.sys.UserRole;
+import com.qezhhnjy.antq.mapper.sys.RoleMapper;
 import com.qezhhnjy.antq.mapper.sys.UserMapper;
+import com.qezhhnjy.antq.service.sys.MenuService;
 import com.qezhhnjy.antq.service.sys.UserRoleService;
 import com.qezhhnjy.antq.service.sys.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -33,6 +37,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Resource
     private UserRoleService userRoleService;
+    @Resource
+    private RoleMapper      roleMapper;
+    @Resource
+    private MenuService     menuService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -84,7 +92,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public UserVO detail(Long id) {
         User user = getById(id);
         List<Role> roleList = baseMapper.roleListById(id);
-        return new UserVO(user, roleList);
+        Map<String, Boolean> menuMap = menuService.list().stream().filter(menu -> StrUtil.isNotBlank(menu.getPath()))
+                .collect(Collectors.toMap(Menu::getPermission, menu -> false));
+        roleList.forEach(role -> {
+            List<Menu> menuList = roleMapper.menuListById(role.getId());
+            menuList.forEach(menu -> menuMap.put(menu.getPermission(), true));
+        });
+        return new UserVO(user, roleList, menuMap);
     }
 
     @Override
