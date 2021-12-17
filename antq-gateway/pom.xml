@@ -33,11 +33,6 @@
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-oauth2-jose</artifactId>
     </dependency>
-    <!-- redis -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-redis</artifactId>
-    </dependency>
     <!-- 自定义的元数据依赖 -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -59,10 +54,6 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>druid-spring-boot-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>de.codecentric</groupId>
-      <artifactId>spring-boot-admin-starter-server</artifactId>
     </dependency>
     <dependency>
       <groupId>de.codecentric</groupId>

@@ -20,4 +20,11 @@ public class MenuVO {
     private Menu menu;
 
     private List<Role> roleList;
+
+    private Long parentId;
+
+    public MenuVO(Menu menu, List<Role> roleList) {
+        this.menu = menu;
+        this.roleList = roleList;
+    }
 }

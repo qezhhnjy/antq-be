@@ -39,7 +39,10 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         log.info("authorities=>{}", authorities);
         //认证通过且角色匹配的用户可访问当前路径
         return mono
-                .filter(Authentication::isAuthenticated)
+                .filter(authentication -> {
+                    log.info("authentication.getAuthorities()=>{}", authentication.getAuthorities());
+                    return authentication.isAuthenticated();
+                })
                 .flatMapIterable(Authentication::getAuthorities)
                 .map(GrantedAuthority::getAuthority)
                 .any(authorities::contains)

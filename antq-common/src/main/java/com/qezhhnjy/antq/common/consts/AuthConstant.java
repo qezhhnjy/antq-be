@@ -11,4 +11,6 @@ public interface AuthConstant {
 
     String HEADER_USER_ID = "user_id";
 
+    String ADMIN = "ADMIN";
+
 }

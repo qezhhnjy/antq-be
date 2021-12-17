@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.qezhhnjy.antq.common.enums.ResultCode;
+import com.qezhhnjy.antq.common.exception.BizException;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.UserVO;
 import com.qezhhnjy.antq.entity.sys.Menu;
@@ -91,6 +93,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public UserVO detail(Long id) {
         User user = getById(id);
+        if (user == null) throw new BizException(ResultCode.DATA_NOT_EXIST);
         List<Role> roleList = baseMapper.roleListById(id);
         Map<String, Boolean> menuMap = menuService.list().stream().filter(menu -> StrUtil.isNotBlank(menu.getPath()))
                 .collect(Collectors.toMap(Menu::getPermission, menu -> false));

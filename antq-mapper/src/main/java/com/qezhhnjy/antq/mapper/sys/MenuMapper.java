@@ -14,4 +14,12 @@ import java.util.List;
 public interface MenuMapper extends BaseMapper<Menu> {
 
     List<Role> roleListById(@Param("id") Long id);
+
+    void leftBoundRightMove(@Param("right") Integer right, @Param("step") Integer step);
+
+    void rightBoundRightMove(@Param("right") Integer right, @Param("step") Integer step);
+
+    Menu root();
+
+    void move(@Param("left") int left, @Param("right") int right, @Param("step") int step);
 }

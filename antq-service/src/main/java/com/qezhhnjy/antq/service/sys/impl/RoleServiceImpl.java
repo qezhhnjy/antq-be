@@ -11,6 +11,7 @@ import com.qezhhnjy.antq.entity.sys.Menu;
 import com.qezhhnjy.antq.entity.sys.Role;
 import com.qezhhnjy.antq.entity.sys.RoleMenu;
 import com.qezhhnjy.antq.mapper.sys.RoleMapper;
+import com.qezhhnjy.antq.service.sys.MenuService;
 import com.qezhhnjy.antq.service.sys.RoleMenuService;
 import com.qezhhnjy.antq.service.sys.RoleService;
 import com.qezhhnjy.antq.service.sys.UserRoleService;
@@ -35,6 +36,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     private RoleMenuService roleMenuService;
     @Resource
     private UserRoleService userRoleService;
+    @Resource
+    private MenuService     menuService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -51,6 +54,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         List<RoleMenu> list = menuList.stream()
                 .map(menu -> new RoleMenu().setRoleId(roleId).setMenuId(menu.getId())).collect(Collectors.toList());
         roleMenuService.saveBatch(list);
+        menuService.loadResourceRolesMap();
     }
 
     @Override
@@ -69,7 +73,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
                 .map(menu -> new RoleMenu().setRoleId(roleId).setMenuId(menu.getId()))
                 .collect(Collectors.toList());
         roleMenuService.saveBatch(list);
-
+        menuService.loadResourceRolesMap();
     }
 
     @Override

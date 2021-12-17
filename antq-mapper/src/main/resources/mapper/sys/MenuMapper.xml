@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qezhhnjy.antq.mapper.sys.MenuMapper">
+  <update id="leftBoundRightMove">
+    UPDATE sys_menu
+    SET left_bound = left_bound + #{step}
+    WHERE left_bound >= #{right}
+  </update>
+  <update id="rightBoundRightMove">
+    UPDATE sys_menu
+    SET right_bound = right_bound + #{step}
+    WHERE right_bound >= #{right}
+  </update>
+  <update id="move">
+    UPDATE sys_menu
+    SET left_bound  = left_bound + #{step},
+        right_bound = right_bound + #{step}
+    WHERE left_bound >= #{left}
+      AND right_bound &lt;= #{right}
+  </update>
   <select id="roleListById" resultType="com.qezhhnjy.antq.entity.sys.Role">
     SELECT r.* FROM sys_role_menu rm
     INNER JOIN sys_role r ON r.id = rm.role_id
@@ -8,5 +25,10 @@
     <if test="id != null and id != ''">
       AND rm.menu_id = #{id}
     </if>
+  </select>
+  <select id="root" resultType="com.qezhhnjy.antq.entity.sys.Menu">
+    SELECT *
+    FROM sys_menu
+    WHERE right_bound = (SELECT MAX(right_bound) FROM sys_menu)
   </select>
 </mapper>

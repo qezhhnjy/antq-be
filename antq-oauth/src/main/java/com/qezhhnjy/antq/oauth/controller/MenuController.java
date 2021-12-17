@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.MenuVO;
+import com.qezhhnjy.antq.common.vo.sys.Tree;
 import com.qezhhnjy.antq.service.sys.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +58,12 @@ public class MenuController {
     public BaseResult<PageInfo<MenuVO>> query(@RequestBody Query query) {
         PageInfo<MenuVO> paeInfo = menuService.query(query);
         return BaseResult.success(paeInfo);
+    }
+
+    @GetMapping("/tree")
+    public BaseResult<Tree> tree(boolean menu) {
+        Tree tree = menuService.tree(menu);
+        return BaseResult.success(tree);
     }
 
 }

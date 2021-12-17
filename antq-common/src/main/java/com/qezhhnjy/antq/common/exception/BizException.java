@@ -15,6 +15,7 @@ public class BizException extends RuntimeException {
     private ResultCode code;
 
     public BizException(ResultCode code) {
+        super(code.msg);
         this.code = code;
     }
 
