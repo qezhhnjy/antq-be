@@ -30,8 +30,6 @@ public class StockController {
     @GetMapping("/all")
     public BaseResult<List<Stock>> all(String search) {
         return BaseResult.success(stockService.lambdaQuery()
-                .like(Stock::getCode, search)
-                .or()
                 .like(Stock::getName, search).last("LIMIT 20").list());
     }
 }

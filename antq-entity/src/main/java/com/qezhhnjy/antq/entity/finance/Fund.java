@@ -7,12 +7,12 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author zhaoyangfu
- * @date 2021/12/19-0:49
+ * @date 2021/12/19-15:17
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@TableName("finance_stock")
-public class Stock extends BaseEntity {
+@TableName("finance_fund")
+public class Fund extends BaseEntity {
     private Long   id;
     private String code;
     private String name;
