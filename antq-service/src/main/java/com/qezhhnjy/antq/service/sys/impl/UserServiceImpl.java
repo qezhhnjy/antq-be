@@ -10,13 +10,11 @@ import com.qezhhnjy.antq.common.enums.ResultCode;
 import com.qezhhnjy.antq.common.exception.BizException;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.UserVO;
-import com.qezhhnjy.antq.entity.sys.Menu;
-import com.qezhhnjy.antq.entity.sys.Role;
-import com.qezhhnjy.antq.entity.sys.User;
-import com.qezhhnjy.antq.entity.sys.UserRole;
+import com.qezhhnjy.antq.entity.sys.*;
 import com.qezhhnjy.antq.mapper.sys.RoleMapper;
 import com.qezhhnjy.antq.mapper.sys.UserMapper;
 import com.qezhhnjy.antq.service.sys.MenuService;
+import com.qezhhnjy.antq.service.sys.NoticeService;
 import com.qezhhnjy.antq.service.sys.UserRoleService;
 import com.qezhhnjy.antq.service.sys.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +41,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private RoleMapper      roleMapper;
     @Resource
     private MenuService     menuService;
+    @Resource
+    private NoticeService   noticeService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -101,7 +101,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             List<Menu> menuList = roleMapper.menuListById(role.getId());
             menuList.forEach(menu -> menuMap.put(menu.getPermission(), true));
         });
-        return new UserVO(user, roleList, menuMap);
+
+        List<Notice> noticeList = noticeService.lambdaQuery().eq(Notice::getUserId, id).list();
+        return new UserVO(user, roleList, menuMap, noticeList);
     }
 
     @Override

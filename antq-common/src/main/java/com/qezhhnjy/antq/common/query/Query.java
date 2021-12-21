@@ -11,7 +11,7 @@ public class Query {
 
     private String search;
 
-    private int pageNum;
+    private int pageNum = 1;
 
-    private int pageSize;
+    private int pageSize = 10;
 }
