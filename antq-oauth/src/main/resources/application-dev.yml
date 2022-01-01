@@ -40,7 +40,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://127.0.0.1:11003/
+        url: http://localhost:11003/
 
 management:
   endpoint:

@@ -1,5 +1,6 @@
 package com.qezhhnjy.antq.web.controller.finance;
 
+import cn.hutool.core.util.StrUtil;
 import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.entity.finance.Stock;
 import com.qezhhnjy.antq.service.finance.StockService;
@@ -30,6 +31,6 @@ public class StockController {
     @GetMapping("/all")
     public BaseResult<List<Stock>> all(String search) {
         return BaseResult.success(stockService.lambdaQuery()
-                .like(Stock::getName, search).last("LIMIT 20").list());
+                .like(StrUtil.isNotBlank(search), Stock::getName, search).last("LIMIT 20").list());
     }
 }

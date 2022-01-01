@@ -18,7 +18,7 @@ public class DruidConfig {
         // 表示进行druid监控的配置处理操作
         ServletRegistrationBean<StatViewServlet> servletRegistrationBean = new ServletRegistrationBean<>(new StatViewServlet(), "/druid/*");
         // 白名单
-        // servletRegistrationBean.addInitParameter("allow", "127.0.0.1");
+        // servletRegistrationBean.addInitParameter("allow", "localhost");
         // 黑名单
         // servletRegistrationBean.addInitParameter("deny", "129.168.1.12");
         // 用户名

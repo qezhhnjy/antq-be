@@ -6,9 +6,6 @@ spring:
   application:
     name: antq-gateway
   cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
     gateway:
       routes: #配置路由路径
         - id: antq-oauth
@@ -33,11 +30,6 @@ spring:
         jwt:
           #配置RSA的公钥访问地址
           jwk-set-uri: http://localhost:11001/rsa/publicKey
-  redis:
-    database: 1
-    port: 6379
-    host: localhost
-    password: aims2016
 
 secure:
   ignore:
