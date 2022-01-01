@@ -56,8 +56,8 @@ public class MenuController {
 
     @PostMapping("/query")
     public BaseResult<PageInfo<MenuVO>> query(@RequestBody Query query) {
-        PageInfo<MenuVO> paeInfo = menuService.query(query);
-        return BaseResult.success(paeInfo);
+        PageInfo<MenuVO> pageInfo = menuService.query(query);
+        return BaseResult.success(pageInfo);
     }
 
     @GetMapping("/tree")

@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/role/**").permitAll()
                 .antMatchers("/menu/**").permitAll()
                 .antMatchers("/account/**").permitAll()
+                .antMatchers("/login-info/**").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable();
     }
