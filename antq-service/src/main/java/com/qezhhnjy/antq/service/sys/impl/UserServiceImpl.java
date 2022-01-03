@@ -10,9 +10,11 @@ import com.qezhhnjy.antq.common.enums.ResultCode;
 import com.qezhhnjy.antq.common.exception.BizException;
 import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.common.vo.sys.UserVO;
+import com.qezhhnjy.antq.entity.finance.FinanceOptional;
 import com.qezhhnjy.antq.entity.sys.*;
 import com.qezhhnjy.antq.mapper.sys.RoleMapper;
 import com.qezhhnjy.antq.mapper.sys.UserMapper;
+import com.qezhhnjy.antq.service.finance.OptionalService;
 import com.qezhhnjy.antq.service.sys.MenuService;
 import com.qezhhnjy.antq.service.sys.NoticeService;
 import com.qezhhnjy.antq.service.sys.UserRoleService;
@@ -43,6 +45,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private MenuService     menuService;
     @Resource
     private NoticeService   noticeService;
+    @Resource
+    private OptionalService optionalService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -103,7 +107,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         });
 
         List<Notice> noticeList = noticeService.lambdaQuery().eq(Notice::getUserId, id).list();
-        return new UserVO(user, roleList, menuMap, noticeList);
+
+        List<FinanceOptional> optionalList = optionalService.lambdaQuery()
+                .eq(FinanceOptional::getUsername, user.getUsername()).list();
+        return new UserVO(user, roleList, menuMap, noticeList, optionalList);
     }
 
     @Override

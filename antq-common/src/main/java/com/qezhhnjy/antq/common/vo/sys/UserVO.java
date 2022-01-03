@@ -1,5 +1,6 @@
 package com.qezhhnjy.antq.common.vo.sys;
 
+import com.qezhhnjy.antq.entity.finance.FinanceOptional;
 import com.qezhhnjy.antq.entity.sys.Notice;
 import com.qezhhnjy.antq.entity.sys.Role;
 import com.qezhhnjy.antq.entity.sys.User;
@@ -29,6 +30,8 @@ public class UserVO {
 
     private List<Notice> noticeList;
 
+    private List<FinanceOptional> optionalList;
+
     public UserVO(User user, List<Role> roleList) {
         this.user = user;
         this.roleList = roleList;
@@ -38,5 +41,12 @@ public class UserVO {
         this.user = user;
         this.roleList = roleList;
         this.menuMap = menuMap;
+    }
+
+    public UserVO(User user, List<Role> roleList, Map<String, Boolean> menuMap, List<Notice> noticeList) {
+        this.user = user;
+        this.roleList = roleList;
+        this.menuMap = menuMap;
+        this.noticeList = noticeList;
     }
 }
