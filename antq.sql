@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 29/12/2021 16:08:40
+ Date: 04/01/2022 00:27:47
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +34,7 @@ CREATE TABLE `finance_fund`  (
   `delete_flag` tinyint(0) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `finance_fund_code_uindex`(`code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1472474450539687962 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1472474450539687963 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of finance_fund
@@ -14857,6 +14857,40 @@ INSERT INTO `finance_fund` VALUES (1472474450539687961, '970114', '兴证资管�
 INSERT INTO `finance_fund` VALUES (1472474450539687962, '980003', '太平洋六个月滚动持有债', '债券型-长债', 'qezhhnjy', NULL, NULL, NULL, '2021-12-19 15:50:41', 0);
 
 -- ----------------------------
+-- Table structure for finance_optional
+-- ----------------------------
+DROP TABLE IF EXISTS `finance_optional`;
+CREATE TABLE `finance_optional`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `symbol` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `company_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `creator` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  `updater` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `delete_flag` tinyint(0) NULL DEFAULT 0,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of finance_optional
+-- ----------------------------
+INSERT INTO `finance_optional` VALUES (2, 'zhaoyangfu', 'SZ002157', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:23:46', 0);
+INSERT INTO `finance_optional` VALUES (3, 'zhaoyangfu', 'SZ301168', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:27:51', 1);
+INSERT INTO `finance_optional` VALUES (4, 'zhaoyangfu', 'SH688180', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:41:37', 0);
+INSERT INTO `finance_optional` VALUES (5, 'zhaoyangfu', 'SZ300248', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:46:51', 0);
+INSERT INTO `finance_optional` VALUES (6, 'zhaoyangfu', 'SZ300856', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:50:42', 0);
+INSERT INTO `finance_optional` VALUES (7, 'zhaoyangfu', 'SZ301168', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 23:00:09', 1);
+INSERT INTO `finance_optional` VALUES (8, 'zhaoyangfu', 'SZ301168', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 23:01:21', 1);
+INSERT INTO `finance_optional` VALUES (9, 'zhaoyangfu', 'SZ301168', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 23:04:30', 1);
+INSERT INTO `finance_optional` VALUES (10, 'zhaoyangfu', 'SZ301168', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 23:04:35', 1);
+INSERT INTO `finance_optional` VALUES (11, 'zhaoyangfu', 'SZ301168', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 23:06:05', 1);
+INSERT INTO `finance_optional` VALUES (12, 'zhaoyangfu', 'SZ301168', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 23:06:16', 1);
+INSERT INTO `finance_optional` VALUES (13, 'zhaoyangfu', 'AAPL', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-04 00:06:12', 0);
+
+-- ----------------------------
 -- Table structure for finance_stock
 -- ----------------------------
 DROP TABLE IF EXISTS `finance_stock`;
@@ -20937,13 +20971,78 @@ INSERT INTO `finance_stock` VALUES (1472474391311921227, 'sz399997', '中证白�
 INSERT INTO `finance_stock` VALUES (1472474391311921228, 'sz399998', '中证煤炭', 'index', 'qezhhnjy', NULL, NULL, NULL, '2021-12-19 15:50:27', 0);
 
 -- ----------------------------
+-- Table structure for sys_login_info
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_login_info`;
+CREATE TABLE `sys_login_info`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `username` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `browser` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `browser_version` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `engine` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `engine_version` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `os` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `platform` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `ip` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `client` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `login_time` datetime(0) NULL DEFAULT NULL,
+  `region` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `company_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `creator` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  `updater` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `delete_flag` tinyint(0) NULL DEFAULT 0,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1478034242834284547 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_login_info
+-- ----------------------------
+INSERT INTO `sys_login_info` VALUES (1477242949212352514, 'qezhhnjy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', NULL, NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 19:39:00', 0);
+INSERT INTO `sys_login_info` VALUES (1477246027735101441, 'qezhhnjy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', NULL, NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 19:51:14', 0);
+INSERT INTO `sys_login_info` VALUES (1477249624149454850, 'qezhhnjy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', NULL, NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:05:31', 0);
+INSERT INTO `sys_login_info` VALUES (1477249860716474370, 'qezhhnjy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', NULL, NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:06:27', 0);
+INSERT INTO `sys_login_info` VALUES (1477250660821991426, 'qezhhnjy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', NULL, NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:09:38', 0);
+INSERT INTO `sys_login_info` VALUES (1477250794288939010, 'qezhhnjy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', NULL, NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:10', 0);
+INSERT INTO `sys_login_info` VALUES (1477250874748272641, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', NULL, NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:29', 0);
+INSERT INTO `sys_login_info` VALUES (1477251319025754113, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', NULL, NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:12:15', 0);
+INSERT INTO `sys_login_info` VALUES (1477252809014472705, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-01 20:18:10', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:18:10', 0);
+INSERT INTO `sys_login_info` VALUES (1477255296211578882, 'zhaoyangfu', 'Chrome', '81.0.4044.117', 'Webkit', '537.36', 'Android', 'Android', '127.0.0.1', '手机端', '2022-01-01 20:28:03', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:28:03', 0);
+INSERT INTO `sys_login_info` VALUES (1477268608282357761, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-01 21:20:57', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 21:20:57', 0);
+INSERT INTO `sys_login_info` VALUES (1477287174503231489, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-01 22:34:44', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 22:34:44', 0);
+INSERT INTO `sys_login_info` VALUES (1477302748159504385, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-01 23:36:37', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 23:36:37', 0);
+INSERT INTO `sys_login_info` VALUES (1477318521825357826, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-02 00:39:18', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-02 00:39:18', 0);
+INSERT INTO `sys_login_info` VALUES (1477335325041848321, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-02 01:46:04', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-02 01:46:04', 0);
+INSERT INTO `sys_login_info` VALUES (1477351266513416193, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-02 02:49:24', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-02 02:49:24', 0);
+INSERT INTO `sys_login_info` VALUES (1477512398469373953, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-02 13:29:41', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-02 13:29:41', 0);
+INSERT INTO `sys_login_info` VALUES (1477879735630450690, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 13:49:21', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 13:49:21', 0);
+INSERT INTO `sys_login_info` VALUES (1477899203458912258, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 15:06:43', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 15:06:43', 0);
+INSERT INTO `sys_login_info` VALUES (1477915194406490114, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 16:10:15', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 16:10:15', 0);
+INSERT INTO `sys_login_info` VALUES (1477932251873300482, 'Amy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 17:18:02', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 17:18:02', 0);
+INSERT INTO `sys_login_info` VALUES (1477941229319639041, 'qezhhnjy', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 17:53:43', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 17:53:43', 0);
+INSERT INTO `sys_login_info` VALUES (1477941306603884546, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 17:54:01', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 17:54:01', 0);
+INSERT INTO `sys_login_info` VALUES (1477962777636130818, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 19:19:20', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 19:19:20', 0);
+INSERT INTO `sys_login_info` VALUES (1477983505949413378, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 20:41:42', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 20:41:42', 0);
+INSERT INTO `sys_login_info` VALUES (1478002497715982337, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 21:57:10', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 21:57:10', 0);
+INSERT INTO `sys_login_info` VALUES (1478006338519838722, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 22:12:26', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:12:26', 0);
+INSERT INTO `sys_login_info` VALUES (1478007739543318529, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 22:18:00', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:18:00', 0);
+INSERT INTO `sys_login_info` VALUES (1478007970469044225, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 22:18:55', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:18:55', 0);
+INSERT INTO `sys_login_info` VALUES (1478008348329697282, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 22:20:25', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:20:25', 0);
+INSERT INTO `sys_login_info` VALUES (1478009167263420417, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 22:23:40', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:23:40', 0);
+INSERT INTO `sys_login_info` VALUES (1478010168896692226, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 22:27:39', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:27:39', 0);
+INSERT INTO `sys_login_info` VALUES (1478017254435069953, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 22:55:48', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:55:48', 0);
+INSERT INTO `sys_login_info` VALUES (1478018309294145537, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-03 23:00:00', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 23:00:00', 0);
+INSERT INTO `sys_login_info` VALUES (1478034242834284546, 'zhaoyangfu', 'Chrome', '91.0.4472.114', 'Webkit', '537.36', 'Windows 10 or Windows Server 2016', 'Windows', '127.0.0.1', '电脑端', '2022-01-04 00:03:19', NULL, 'qezhhnjy', NULL, NULL, NULL, '2022-01-04 00:03:19', 0);
+
+-- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`  (
   `id` bigint(0) NOT NULL AUTO_INCREMENT,
-  `menu_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `permission` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `menu_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `permission` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `path` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `icon` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `sort` tinyint(0) NULL DEFAULT NULL,
@@ -20959,26 +21058,26 @@ CREATE TABLE `sys_menu`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `delete_flag` tinyint(0) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1471850739864248323 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1478017460299898882 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (1471835662268350466, '主目录', 'root', '/', 'https://joeschmoe.io/api/v1/random', NULL, 0, 0, 63, 0, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:32:22', 0);
+INSERT INTO `sys_menu` VALUES (1471835662268350466, '主目录', 'root', '/', 'https://joeschmoe.io/api/v1/random', NULL, 0, 0, 85, 0, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:32:22', 0);
 INSERT INTO `sys_menu` VALUES (1471835736729829377, '欢迎', 'welcome', '/welcome', 'https://joeschmoe.io/api/v1/random', NULL, 0, 1, 2, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:32:40', 0);
-INSERT INTO `sys_menu` VALUES (1471835858754715649, '系统管理', 'system', '/system', 'https://joeschmoe.io/api/v1/random', NULL, 0, 3, 48, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:33:09', 0);
+INSERT INTO `sys_menu` VALUES (1471835858754715649, '系统管理', 'system', '/system', 'https://joeschmoe.io/api/v1/random', NULL, 0, 3, 54, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:33:09', 0);
 INSERT INTO `sys_menu` VALUES (1471836037532729345, '用户管理', 'system-user', '/system/user', 'https://joeschmoe.io/api/v1/random', NULL, 0, 4, 17, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:33:51', 0);
 INSERT INTO `sys_menu` VALUES (1471840240707629057, '角色管理', 'system-role', '/system/role', 'https://joeschmoe.io/api/v1/random', NULL, 0, 18, 31, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:50:34', 0);
 INSERT INTO `sys_menu` VALUES (1471840336803328001, '菜单管理', 'system-menu', '/system/menu', 'https://joeschmoe.io/api/v1/random', NULL, 0, 32, 47, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:50:56', 0);
-INSERT INTO `sys_menu` VALUES (1471840537945370625, '组件工具', 'util', '/util', 'https://joeschmoe.io/api/v1/random', NULL, 0, 49, 54, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:51:44', 0);
-INSERT INTO `sys_menu` VALUES (1471840743705341953, '表单组件', 'util-form', '/util/form', 'https://joeschmoe.io/api/v1/random', NULL, 0, 50, 51, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:52:33', 0);
-INSERT INTO `sys_menu` VALUES (1471840837338984450, '表格组件', 'util-table', '/util/table', 'https://joeschmoe.io/api/v1/random', NULL, 0, 52, 53, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:52:56', 0);
-INSERT INTO `sys_menu` VALUES (1471841039659626497, '管理页', 'admin', '/admin', 'https://joeschmoe.io/api/v1/random', NULL, 0, 55, 58, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:53:44', 0);
-INSERT INTO `sys_menu` VALUES (1471841144869548034, '二级管理页', 'admin-sub-page', '/admin/sub-page', 'https://joeschmoe.io/api/v1/random', NULL, 0, 56, 57, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:54:09', 0);
-INSERT INTO `sys_menu` VALUES (1471841281926819841, '查询表格', 'list', '/list', 'https://joeschmoe.io/api/v1/random', NULL, 0, 59, 60, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:54:42', 0);
-INSERT INTO `sys_menu` VALUES (1471846210045276161, '个人中心', 'account-user', '/oauth/account/user', 'https://joeschmoe.io/api/v1/random', NULL, 1, 61, 62, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:14:17', 0);
+INSERT INTO `sys_menu` VALUES (1471840537945370625, '组件工具', 'util', '/util', 'https://joeschmoe.io/api/v1/random', NULL, 0, 55, 60, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:51:44', 0);
+INSERT INTO `sys_menu` VALUES (1471840743705341953, '表单组件', 'util-form', '/util/form', 'https://joeschmoe.io/api/v1/random', NULL, 0, 56, 57, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:52:33', 0);
+INSERT INTO `sys_menu` VALUES (1471840837338984450, '表格组件', 'util-table', '/util/table', 'https://joeschmoe.io/api/v1/random', NULL, 0, 58, 59, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:52:56', 0);
+INSERT INTO `sys_menu` VALUES (1471841039659626497, '管理页', 'admin', '/admin', 'https://joeschmoe.io/api/v1/random', NULL, 0, 61, 64, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:53:44', 0);
+INSERT INTO `sys_menu` VALUES (1471841144869548034, '二级管理页', 'admin-sub-page', '/admin/sub-page', 'https://joeschmoe.io/api/v1/random', NULL, 0, 62, 63, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:54:09', 0);
+INSERT INTO `sys_menu` VALUES (1471841281926819841, '查询表格', 'list', '/list', 'https://joeschmoe.io/api/v1/random', NULL, 0, 65, 66, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 21:54:42', 0);
+INSERT INTO `sys_menu` VALUES (1471846210045276161, '个人中心', 'account-user', '/oauth/account/user', 'https://joeschmoe.io/api/v1/random', NULL, 1, 67, 68, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:14:17', 0);
 INSERT INTO `sys_menu` VALUES (1471848453951791106, '添加用户', 'user-add', '/oauth/user/add', 'https://joeschmoe.io/api/v1/random', NULL, 1, 5, 6, 3, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:23:12', 0);
-INSERT INTO `sys_menu` VALUES (1471848565209899009, '删除用户', 'user-delete', '/user/delete', 'https://joeschmoe.io/api/v1/random', NULL, 1, 7, 8, 3, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:23:38', 0);
+INSERT INTO `sys_menu` VALUES (1471848565209899009, '删除用户', 'user-delete', '/oauth/user/delete', 'https://joeschmoe.io/api/v1/random', NULL, 1, 7, 8, 3, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:23:38', 0);
 INSERT INTO `sys_menu` VALUES (1471848684789506049, '更新用户', 'user-update', '/oauth/user/update', 'https://joeschmoe.io/api/v1/random', NULL, 1, 9, 10, 3, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:24:07', 0);
 INSERT INTO `sys_menu` VALUES (1471848817786691585, '用户详情', 'user-detail', '/oauth/user/detail', 'https://joeschmoe.io/api/v1/random', NULL, 1, 11, 12, 3, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:24:38', 0);
 INSERT INTO `sys_menu` VALUES (1471848937878003714, '用户列表', 'user-list', '/oauth/user/list', 'https://joeschmoe.io/api/v1/random', NULL, 1, 13, 14, 3, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:25:07', 0);
@@ -20996,6 +21095,16 @@ INSERT INTO `sys_menu` VALUES (1471850407746674689, '菜单详情', 'menu-detail
 INSERT INTO `sys_menu` VALUES (1471850512100958210, '菜单列表', 'menu-list', '/oauth/menu/list', 'https://joeschmoe.io/api/v1/random', NULL, 1, 41, 42, 3, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:31:22', 0);
 INSERT INTO `sys_menu` VALUES (1471850647090438145, '菜单分页', 'menu-query', '/oauth/menu/query', 'https://joeschmoe.io/api/v1/random', NULL, 1, 43, 44, 3, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:31:55', 0);
 INSERT INTO `sys_menu` VALUES (1471850739864248322, '菜单树', 'menu-tree', '/oauth/menu/tree', 'https://joeschmoe.io/api/v1/random', NULL, 1, 45, 46, 3, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:32:17', 0);
+INSERT INTO `sys_menu` VALUES (1477246379825950722, '登录信息', 'system-login-info', '/system/login-info', 'https://joeschmoe.io/api/v1/random', NULL, 0, 48, 53, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 19:52:38', 0);
+INSERT INTO `sys_menu` VALUES (1477250332600840194, '登录信息分页', 'login-info-query', '/oauth/login-info/query', 'https://joeschmoe.io/api/v1/random', NULL, 1, 51, 52, 3, 0, 'qezhhnjy', NULL, '2022-01-03 22:03:46', NULL, '2022-01-01 20:08:20', 0);
+INSERT INTO `sys_menu` VALUES (1478004058357780481, '金融信息', 'finance', '/finance', 'https://joeschmoe.io/api/v1/random', NULL, 0, 69, 74, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:03:22', 0);
+INSERT INTO `sys_menu` VALUES (1478004296527138818, '股票信息', 'finance-stock', '/finance/stock', 'https://joeschmoe.io/api/v1/random', NULL, 0, 70, 71, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:04:19', 0);
+INSERT INTO `sys_menu` VALUES (1478004411295879170, '基金信息', 'finance-fund', '/finance/fund', 'https://joeschmoe.io/api/v1/random', NULL, 0, 72, 73, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:04:46', 0);
+INSERT INTO `sys_menu` VALUES (1478004499732779010, '雪球资讯', 'snowball', '/snowball', 'https://joeschmoe.io/api/v1/random', NULL, 0, 75, 84, 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:05:07', 0);
+INSERT INTO `sys_menu` VALUES (1478004812166483970, '行情中心', 'snowball-quote-center', '/snowball/quote-center', 'https://joeschmoe.io/api/v1/random', NULL, 0, 76, 77, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:06:22', 0);
+INSERT INTO `sys_menu` VALUES (1478004945637625857, '股票信息', 'snowball-stock-info', '/snowball/stock-info', 'https://joeschmoe.io/api/v1/random', NULL, 0, 78, 83, 2, 0, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:06:54', 0);
+INSERT INTO `sys_menu` VALUES (1478005208582737922, '股票加自选', 'finance-optional-add', '/web/finance-optional/add', 'https://joeschmoe.io/api/v1/random', NULL, 1, 79, 80, 3, 0, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:07:56', 0);
+INSERT INTO `sys_menu` VALUES (1478017460299898881, '股票取消关注', 'finance-optional-delete', '/web/finance-optional/delete', 'https://joeschmoe.io/api/v1/random', NULL, 1, 81, 82, 3, 0, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:56:37', 0);
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -21050,7 +21159,7 @@ CREATE TABLE `sys_role`  (
 INSERT INTO `sys_role` VALUES (1464930141340528642, 'ADMIN', 0, 'qezhhnjy', NULL, '2021-12-16 10:37:44', NULL, '2021-11-28 20:12:17', 0);
 INSERT INTO `sys_role` VALUES (1467198919101169666, 'User', 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 02:27:36', 0);
 INSERT INTO `sys_role` VALUES (1467445823173038082, 'AIMS', 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 18:48:43', 0);
-INSERT INTO `sys_role` VALUES (1467452556243111938, 'Cotek', 0, 'qezhhnjy', NULL, '2021-12-17 22:34:07', NULL, '2021-12-05 19:15:28', 0);
+INSERT INTO `sys_role` VALUES (1467452556243111938, 'Cotek', 0, 'qezhhnjy', NULL, '2022-01-01 20:10:25', NULL, '2021-12-05 19:15:28', 0);
 INSERT INTO `sys_role` VALUES (1467454481025994754, 'JPX', 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 19:23:07', 0);
 
 -- ----------------------------
@@ -21068,7 +21177,7 @@ CREATE TABLE `sys_role_menu`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `delete_flag` tinyint(0) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1471851202529497096 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1478017460367007746 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -21116,22 +21225,50 @@ INSERT INTO `sys_role_menu` VALUES (1471850407755063298, 1464930141340528642, 14
 INSERT INTO `sys_role_menu` VALUES (1471850512100958211, 1464930141340528642, 1471850512100958210, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:31:22', 0);
 INSERT INTO `sys_role_menu` VALUES (1471850647090438146, 1464930141340528642, 1471850647090438145, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:31:55', 0);
 INSERT INTO `sys_role_menu` VALUES (1471850739864248323, 1464930141340528642, 1471850739864248322, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:32:17', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202508525569, 1467452556243111938, 1471846210045276161, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202508525570, 1467452556243111938, 1471835736729829377, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202508525571, 1467452556243111938, 1471835858754715649, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202508525572, 1467452556243111938, 1471836037532729345, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202508525573, 1467452556243111938, 1471840240707629057, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202508525574, 1467452556243111938, 1471840336803328001, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202508525575, 1467452556243111938, 1471848817786691585, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202508525576, 1467452556243111938, 1471848937878003714, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202508525577, 1467452556243111938, 1471849187573309442, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202529497089, 1467452556243111938, 1471849735462658049, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202529497090, 1467452556243111938, 1471849841977008129, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202529497091, 1467452556243111938, 1471849943810514945, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202529497092, 1467452556243111938, 1471850407746674689, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202529497093, 1467452556243111938, 1471850512100958210, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202529497094, 1467452556243111938, 1471850647090438145, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
-INSERT INTO `sys_role_menu` VALUES (1471851202529497095, 1467452556243111938, 1471850739864248322, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 0);
+INSERT INTO `sys_role_menu` VALUES (1471851202508525569, 1467452556243111938, 1471846210045276161, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202508525570, 1467452556243111938, 1471835736729829377, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202508525571, 1467452556243111938, 1471835858754715649, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202508525572, 1467452556243111938, 1471836037532729345, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202508525573, 1467452556243111938, 1471840240707629057, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202508525574, 1467452556243111938, 1471840336803328001, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202508525575, 1467452556243111938, 1471848817786691585, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202508525576, 1467452556243111938, 1471848937878003714, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202508525577, 1467452556243111938, 1471849187573309442, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202529497089, 1467452556243111938, 1471849735462658049, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202529497090, 1467452556243111938, 1471849841977008129, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202529497091, 1467452556243111938, 1471849943810514945, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202529497092, 1467452556243111938, 1471850407746674689, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202529497093, 1467452556243111938, 1471850512100958210, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202529497094, 1467452556243111938, 1471850647090438145, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1471851202529497095, 1467452556243111938, 1471850739864248322, 'qezhhnjy', NULL, NULL, NULL, '2021-12-17 22:34:07', 1);
+INSERT INTO `sys_role_menu` VALUES (1477246379880476674, 1464930141340528642, 1477246379825950722, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 19:52:38', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250332663754754, 1464930141340528642, 1477250332600840194, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:08:20', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328130, 1467452556243111938, 1471846210045276161, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328131, 1467452556243111938, 1471835736729829377, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328132, 1467452556243111938, 1471835858754715649, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328133, 1467452556243111938, 1471836037532729345, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328134, 1467452556243111938, 1471840240707629057, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328135, 1467452556243111938, 1471840336803328001, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328136, 1467452556243111938, 1471848817786691585, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328137, 1467452556243111938, 1471848937878003714, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328138, 1467452556243111938, 1471849187573309442, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328139, 1467452556243111938, 1471849735462658049, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328140, 1467452556243111938, 1471849841977008129, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328141, 1467452556243111938, 1471849943810514945, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328142, 1467452556243111938, 1471850407746674689, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328143, 1467452556243111938, 1471850512100958210, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328144, 1467452556243111938, 1471850647090438145, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328145, 1467452556243111938, 1471850739864248322, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328146, 1467452556243111938, 1477246379825950722, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1477250857329328147, 1467452556243111938, 1477250332600840194, 'qezhhnjy', NULL, NULL, NULL, '2022-01-01 20:10:25', 0);
+INSERT INTO `sys_role_menu` VALUES (1478004058416500737, 1464930141340528642, 1478004058357780481, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:03:22', 0);
+INSERT INTO `sys_role_menu` VALUES (1478004296527138819, 1464930141340528642, 1478004296527138818, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:04:19', 0);
+INSERT INTO `sys_role_menu` VALUES (1478004411295879171, 1464930141340528642, 1478004411295879170, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:04:46', 0);
+INSERT INTO `sys_role_menu` VALUES (1478004499741167617, 1464930141340528642, 1478004499732779010, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:05:07', 0);
+INSERT INTO `sys_role_menu` VALUES (1478004812166483971, 1464930141340528642, 1478004812166483970, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:06:22', 0);
+INSERT INTO `sys_role_menu` VALUES (1478004945646014466, 1464930141340528642, 1478004945637625857, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:06:54', 0);
+INSERT INTO `sys_role_menu` VALUES (1478005208641458177, 1464930141340528642, 1478005208582737922, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:07:56', 0);
+INSERT INTO `sys_role_menu` VALUES (1478017460367007745, 1464930141340528642, 1478017460299898881, 'qezhhnjy', NULL, NULL, NULL, '2022-01-03 22:56:37', 0);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -21169,7 +21306,7 @@ INSERT INTO `sys_user` VALUES (1467422890287448066, 'https://joeschmoe.io/api/v1
 INSERT INTO `sys_user` VALUES (1467422914643771393, 'https://joeschmoe.io/api/v1/random', '用户5', '$2a$10$UxRbrn1WF2jy2aeUPTG0POn3pJJSxHX0lQbHvxJO7qBUiUml0kAw2', NULL, '昵称', '15867895432', 'fzyszsz@163.com', 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 17:17:41', 0);
 INSERT INTO `sys_user` VALUES (1467422940757508098, 'https://joeschmoe.io/api/v1/random', '用户6', '$2a$10$CpRaQI3EUzXL9THGyV.tSeRuqq08PyybvSkZGYD9NH6BWxsUc41n2', NULL, '昵称', '15867895432', 'fzyszsz@163.com', 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 17:17:47', 0);
 INSERT INTO `sys_user` VALUES (1467423003810480130, 'https://joeschmoe.io/api/v1/random', '用户7', '$2a$10$.mYLgz/i31IODXOIfBReNeZ0g1dpqidvmujUeAnHMCc6Q/9lnuIr2', NULL, '昵称', '15867895432', 'fzyszsz@163.com', 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 17:18:02', 0);
-INSERT INTO `sys_user` VALUES (1467425141936635905, 'https://joeschmoe.io/api/v1/random', '用户8', '$2a$10$GGZzY8m7/jIjw70c2AHnkeBNIA.12v87pCjDRMewhNI5sOH8.fXNe', NULL, '昵称', '15867895432', 'fzyszsz@163.com', 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 17:26:32', 0);
+INSERT INTO `sys_user` VALUES (1467425141936635905, 'https://joeschmoe.io/api/v1/random', '用户8', '$2a$10$GGZzY8m7/jIjw70c2AHnkeBNIA.12v87pCjDRMewhNI5sOH8.fXNe', NULL, '昵称', '15867895432', 'fzyszsz@163.com', 1, 0, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 17:26:32', 1);
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -21198,7 +21335,7 @@ INSERT INTO `sys_user_role` VALUES (1467422890295836674, 1467422890287448066, 14
 INSERT INTO `sys_user_role` VALUES (1467422914689908738, 1467422914643771393, 1467198919101169666, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 17:17:41', 0);
 INSERT INTO `sys_user_role` VALUES (1467422940807839746, 1467422940757508098, 1467198919101169666, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 17:17:47', 0);
 INSERT INTO `sys_user_role` VALUES (1467423003865006082, 1467423003810480130, 1467198919101169666, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 17:18:02', 0);
-INSERT INTO `sys_user_role` VALUES (1467425141945024514, 1467425141936635905, 1467198919101169666, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 17:26:32', 0);
+INSERT INTO `sys_user_role` VALUES (1467425141945024514, 1467425141936635905, 1467198919101169666, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 17:26:32', 1);
 INSERT INTO `sys_user_role` VALUES (1467515141459558402, 1467136412902785026, 1464930141340528642, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 23:24:09', 0);
 INSERT INTO `sys_user_role` VALUES (1467515141459558403, 1467136412902785026, 1467198919101169666, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 23:24:09', 0);
 INSERT INTO `sys_user_role` VALUES (1467515141459558404, 1467136412902785026, 1467445823173038082, 'qezhhnjy', NULL, NULL, NULL, '2021-12-05 23:24:09', 0);
