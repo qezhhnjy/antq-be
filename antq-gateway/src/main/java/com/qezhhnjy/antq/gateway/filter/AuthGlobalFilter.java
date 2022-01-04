@@ -42,7 +42,7 @@ public class AuthGlobalFilter implements GlobalFilter {
             ServerHttpRequest request = exchange.getRequest().mutate().header(AuthConstant.HEADER_USER_ID, String.valueOf(userId)).build();
             exchange = exchange.mutate().request(request).build();
         } catch (ParseException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
         return chain.filter(exchange);
     }

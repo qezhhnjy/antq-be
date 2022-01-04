@@ -178,7 +178,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         if (CollUtil.isEmpty(menuList)) return;
         menuList.forEach(menu -> resourceRolesMap.put(menu.getMenu().getPath(),
                 menu.getRoleList().stream().map(Role::getRoleName).collect(Collectors.toList())));
-        log.info("resourceRolesMap=>{}", resourceRolesMap);
         redisTemplate.opsForHash().putAll(RedisConstant.RESOURCE_ROLES_MAP, resourceRolesMap);
     }
 

@@ -1,6 +1,5 @@
 package com.qezhhnjy.antq.oauth.service;
 
-import cn.hutool.core.collection.CollUtil;
 import com.qezhhnjy.antq.common.enums.ResultCode;
 import com.qezhhnjy.antq.common.vo.sys.UserVO;
 import com.qezhhnjy.antq.entity.sys.User;
@@ -14,14 +13,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -31,55 +25,25 @@ import java.util.stream.Collectors;
 @Service
 public class SecurityUserService implements UserDetailsService {
 
-    private static final List<SecurityUser> userList = new ArrayList<>();
-
     @Resource
-    private PasswordEncoder passwordEncoder;
-    @Resource
-    private UserService     userService;
-
-    @PostConstruct
-    public void initData() {
-        String password = passwordEncoder.encode("123456");
-
-        SecurityUser macro = new SecurityUser();
-        macro.setId(1L);
-        macro.setUsername("macro");
-        macro.setPassword(password);
-        macro.setEnabled(true);
-        macro.setAuthorities(CollUtil.toList(new SimpleGrantedAuthority("ADMIN")));
-
-        SecurityUser andy = new SecurityUser();
-        andy.setId(2L);
-        andy.setUsername("andy");
-        andy.setPassword(password);
-        andy.setEnabled(false);
-        andy.setAuthorities(CollUtil.toList(new SimpleGrantedAuthority("TEST")));
-
-        userList.add(macro);
-        userList.add(andy);
-    }
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserVO vo = userService.getByUserName(username);
         SecurityUser securityUser;
-        if (vo != null) {
-            User user = vo.getUser();
-            securityUser = new SecurityUser();
-            securityUser.setId(user.getId());
-            securityUser.setUsername(user.getUsername());
-            securityUser.setPassword(user.getPassword());
-            securityUser.setEnabled(user.getStatus() == 0);
-            securityUser.setAuthorities(vo.getRoleList().stream()
-                    .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
-                    .collect(Collectors.toList()));
-        } else {
-            securityUser = userList.stream()
-                    .filter(user -> Objects.equals(user.getUsername(), username))
-                    .findFirst()
-                    .orElseThrow(() -> new UsernameNotFoundException(ResultCode.USERNAME_PASSWORD_ERROR.msg));
-        }
+        if (vo == null) throw new UsernameNotFoundException(ResultCode.USERNAME_PASSWORD_ERROR.msg);
+
+        User user = vo.getUser();
+        securityUser = new SecurityUser();
+        securityUser.setId(user.getId());
+        securityUser.setUsername(user.getUsername());
+        securityUser.setPassword(user.getPassword());
+        securityUser.setEnabled(user.getStatus() == 0);
+        securityUser.setAuthorities(vo.getRoleList().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
+                .collect(Collectors.toList()));
+
         if (!securityUser.isEnabled()) {
             throw new DisabledException(ResultCode.ACCOUNT_DISABLED.msg);
         } else if (!securityUser.isAccountNonLocked()) {
