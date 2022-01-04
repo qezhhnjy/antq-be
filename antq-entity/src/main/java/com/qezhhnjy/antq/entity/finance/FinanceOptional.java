@@ -21,4 +21,8 @@ public class FinanceOptional extends BaseEntity {
 
     @NotBlank(message = "股票代码不能为空")
     private String symbol;
+
+    private String type;
+
+    private String market;
 }

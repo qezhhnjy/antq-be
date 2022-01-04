@@ -27,7 +27,7 @@ public class OptionalController {
     private LoginUserHolder loginUserHolder;
 
     @PostMapping("/add")
-    @ApiOperation(value = "股票加关注")
+    @ApiOperation(value = "加关注")
     public BaseResult<FinanceOptional> add(@RequestBody @Valid FinanceOptional optional) {
         UserVO currentUser = loginUserHolder.getCurrentUser();
         String username = currentUser.getUser().getUsername();
@@ -40,7 +40,7 @@ public class OptionalController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation(value = "股票取消关注")
+    @ApiOperation(value = "取消关注")
     public BaseResult<?> delete(@RequestParam String symbol) {
         UserVO currentUser = loginUserHolder.getCurrentUser();
         String username = currentUser.getUser().getUsername();
