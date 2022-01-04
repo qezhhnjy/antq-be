@@ -40,7 +40,7 @@ public class OptionalController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation(value = "股票取消关注")
+    @ApiOperation(value = "股票取消关注2")
     public BaseResult<?> delete(@RequestParam String symbol) {
         UserVO currentUser = loginUserHolder.getCurrentUser();
         String username = currentUser.getUser().getUsername();
