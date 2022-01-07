@@ -27,6 +27,7 @@ import java.nio.charset.StandardCharsets;
 @Component
 @Slf4j
 public class RestfulAccessDeniedHandler implements ServerAccessDeniedHandler {
+
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, AccessDeniedException denied) {
         ServerHttpRequest request = exchange.getRequest();
