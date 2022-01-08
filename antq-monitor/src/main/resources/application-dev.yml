@@ -14,8 +14,8 @@ spring:
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
       username: root
-      password: aims2016
-      url: jdbc:mysql://localhost:3306/antq?serverTimezone=Asia/Shanghai&useUnicode=true&useSSL=false&characterEncoding=utf8
+      password: Fu214849135sl
+      url: jdbc:mysql://120.26.168.94:3306/antq?serverTimezone=Asia/Shanghai&useUnicode=true&useSSL=false&characterEncoding=utf8
       driver-class-name: com.mysql.cj.jdbc.Driver
   boot:
     admin:
