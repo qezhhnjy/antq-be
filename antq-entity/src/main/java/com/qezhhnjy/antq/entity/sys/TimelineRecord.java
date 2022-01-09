@@ -18,5 +18,7 @@ public class TimelineRecord extends BaseEntity {
     private Long          id;
     private String        title;
     private String        content;
+    private String        username;
+    private String        avatar;
     private LocalDateTime recordTime;
 }

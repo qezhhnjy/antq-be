@@ -50,7 +50,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         Menu menu = vo.getMenu();
         Objects.requireNonNull(menu);
         String path = menu.getPath();
+        String permission = menu.getPermission();
         if (lambdaQuery().eq(Menu::getPath, path).count() > 0) throw new RuntimeException("菜单路径已存在");
+        if (lambdaQuery().eq(Menu::getPermission, permission).count() > 0) throw new RuntimeException("菜单权限已存在");
 
         // 嵌套盒模型新增节点
         Long parentId = vo.getParentId();
@@ -76,6 +78,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         roleMenuService.save(new RoleMenu()
                 .setRoleId(roleService.lambdaQuery().eq(Role::getRoleName, AuthConstant.ADMIN).one().getId())
                 .setMenuId(menu.getId()));
+
+        loadResourceRolesMap();
     }
 
     @Override
@@ -87,6 +91,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         Objects.requireNonNull(parentId, "不能更新根节点");
         Long id = menu.getId();
         Objects.requireNonNull(id, "菜单Id不能为空");
+        String permission = menu.getPermission();
+        if (lambdaQuery().eq(Menu::getPermission, permission).count() > 0) throw new RuntimeException("菜单权限已存在");
+
         updateById(menu);
         Menu current = getById(id);
         Menu parent = getById(parentId);

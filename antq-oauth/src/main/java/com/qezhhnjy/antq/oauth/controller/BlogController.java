@@ -1,6 +1,8 @@
 package com.qezhhnjy.antq.oauth.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.consts.BaseResult;
+import com.qezhhnjy.antq.common.query.Query;
 import com.qezhhnjy.antq.entity.sys.Blog;
 import com.qezhhnjy.antq.entity.sys.User;
 import com.qezhhnjy.antq.oauth.holder.LoginUserHolder;
@@ -49,7 +51,21 @@ public class BlogController {
 
     @PostMapping("/list")
     public BaseResult<List<Blog>> list() {
-        return BaseResult.success(blogService.list());
+        return BaseResult.success(blogService.lambdaQuery()
+                .select(Blog::getId, Blog::getUsername, Blog::getAvatar, Blog::getTitle, Blog::getSummary,
+                        Blog::getIcon, Blog::getTags, Blog::getEditTime)
+                .orderByDesc(Blog::getEditTime).list());
+    }
+
+    @PostMapping("/query")
+    public BaseResult<PageInfo<Blog>> query(@RequestBody Query query) {
+        PageInfo<Blog> pageInfo = blogService.query(query);
+        return BaseResult.success(pageInfo);
+    }
+
+    @GetMapping("/detail")
+    public BaseResult<Blog> detail(String id) {
+        return BaseResult.success(blogService.getById(id));
     }
 
 }
