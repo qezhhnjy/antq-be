@@ -29,10 +29,17 @@ public class BlogController {
     @PostMapping("/add")
     public BaseResult<Void> add(@RequestBody Blog blog) {
         blog.setEditTime(LocalDateTime.now());
-        User currentUser = loginUserHolder.getCurrentUser().getUser();
-        blog.setUsername(currentUser.getUsername());
-        blog.setAvatar(currentUser.getAvatar());
-        blogService.save(blog);
+        blogService.lambdaQuery().eq(Blog::getTitle, blog.getTitle())
+                .oneOpt()
+                .ifPresentOrElse(current -> {
+                    blog.setId(current.getId());
+                    update(blog);
+                }, () -> {
+                    User currentUser = loginUserHolder.getCurrentUser().getUser();
+                    blog.setUsername(currentUser.getUsername());
+                    blog.setAvatar(currentUser.getAvatar());
+                    blogService.save(blog);
+                });
         return BaseResult.success();
     }
 

@@ -27,6 +27,9 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8719
 
   redis:
     database: 1
