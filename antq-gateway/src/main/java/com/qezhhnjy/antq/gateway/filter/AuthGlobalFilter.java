@@ -37,7 +37,7 @@ public class AuthGlobalFilter implements GlobalFilter {
             String realToken = token.replace("bearer ", "");
             JWSObject jwsObject = JWSObject.parse(realToken);
             String userStr = jwsObject.getPayload().toString();
-            log.info("AuthGlobalFilter.filter() user:{}", userStr);
+            log.debug("AuthGlobalFilter.filter() user:{}", userStr);
             Long userId = JSONUtil.parseObj(userStr).getLong("id");
             ServerHttpRequest request = exchange.getRequest().mutate().header(AuthConstant.HEADER_USER_ID, String.valueOf(userId)).build();
             exchange = exchange.mutate().request(request).build();

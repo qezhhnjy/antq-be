@@ -1,0 +1,765 @@
+{
+  "time": "22:13:11",
+  "totalMemory": "256",
+  "maxMemory": "256",
+  "freeMemory": "133",
+  "useMemory": "123",
+  "jvmInfo": {
+    "name": "OpenJDK 64-Bit Server VM",
+    "version": "14.0.2+12-46",
+    "info": "mixed mode, sharing",
+    "vendor": "Oracle Corporation"
+  },
+  "javaInfo": {
+    "version": "14.0.2",
+    "vendorURL": "https://java.oracle.com/",
+    "java1_1": false,
+    "java1_3": false,
+    "java1_4": false,
+    "java1_7": false,
+    "java1_6": false,
+    "java1_8": false,
+    "java9": false,
+    "versionInt": 1402,
+    "versionFloat": 14.0,
+    "java1_5": false,
+    "java1_2": false,
+    "java10": false,
+    "java11": false,
+    "java12": false,
+    "vendor": "Oracle Corporation"
+  },
+  "javaSpecInfo": {
+    "name": "Java Platform API Specification",
+    "version": "14",
+    "vendor": "Oracle Corporation"
+  },
+  "userInfo": {
+    "name": "zhaoyangfu",
+    "language": "zh",
+    "country": "CN",
+    "tempDir": "C:\\Users\\ZHAOYA~1\\AppData\\Local\\Temp\\",
+    "homeDir": "C:\\Users\\zhaoyangfu",
+    "currentDir": "F:\\qezhhnjy\\antq-be"
+  },
+  "osInfo": {
+    "pathSeparator": ";",
+    "name": "Windows 10",
+    "version": "10.0",
+    "windows": true,
+    "linux": false,
+    "mac": false,
+    "lineSeparator": "\r\n",
+    "hpUx": false,
+    "aix": false,
+    "os2": false,
+    "irix": false,
+    "sunOS": false,
+    "macOsX": false,
+    "solaris": false,
+    "windows2000": false,
+    "windowsNT": false,
+    "windows95": false,
+    "fileSeparator": "\\",
+    "windows8_1": false,
+    "windows98": false,
+    "windowsME": false,
+    "windows10": true,
+    "windows7": false,
+    "windowsXP": false,
+    "windoows8": false,
+    "arch": "amd64"
+  },
+  "cpuInfo": {
+    "cpuNum": 8,
+    "toTal": 8000.0,
+    "sys": 3.12,
+    "used": 2.54,
+    "wait": 0.0,
+    "free": 93.75,
+    "cpuModel": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz\n 1 physical CPU package(s)\n 4 physical CPU core(s)\n 8 logical CPU(s)\nIdentifier: Intel64 Family 6 Model 142 Stepping 10\nProcessorID: BFEBFBFF000806EA\nMicroarchitecture: Coffee Lake"
+  },
+  "globalMemory": {
+    "pageSize": "4096",
+    "available": "6600781824",
+    "total": "25616539648",
+    "physicalMemory": [
+      {
+        "bankLabel": "BANK 0",
+        "capacity": "8589934592",
+        "clockSpeed": "2400000000",
+        "manufacturer": "Samsung",
+        "memoryType": "DDR4"
+      },
+      {
+        "bankLabel": "BANK 2",
+        "capacity": "17179869184",
+        "clockSpeed": "2400000000",
+        "manufacturer": "08C8",
+        "memoryType": "DDR4"
+      }
+    ],
+    "virtualMemory": {
+      "swapPagesOut": "715138",
+      "swapTotal": "5776375808",
+      "swapPagesIn": "10107160",
+      "virtualInUse": "25408163840",
+      "virtualMax": "31392915456",
+      "swapUsed": "472596480"
+    }
+  },
+  "storeList": [
+    {
+      "name": "\\\\.\\PHYSICALDRIVE0",
+      "model": "SAMSUNG MZVLB512HAJQ-000L7 (标准磁盘驱动器)",
+      "serial": "0025_3882_81B0_3A10.",
+      "size": "512105932800",
+      "reads": "1178745",
+      "readBytes": "36896893952",
+      "writes": "2160555",
+      "writeBytes": "74086998528",
+      "currentQueueLength": "0",
+      "transferTime": "1528886",
+      "timeStamp": "1642255992419",
+      "partitions": [
+        {
+          "identification": "磁盘 #0，分区 #1",
+          "name": "GPT: Basic Data",
+          "type": "GPT: 基本数据",
+          "uuid": "5bc7afd4-f75e-4ca5-8e04-0ca4d1aabd20",
+          "size": "138135710720",
+          "major": 0,
+          "minor": 1,
+          "mountPoint": "C:\\"
+        },
+        {
+          "identification": "磁盘 #0，分区 #2",
+          "name": "GPT: Basic Data",
+          "type": "GPT: 基本数据",
+          "uuid": "55a6f231-094d-4078-aff2-f5a31907b150",
+          "size": "104856551424",
+          "major": 0,
+          "minor": 2,
+          "mountPoint": "D:\\"
+        },
+        {
+          "identification": "磁盘 #0，分区 #3",
+          "name": "GPT: Basic Data",
+          "type": "GPT: 基本数据",
+          "uuid": "085f78d4-b705-48c7-b354-c50d0d334c11",
+          "size": "104857600000",
+          "major": 0,
+          "minor": 3,
+          "mountPoint": "E:\\"
+        },
+        {
+          "identification": "磁盘 #0，分区 #4",
+          "name": "GPT: Basic Data",
+          "type": "GPT: 基本数据",
+          "uuid": "19b38b8f-f5a6-4d6a-b05b-124fe561c551",
+          "size": "108632473600",
+          "major": 0,
+          "minor": 4,
+          "mountPoint": "F:\\"
+        },
+        {
+          "identification": "磁盘 #0，分区 #5",
+          "name": "GPT: Basic Data",
+          "type": "GPT: 基本数据",
+          "uuid": "9cbd554b-87da-4fd8-a7de-9ee7ae672f3c",
+          "size": "54286373888",
+          "major": 0,
+          "minor": 5,
+          "mountPoint": "G:\\"
+        }
+      ]
+    }
+  ],
+  "networkIFList": [
+    {
+      "name": "wlan0",
+      "displayName": "Microsoft Wi-Fi Direct Virtual Adapter #2",
+      "index": 3,
+      "mtu": "1500",
+      "subnetMasks": [],
+      "prefixLengths": [
+        64
+      ],
+      "ifType": 71,
+      "ndisPhysicalMediumType": 9,
+      "connectorPresent": false,
+      "bytesRecv": "0",
+      "bytesSent": "0",
+      "packetsRecv": "0",
+      "packetsSent": "0",
+      "inErrors": "0",
+      "outErrors": "0",
+      "inDrops": "0",
+      "collisions": "0",
+      "speed": "0",
+      "timeStamp": "1642255992990",
+      "ifAlias": "本地连接* 2",
+      "ifOperStatus": "DOWN",
+      "ipv6addr": [
+        "fe80:0:0:0:b166:3b2d:a10f:1c2"
+      ],
+      "macaddr": "d4:6d:6d:32:a9:ac",
+      "ipv4addr": [],
+      "knownVmMacAddr": false
+    },
+    {
+      "name": "wlan1",
+      "displayName": "Intel(R) Dual Band Wireless-AC 8265",
+      "index": 8,
+      "mtu": "1500",
+      "subnetMasks": [
+        24
+      ],
+      "prefixLengths": [
+        64
+      ],
+      "ifType": 71,
+      "ndisPhysicalMediumType": 9,
+      "connectorPresent": true,
+      "bytesRecv": "91087607",
+      "bytesSent": "18647698",
+      "packetsRecv": "102596",
+      "packetsSent": "71794",
+      "inErrors": "0",
+      "outErrors": "0",
+      "inDrops": "0",
+      "collisions": "0",
+      "speed": "144400000",
+      "timeStamp": "1642255993001",
+      "ifAlias": "WLAN",
+      "ifOperStatus": "UP",
+      "ipv6addr": [
+        "fe80:0:0:0:887d:338d:64ea:6fe9"
+      ],
+      "macaddr": "d4:6d:6d:32:a9:ab",
+      "ipv4addr": [
+        "192.168.31.208"
+      ],
+      "knownVmMacAddr": false
+    },
+    {
+      "name": "wlan2",
+      "displayName": "Microsoft Wi-Fi Direct Virtual Adapter",
+      "index": 9,
+      "mtu": "1500",
+      "subnetMasks": [],
+      "prefixLengths": [
+        64
+      ],
+      "ifType": 71,
+      "ndisPhysicalMediumType": 9,
+      "connectorPresent": false,
+      "bytesRecv": "0",
+      "bytesSent": "0",
+      "packetsRecv": "0",
+      "packetsSent": "0",
+      "inErrors": "0",
+      "outErrors": "0",
+      "inDrops": "0",
+      "collisions": "0",
+      "speed": "0",
+      "timeStamp": "1642255993014",
+      "ifAlias": "本地连接* 1",
+      "ifOperStatus": "DOWN",
+      "ipv6addr": [
+        "fe80:0:0:0:147f:bbef:8d15:11f1"
+      ],
+      "macaddr": "d6:6d:6d:32:a9:ab",
+      "ipv4addr": [],
+      "knownVmMacAddr": false
+    },
+    {
+      "name": "eth4",
+      "displayName": "Sangfor SSL VPN CS Support System VNIC",
+      "index": 12,
+      "mtu": "1400",
+      "subnetMasks": [],
+      "prefixLengths": [
+        64
+      ],
+      "ifType": 6,
+      "ndisPhysicalMediumType": 0,
+      "connectorPresent": false,
+      "bytesRecv": "0",
+      "bytesSent": "0",
+      "packetsRecv": "0",
+      "packetsSent": "0",
+      "inErrors": "0",
+      "outErrors": "0",
+      "inDrops": "0",
+      "collisions": "0",
+      "speed": "10000000",
+      "timeStamp": "1642255993025",
+      "ifAlias": "以太网 5",
+      "ifOperStatus": "DOWN",
+      "ipv6addr": [
+        "fe80:0:0:0:8101:c712:6959:b8a"
+      ],
+      "macaddr": "00:ff:90:1e:c2:4b",
+      "ipv4addr": [],
+      "knownVmMacAddr": false
+    },
+    {
+      "name": "eth5",
+      "displayName": "Bluetooth Device (Personal Area Network)",
+      "index": 13,
+      "mtu": "1500",
+      "subnetMasks": [],
+      "prefixLengths": [
+        64
+      ],
+      "ifType": 6,
+      "ndisPhysicalMediumType": 10,
+      "connectorPresent": false,
+      "bytesRecv": "0",
+      "bytesSent": "0",
+      "packetsRecv": "0",
+      "packetsSent": "0",
+      "inErrors": "0",
+      "outErrors": "0",
+      "inDrops": "0",
+      "collisions": "0",
+      "speed": "3000000",
+      "timeStamp": "1642255993036",
+      "ifAlias": "蓝牙网络连接",
+      "ifOperStatus": "DOWN",
+      "ipv6addr": [
+        "fe80:0:0:0:2021:249f:5695:324f"
+      ],
+      "macaddr": "d4:6d:6d:32:a9:af",
+      "ipv4addr": [],
+      "knownVmMacAddr": false
+    },
+    {
+      "name": "eth7",
+      "displayName": "Intel(R) Ethernet Connection (4) I219-V",
+      "index": 16,
+      "mtu": "1500",
+      "subnetMasks": [],
+      "prefixLengths": [
+        64
+      ],
+      "ifType": 6,
+      "ndisPhysicalMediumType": 14,
+      "connectorPresent": true,
+      "bytesRecv": "0",
+      "bytesSent": "0",
+      "packetsRecv": "0",
+      "packetsSent": "0",
+      "inErrors": "0",
+      "outErrors": "0",
+      "inDrops": "0",
+      "collisions": "0",
+      "speed": "0",
+      "timeStamp": "1642255993047",
+      "ifAlias": "以太网",
+      "ifOperStatus": "DOWN",
+      "ipv6addr": [
+        "fe80:0:0:0:2198:bdc3:5a00:1b48"
+      ],
+      "macaddr": "8c:16:45:36:e7:09",
+      "ipv4addr": [],
+      "knownVmMacAddr": false
+    },
+    {
+      "name": "eth8",
+      "displayName": "VMware Virtual Ethernet Adapter for VMnet8",
+      "index": 19,
+      "mtu": "1500",
+      "subnetMasks": [
+        24
+      ],
+      "prefixLengths": [
+        64
+      ],
+      "ifType": 6,
+      "ndisPhysicalMediumType": 14,
+      "connectorPresent": false,
+      "bytesRecv": "27",
+      "bytesSent": "5319",
+      "packetsRecv": "27",
+      "packetsSent": "21",
+      "inErrors": "0",
+      "outErrors": "0",
+      "inDrops": "0",
+      "collisions": "0",
+      "speed": "100000000",
+      "timeStamp": "1642255993058",
+      "ifAlias": "VMware Network Adapter VMnet8",
+      "ifOperStatus": "UP",
+      "ipv6addr": [
+        "fe80:0:0:0:1eb:dce6:bb42:bc28"
+      ],
+      "macaddr": "00:50:56:c0:00:08",
+      "ipv4addr": [
+        "192.168.85.1"
+      ],
+      "knownVmMacAddr": true
+    },
+    {
+      "name": "eth9",
+      "displayName": "TAP-Windows Adapter V9",
+      "index": 21,
+      "mtu": "1500",
+      "subnetMasks": [],
+      "prefixLengths": [
+        64
+      ],
+      "ifType": 6,
+      "ndisPhysicalMediumType": 14,
+      "connectorPresent": false,
+      "bytesRecv": "0",
+      "bytesSent": "0",
+      "packetsRecv": "0",
+      "packetsSent": "0",
+      "inErrors": "0",
+      "outErrors": "0",
+      "inDrops": "0",
+      "collisions": "0",
+      "speed": "100000000",
+      "timeStamp": "1642255993069",
+      "ifAlias": "以太网 2",
+      "ifOperStatus": "DOWN",
+      "ipv6addr": [
+        "fe80:0:0:0:dd48:3061:2681:dda8"
+      ],
+      "macaddr": "00:ff:e3:e6:a7:f3",
+      "ipv4addr": [],
+      "knownVmMacAddr": false
+    },
+    {
+      "name": "eth10",
+      "displayName": "TAP-Windows Adapter V9 #2",
+      "index": 22,
+      "mtu": "1500",
+      "subnetMasks": [],
+      "prefixLengths": [
+        64
+      ],
+      "ifType": 6,
+      "ndisPhysicalMediumType": 14,
+      "connectorPresent": false,
+      "bytesRecv": "0",
+      "bytesSent": "0",
+      "packetsRecv": "0",
+      "packetsSent": "0",
+      "inErrors": "0",
+      "outErrors": "0",
+      "inDrops": "0",
+      "collisions": "0",
+      "speed": "100000000",
+      "timeStamp": "1642255993080",
+      "ifAlias": "以太网 3",
+      "ifOperStatus": "DOWN",
+      "ipv6addr": [
+        "fe80:0:0:0:c24:f652:190c:3dff"
+      ],
+      "macaddr": "00:ff:e4:c5:7e:1d",
+      "ipv4addr": [],
+      "knownVmMacAddr": false
+    },
+    {
+      "name": "eth12",
+      "displayName": "VMware Virtual Ethernet Adapter for VMnet1",
+      "index": 24,
+      "mtu": "1500",
+      "subnetMasks": [
+        24
+      ],
+      "prefixLengths": [
+        64
+      ],
+      "ifType": 6,
+      "ndisPhysicalMediumType": 14,
+      "connectorPresent": false,
+      "bytesRecv": "27",
+      "bytesSent": "3062",
+      "packetsRecv": "27",
+      "packetsSent": "21",
+      "inErrors": "0",
+      "outErrors": "0",
+      "inDrops": "0",
+      "collisions": "0",
+      "speed": "100000000",
+      "timeStamp": "1642255993090",
+      "ifAlias": "VMware Network Adapter VMnet1",
+      "ifOperStatus": "UP",
+      "ipv6addr": [
+        "fe80:0:0:0:913b:6c6d:d718:78e8"
+      ],
+      "macaddr": "00:50:56:c0:00:01",
+      "ipv4addr": [
+        "192.168.182.1"
+      ],
+      "knownVmMacAddr": true
+    },
+    {
+      "name": "eth13",
+      "displayName": "SEC-Windows Adapter V10",
+      "index": 25,
+      "mtu": "1500",
+      "subnetMasks": [],
+      "prefixLengths": [
+        64
+      ],
+      "ifType": 6,
+      "ndisPhysicalMediumType": 14,
+      "connectorPresent": false,
+      "bytesRecv": "0",
+      "bytesSent": "0",
+      "packetsRecv": "0",
+      "packetsSent": "0",
+      "inErrors": "0",
+      "outErrors": "0",
+      "inDrops": "0",
+      "collisions": "0",
+      "speed": "100000000",
+      "timeStamp": "1642255993100",
+      "ifAlias": "SEC-Windows Adapter",
+      "ifOperStatus": "DOWN",
+      "ipv6addr": [
+        "fe80:0:0:0:1fd:b965:f5f7:41f7"
+      ],
+      "macaddr": "00:ff:f9:81:b4:95",
+      "ipv4addr": [],
+      "knownVmMacAddr": false
+    }
+  ],
+  "os": "Microsoft Windows 10 build 19044",
+  "computerSystem": {
+    "firmware": {
+      "name": "N24ET32W (1.07 )",
+      "version": "LENOVO - 1070",
+      "releaseDate": "2018-01-22",
+      "manufacturer": "LENOVO",
+      "description": "N24ET32W (1.07 )"
+    },
+    "baseboard": {
+      "version": "SDK0L77769 WIN",
+      "serialNumber": "L1HF82D0044",
+      "model": "unknown",
+      "manufacturer": "LENOVO"
+    },
+    "serialNumber": "PF11G1QG",
+    "model": "20L5A00QCD",
+    "manufacturer": "LENOVO",
+    "hardwareUUID": "C56C654C-215B-11B2-A85C-FD26E4B68D30"
+  },
+  "centralProcessor": {
+    "maxFreq": "1992000000",
+    "currentFreq": [
+      1792800000,
+      1792800000,
+      1792800000,
+      1792800000,
+      1792800000,
+      1792800000,
+      1792800000,
+      1792800000
+    ],
+    "contextSwitches": "2019219549",
+    "interrupts": "1262313219",
+    "systemCpuLoadTicks": [
+      70209230,
+      0,
+      32885199,
+      599864589,
+      0,
+      1412995,
+      2394856,
+      0
+    ],
+    "processorCpuLoadTicks": [
+      [
+        8038406,
+        0,
+        5993203,
+        72378015,
+        0,
+        915375,
+        1021328,
+        0
+      ],
+      [
+        6394234,
+        0,
+        3302406,
+        78400046,
+        0,
+        78671,
+        170437,
+        0
+      ],
+      [
+        9997515,
+        0,
+        4934765,
+        73012937,
+        0,
+        80562,
+        320015,
+        0
+      ],
+      [
+        9255359,
+        0,
+        3950187,
+        74949921,
+        0,
+        58296,
+        132031,
+        0
+      ],
+      [
+        10617031,
+        0,
+        4678718,
+        72786625,
+        0,
+        84796,
+        178640,
+        0
+      ],
+      [
+        7582546,
+        0,
+        2798968,
+        77579343,
+        0,
+        65687,
+        319234,
+        0
+      ],
+      [
+        9882718,
+        0,
+        4258343,
+        73972968,
+        0,
+        80093,
+        151671,
+        0
+      ],
+      [
+        8441421,
+        0,
+        2968609,
+        76784734,
+        0,
+        49515,
+        101500,
+        0
+      ]
+    ],
+    "physicalPackageCount": 1,
+    "physicalProcessorCount": 4,
+    "logicalProcessorCount": 8,
+    "logicalProcessors": [
+      {
+        "processorNumber": 0,
+        "physicalProcessorNumber": 0,
+        "physicalPackageNumber": 0,
+        "numaNode": 0,
+        "processorGroup": 0
+      },
+      {
+        "processorNumber": 1,
+        "physicalProcessorNumber": 0,
+        "physicalPackageNumber": 0,
+        "numaNode": 0,
+        "processorGroup": 0
+      },
+      {
+        "processorNumber": 2,
+        "physicalProcessorNumber": 1,
+        "physicalPackageNumber": 0,
+        "numaNode": 0,
+        "processorGroup": 0
+      },
+      {
+        "processorNumber": 3,
+        "physicalProcessorNumber": 1,
+        "physicalPackageNumber": 0,
+        "numaNode": 0,
+        "processorGroup": 0
+      },
+      {
+        "processorNumber": 4,
+        "physicalProcessorNumber": 2,
+        "physicalPackageNumber": 0,
+        "numaNode": 0,
+        "processorGroup": 0
+      },
+      {
+        "processorNumber": 5,
+        "physicalProcessorNumber": 2,
+        "physicalPackageNumber": 0,
+        "numaNode": 0,
+        "processorGroup": 0
+      },
+      {
+        "processorNumber": 6,
+        "physicalProcessorNumber": 3,
+        "physicalPackageNumber": 0,
+        "numaNode": 0,
+        "processorGroup": 0
+      },
+      {
+        "processorNumber": 7,
+        "physicalProcessorNumber": 3,
+        "physicalPackageNumber": 0,
+        "numaNode": 0,
+        "processorGroup": 0
+      }
+    ],
+    "processorIdentifier": {
+      "processorID": "BFEBFBFF000806EA",
+      "cpu64bit": true,
+      "name": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz",
+      "family": "6",
+      "model": "142",
+      "vendor": "GenuineIntel",
+      "vendorFreq": "1992000000",
+      "stepping": "10",
+      "microarchitecture": "Coffee Lake",
+      "identifier": "Intel64 Family 6 Model 142 Stepping 10"
+    }
+  },
+  "sensors": {
+    "cpuTemperature": 0.0,
+    "fanSpeeds": [],
+    "cpuVoltage": 0.0
+  },
+  "diskInfoList": [
+    {
+      "name": "本地固定磁盘 (C:)",
+      "totalSpace": "128",
+      "freeSpace": "24"
+    },
+    {
+      "name": "本地固定磁盘 (D:)",
+      "totalSpace": "97",
+      "freeSpace": "76"
+    },
+    {
+      "name": "本地固定磁盘 (E:)",
+      "totalSpace": "97",
+      "freeSpace": "62"
+    },
+    {
+      "name": "本地固定磁盘 (F:)",
+      "totalSpace": "101",
+      "freeSpace": "63"
+    },
+    {
+      "name": "本地固定磁盘 (G:)",
+      "totalSpace": "50",
+      "freeSpace": "49"
+    }
+  ]
+}

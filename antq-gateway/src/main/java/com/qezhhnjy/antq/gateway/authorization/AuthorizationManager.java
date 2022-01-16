@@ -36,11 +36,11 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         Object obj = redisTemplate.opsForHash().get(RedisConstant.RESOURCE_ROLES_MAP, uri.getPath());
         List<String> authorities = Convert.toList(String.class, obj);
         authorities = authorities.stream().map(i -> i = AuthConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
-        log.info("authorities=>{}", authorities);
+        log.debug("authorities=>{}", authorities);
         //认证通过且角色匹配的用户可访问当前路径
         return mono
                 .filter(authentication -> {
-                    log.info("authentication.getAuthorities()=>{}", authentication.getAuthorities());
+                    log.debug("authentication.getAuthorities()=>{}", authentication.getAuthorities());
                     return authentication.isAuthenticated();
                 })
                 .flatMapIterable(Authentication::getAuthorities)

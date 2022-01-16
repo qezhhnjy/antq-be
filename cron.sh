@@ -1,11 +1,11 @@
 #!/bin/bash
 
-jar=jpx-admin-1.0-SNAPSHOT.jar
+jar=jpx-api-1.0-SNAPSHOT.jar
 jarPath=/data/jpx-be
 java=/opt/jdk1.8.0_261/bin/java
-jvm="-Xms1024m -Xmx1024m"
+jvm="-Xms1000m -Xmx3000m"
 spring="--spring.profiles.active=prod"
-log=/data/jpx-admin/jpx-admin/info.log
+log=/data/jpx-logs/jpx-be/info.log
 
 pid=$(ps -ef | grep ${jar} | grep -v grep | awk '{print $2}')
 num=$(ps -ef | grep ${jar} | grep -v grep | awk '{print $2}' | wc -l)
@@ -25,11 +25,20 @@ stop() {
   fi
 }
 
+restart() {
+  echo '开始执行重启脚本'$(date +'%Y-%m-%d %H:%M:%S')
+  if [ -n "${pid}" ]; then
+    kill -9 "${pid}"
+    echo '进程终止=>'"${pid}"
+  fi
+  nohup ${java} -jar ${jvm} ${jarPath}/${jar} ${spring} >/dev/null 2>&1 &
+}
+
 pid() {
   echo "${pid}"
 }
 
-log() {
+log(){
   tail -f ${log}
 }
 
@@ -44,8 +53,7 @@ pid)
   pid
   ;;
 restart)
-  stop
-  start
+  restart
   log
   ;;
 log)

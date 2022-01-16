@@ -58,3 +58,11 @@ mybatis-plus:
   configuration:
     #开启驼峰自动转换
     map-underscore-to-camel-case: true
+
+ribbon:
+  # 指的是建立连接后从服务器读取到可用资源所用的时间
+  ReadTimeout: 5000
+  # 指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的时间
+  ConnectTimeout: 10000
+  MaxAutoRetries: 1    #对当前实例的重试次数，默认0
+  MaxAutoRetriesNextServer: 0 #重试切换实例的次数，默认1

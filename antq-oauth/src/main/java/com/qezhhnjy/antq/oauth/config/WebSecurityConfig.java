@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login-info/**").permitAll()
                 .antMatchers("/record/**").permitAll()
                 .antMatchers("/blog/**").permitAll()
+                .antMatchers("/monitor/**").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable();
     }

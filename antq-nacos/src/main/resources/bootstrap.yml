@@ -1,0 +1,13 @@
+server:
+  port: 11005
+spring:
+  application:
+    name: antq-nacos
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        group: antq
+      config:
+        server-addr: localhost:8848
+        group: antq

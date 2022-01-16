@@ -36,6 +36,7 @@ secure:
     urls: #配置白名单路径
       - /actuator/**
       - /oauth/oauth/token
+      - /monitor/**
 
 management:
   endpoints:
