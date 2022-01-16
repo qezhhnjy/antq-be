@@ -1,11 +1,21 @@
 server:
   port: 11000
 spring:
-  profiles:
-    active: dev
   application:
     name: antq-gateway
+  profiles:
+    active: dev
   cloud:
+    nacos:
+      discovery:
+        server-addr: 120.26.168.94:80
+        group: antq
+      config:
+        server-addr: 120.26.168.94:80
+        group: antq
+        file-extension: yaml
+      username: qezhhnjy
+      password: Fu214849135sl
     gateway:
       routes: #配置路由路径
         - id: antq-oauth

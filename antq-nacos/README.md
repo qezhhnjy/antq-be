@@ -1,0 +1,1 @@
+- 同一属性配置在application.yml和bootstrap.yml和nacos中的生效顺序为：nacos > application > bootstrap

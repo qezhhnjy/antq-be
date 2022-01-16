@@ -1,10 +1,10 @@
 server:
-  port: 11005
+  port: 11003
 spring:
-  application:
-    name: antq-nacos
   profiles:
     active: dev
+  application:
+    name: antq-monitor
   cloud:
     nacos:
       discovery:
@@ -14,5 +14,12 @@ spring:
         server-addr: 120.26.168.94:80
         group: antq
         file-extension: yaml
+      username: qezhhnjy
+      password: Fu214849135sl
 
-antq: bootstrap
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
