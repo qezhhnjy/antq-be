@@ -77,3 +77,10 @@ ribbon:
   ConnectTimeout: 10000
   MaxAutoRetries: 1    #对当前实例的重试次数，默认0
   MaxAutoRetriesNextServer: 0 #重试切换实例的次数，默认1
+
+minio:
+  endpoint: http://120.26.168.94:11007
+  access-key: qezhhnjy
+  secret-key: Fu214849135sl
+  bucket: antq
+  prefix: http://120.26.168.94:11007/

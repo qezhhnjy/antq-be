@@ -29,6 +29,7 @@
     <spring.boot.admin.version>2.3.1</spring.boot.admin.version>
     <sentinel.version>1.8.0</sentinel.version>
     <oshi.version>6.0.0</oshi.version>
+    <minio.version>8.0.3</minio.version>
   </properties>
 
   <dependencyManagement>
@@ -129,6 +130,11 @@
         <groupId>com.github.oshi</groupId>
         <artifactId>oshi-core</artifactId>
         <version>${oshi.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.minio</groupId>
+        <artifactId>minio</artifactId>
+        <version>${minio.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
