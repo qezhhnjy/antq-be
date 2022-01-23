@@ -92,7 +92,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         Long id = menu.getId();
         Objects.requireNonNull(id, "菜单Id不能为空");
         String permission = menu.getPermission();
-        if (lambdaQuery().eq(Menu::getPermission, permission).count() > 0) throw new RuntimeException("菜单权限已存在");
+        if (lambdaQuery().eq(Menu::getPermission, permission).count() > 1) throw new RuntimeException("菜单权限已存在");
+        lambdaQuery().eq(Menu::getPermission, permission).oneOpt().ifPresent(current -> {
+            if (!current.getId().equals(menu.getId())) throw new RuntimeException("菜单权限已存在");
+        });
 
         updateById(menu);
         Menu current = getById(id);

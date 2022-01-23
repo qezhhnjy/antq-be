@@ -18,6 +18,7 @@
     <module>antq-web</module>
     <module>antq-monitor</module>
     <module>antq-nacos</module>
+    <module>antq-algorihtm</module>
   </modules>
 
   <properties>
