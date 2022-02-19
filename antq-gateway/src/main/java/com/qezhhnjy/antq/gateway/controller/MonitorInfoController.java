@@ -1,5 +1,6 @@
 package com.qezhhnjy.antq.gateway.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.common.vo.sys.MemoryInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class MonitorInfoController {
 
     @Value("${spring.application.name}")
-    private String            applicationName;
+    private String applicationName;
 
     @GetMapping
+    @SentinelResource("monitor")
     public BaseResult<MemoryInfo> monitor() {
         log.info("monitor info...");
         MemoryInfo info = MemoryInfo.info(applicationName);

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author zhaoyangfu
  * @date 2022/1/16-16:24
  */
-@FeignClient("antq-oauth")
+@FeignClient(value = "antq-oauth", fallback = OauthServiceFallback.class)
 @Service
 public interface OauthService {
 

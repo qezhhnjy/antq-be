@@ -7,12 +7,12 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 120.26.168.94:80
-        #        server-addr: localhost:8848
+#        server-addr: 120.26.168.94:80
+        server-addr: localhost:8848
         group: antq
       config:
-        server-addr: 120.26.168.94:80
-        #        server-addr: localhost:8848
+        #        server-addr: 120.26.168.94:80
+        server-addr: localhost:8848
         group: antq
         file-extension: yaml
       username: qezhhnjy
