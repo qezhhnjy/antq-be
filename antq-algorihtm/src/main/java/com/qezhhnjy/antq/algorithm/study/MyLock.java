@@ -1,4 +1,4 @@
-package com.qezhhnjy.antq.common.study;
+package com.qezhhnjy.antq.algorithm.study;
 
 import cn.hutool.core.thread.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;

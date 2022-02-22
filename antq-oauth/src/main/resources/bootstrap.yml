@@ -78,3 +78,9 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: false
   params: count=countSql
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

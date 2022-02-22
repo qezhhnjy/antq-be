@@ -90,8 +90,8 @@ public class SystemInfo {
         totalDisk.setTotal(0);
         totalDisk.setFree(0);
         OshiUtil.getHardware().getDiskStores().forEach(ds -> {
-            totalDisk.setRead(totalDisk.getRead() + CapacityUtil.kb(ds.getReadBytes()));
-            totalDisk.setWrite(totalDisk.getWrite() + CapacityUtil.kb(ds.getWriteBytes()));
+            totalDisk.setRead(totalDisk.getRead() + CapacityUtil.mb(ds.getReadBytes()));
+            totalDisk.setWrite(totalDisk.getWrite() + CapacityUtil.mb(ds.getWriteBytes()));
             totalDisk.setTransferTime(totalDisk.getTransferTime() + ds.getTransferTime());
         });
 

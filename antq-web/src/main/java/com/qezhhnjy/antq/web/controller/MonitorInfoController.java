@@ -1,5 +1,6 @@
 package com.qezhhnjy.antq.web.controller;
 
+import cn.hutool.json.JSONUtil;
 import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.common.vo.sys.MemoryInfo;
 import com.qezhhnjy.antq.web.feign.GatewayService;
@@ -43,5 +44,10 @@ public class MonitorInfoController {
         jvmList.add(monitorService.info().getData());
         jvmList.add(gatewayService.info().getData());
         return BaseResult.success(info);
+    }
+
+    public static void main(String[] args) {
+        SystemInfo info = SystemInfo.info();
+        System.out.println(JSONUtil.toJsonPrettyStr(info));
     }
 }

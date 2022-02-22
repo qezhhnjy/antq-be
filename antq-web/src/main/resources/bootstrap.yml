@@ -86,3 +86,9 @@ minio:
   secret-key: Fu214849135sl
   bucket: antq
   prefix: http://120.26.168.94:11007/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
