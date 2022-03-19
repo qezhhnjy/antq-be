@@ -208,7 +208,16 @@ vim    /etc/fstab
 /var/swapfile   swap  swap  defaults  0  0
 ```
 
+---
 
+### 接下来的开发计划
 
+- [ ] `jimureport`报表
+- [ ] [jeecg](https://gitee.com/jeecg/jeecg-boot.git) 仿照`jeecg`的开发功能
+- [ ] [skywalking](https://skywalking.apache.org/zh/2020-04-19-skywalking-quick-start/) `skywalking`分布式链路追踪
+- [ ] `flowable`工作流开发工具
+- [ ] `quartz`定时任务
 
-
+- [ ] `seata`分布式事务处理器
+- [ ] `druid`监控
+- [ ] 其他...

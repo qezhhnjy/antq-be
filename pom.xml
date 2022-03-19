@@ -18,7 +18,10 @@
     <module>antq-web</module>
     <module>antq-monitor</module>
     <module>antq-nacos</module>
-    <module>antq-algorihtm</module>
+    <module>antq-algorithm</module>
+    <module>antq-jimu-report</module>
+    <module>antq-flowable</module>
+    <module>antq-quartz</module>
   </modules>
 
   <properties>
@@ -31,6 +34,8 @@
     <sentinel.version>1.8.0</sentinel.version>
     <oshi.version>6.0.0</oshi.version>
     <minio.version>8.0.3</minio.version>
+    <jimureport.version>1.4.2</jimureport.version>
+    <arthas.version>3.5.6</arthas.version>
   </properties>
 
   <dependencyManagement>
@@ -136,6 +141,16 @@
         <groupId>io.minio</groupId>
         <artifactId>minio</artifactId>
         <version>${minio.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jeecgframework.jimureport</groupId>
+        <artifactId>jimureport-spring-boot-starter</artifactId>
+        <version>${jimureport.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.taobao.arthas</groupId>
+        <artifactId>arthas-spring-boot-starter</artifactId>
+        <version>${arthas.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
