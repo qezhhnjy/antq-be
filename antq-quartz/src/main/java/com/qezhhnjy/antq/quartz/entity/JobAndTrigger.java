@@ -1,4 +1,4 @@
-package com.qezhhnjy.antq.quartz.entity.domain;
+package com.qezhhnjy.antq.quartz.entity;
 
 import lombok.Data;
 

@@ -1,8 +1,10 @@
-package com.qezhhnjy.antq.quartz.entity.form;
+package com.qezhhnjy.antq.quartz.entity;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.quartz.JobDataMap;
+import org.quartz.JobKey;
+import org.quartz.TriggerKey;
 
 import javax.validation.constraints.NotBlank;
 
@@ -43,8 +45,12 @@ public class JobInfo {
     @NotBlank(message = "cron表达式不能为空")
     private String cronExpression;
 
-    public String identify() {
-        return String.format("%s-%s.%s(%s)", jobClassName, className, methodName, arg);
+    public JobKey jobKey() {
+        return JobKey.jobKey(String.format("%s-%s.%s(%s)", jobClassName, className, methodName, arg), jobGroupName);
+    }
+
+    public TriggerKey triggerKey() {
+        return TriggerKey.triggerKey(String.format("%s-%s.%s(%s)", jobClassName, className, methodName, arg), jobGroupName);
     }
 
     public JobDataMap data() {

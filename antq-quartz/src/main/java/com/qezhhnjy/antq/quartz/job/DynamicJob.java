@@ -4,7 +4,7 @@ import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import com.qezhhnjy.antq.quartz.entity.form.JobInfo;
+import com.qezhhnjy.antq.quartz.entity.JobInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
 import org.quartz.JobDataMap;

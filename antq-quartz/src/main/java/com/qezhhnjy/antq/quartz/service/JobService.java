@@ -1,8 +1,9 @@
 package com.qezhhnjy.antq.quartz.service;
 
 import com.github.pagehelper.PageInfo;
-import com.qezhhnjy.antq.quartz.entity.domain.JobAndTrigger;
-import com.qezhhnjy.antq.quartz.entity.form.JobInfo;
+import com.qezhhnjy.antq.common.query.Query;
+import com.qezhhnjy.antq.quartz.entity.JobAndTrigger;
+import com.qezhhnjy.antq.quartz.entity.JobInfo;
 import org.quartz.SchedulerException;
 
 /**
@@ -61,7 +62,7 @@ public interface JobService {
      * @param pageSize    每页条数
      * @return 定时任务列表
      */
-    PageInfo<JobAndTrigger> list(Integer currentPage, Integer pageSize);
+    PageInfo<JobAndTrigger> list(Query query);
 
     void test(String name);
 }

@@ -1,20 +1,19 @@
 package com.qezhhnjy.antq.quartz.controller;
 
-import cn.hutool.core.lang.Dict;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
-import com.qezhhnjy.antq.quartz.common.ApiResponse;
-import com.qezhhnjy.antq.quartz.entity.domain.JobAndTrigger;
-import com.qezhhnjy.antq.quartz.entity.form.JobInfo;
+import com.qezhhnjy.antq.common.consts.BaseResult;
+import com.qezhhnjy.antq.common.query.Query;
+import com.qezhhnjy.antq.quartz.entity.JobAndTrigger;
+import com.qezhhnjy.antq.quartz.entity.JobInfo;
 import com.qezhhnjy.antq.quartz.service.JobService;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.SchedulerException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 /**
@@ -29,90 +28,59 @@ import javax.validation.Valid;
 @RequestMapping("/job")
 @Slf4j
 public class JobController {
-    private final JobService jobService;
 
-    @Autowired
-    public JobController(JobService jobService) {
-        this.jobService = jobService;
-    }
+    @Resource
+    private JobService jobService;
 
     /**
      * 保存定时任务
      */
-    @PostMapping
-    public ResponseEntity<ApiResponse> addJob(@RequestBody @Valid JobInfo info) {
-        try {
-            jobService.addJob(info);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return new ResponseEntity<>(ApiResponse.msg(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(ApiResponse.msg("操作成功"), HttpStatus.CREATED);
+    @PostMapping("add")
+    public BaseResult<?> addJob(@RequestBody @Valid JobInfo info) throws Exception {
+        jobService.addJob(info);
+        return BaseResult.success(info);
     }
 
     /**
      * 删除定时任务
      */
-    @DeleteMapping
-    public ResponseEntity<ApiResponse> deleteJob(JobInfo form) throws SchedulerException {
-        if (StrUtil.hasBlank(form.getJobGroupName(), form.getJobClassName())) {
-            return new ResponseEntity<>(ApiResponse.msg("参数不能为空"), HttpStatus.BAD_REQUEST);
-        }
-
-        jobService.deleteJob(form);
-        return new ResponseEntity<>(ApiResponse.msg("删除成功"), HttpStatus.OK);
+    @PostMapping("delete")
+    public BaseResult<?> deleteJob(@RequestBody @Valid JobInfo info) throws SchedulerException {
+        jobService.deleteJob(info);
+        return BaseResult.success();
     }
 
     /**
      * 暂停定时任务
      */
-    @PutMapping(params = "pause")
-    public ResponseEntity<ApiResponse> pauseJob(JobInfo form) throws SchedulerException {
-        if (StrUtil.hasBlank(form.getJobGroupName(), form.getJobClassName())) {
-            return new ResponseEntity<>(ApiResponse.msg("参数不能为空"), HttpStatus.BAD_REQUEST);
-        }
-
-        jobService.pauseJob(form);
-        return new ResponseEntity<>(ApiResponse.msg("暂停成功"), HttpStatus.OK);
+    @PostMapping("pause")
+    public BaseResult<?> pauseJob(@RequestBody @Valid JobInfo info) throws SchedulerException {
+        jobService.pauseJob(info);
+        return BaseResult.success();
     }
 
     /**
      * 恢复定时任务
      */
-    @PutMapping(params = "resume")
-    public ResponseEntity<ApiResponse> resumeJob(JobInfo form) throws SchedulerException {
-        if (StrUtil.hasBlank(form.getJobGroupName(), form.getJobClassName())) {
-            return new ResponseEntity<>(ApiResponse.msg("参数不能为空"), HttpStatus.BAD_REQUEST);
-        }
-
-        jobService.resumeJob(form);
-        return new ResponseEntity<>(ApiResponse.msg("恢复成功"), HttpStatus.OK);
+    @PostMapping("resume")
+    public BaseResult<?> resumeJob(@RequestBody @Valid JobInfo info) throws SchedulerException {
+        jobService.resumeJob(info);
+        return BaseResult.success();
     }
 
     /**
      * 修改定时任务，定时时间
      */
-    @PutMapping(params = "cron")
-    public ResponseEntity<ApiResponse> cronJob(@Valid JobInfo form) {
-        try {
-            jobService.cronJob(form);
-        } catch (Exception e) {
-            return new ResponseEntity<>(ApiResponse.msg(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return new ResponseEntity<>(ApiResponse.msg("修改成功"), HttpStatus.OK);
+    @PostMapping("cron")
+    public BaseResult<?> cronJob(@RequestBody @Valid JobInfo info) throws Exception {
+        jobService.cronJob(info);
+        return BaseResult.success();
     }
 
-    @GetMapping
-    public ResponseEntity<ApiResponse> jobList(Integer currentPage, Integer pageSize) {
-        if (ObjectUtil.isNull(currentPage)) {
-            currentPage = 1;
-        }
-        if (ObjectUtil.isNull(pageSize)) {
-            pageSize = 10;
-        }
-        PageInfo<JobAndTrigger> all = jobService.list(currentPage, pageSize);
-        return ResponseEntity.ok(ApiResponse.ok(Dict.create().set("total", all.getTotal()).set("data", all.getList())));
+    @PostMapping("list")
+    public BaseResult<PageInfo<JobAndTrigger>> jobList(Query query) {
+        PageInfo<JobAndTrigger> pageInfo = jobService.list(query);
+        return BaseResult.success(pageInfo);
     }
 
 }

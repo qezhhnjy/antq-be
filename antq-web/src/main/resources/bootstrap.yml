@@ -7,11 +7,9 @@ spring:
   cloud:
     nacos:
       discovery:
-#        server-addr: 120.26.168.94:80
         server-addr: localhost:8848
         group: antq
       config:
-        #        server-addr: 120.26.168.94:80
         server-addr: localhost:8848
         group: antq
         file-extension: yaml
@@ -24,6 +22,21 @@ spring:
       max-request-size: 150MB #最大请求文件的大小
       max-file-size: 50MB #设置单个文件最大长度
       file-size-threshold: 20MB #当文件达到多少时进行磁盘写入
+
+  quartz:
+    # 参见 org.springframework.boot.autoconfigure.quartz.QuartzProperties
+    job-store-type: JDBC
+    wait-for-jobs-to-complete-on-shutdown: true
+    scheduler-name: Antq-Quartz-Scheduler
+    properties:
+      org.quartz.threadPool.threadCount: 5
+      org.quartz.threadPool.threadPriority: 5
+      org.quartz.threadPool.threadsInheritContextClassLoaderOfInitializingThread: true
+      org.quartz.jobStore.misfireThreshold: 1000
+      org.quartz.jobStore.class: org.quartz.impl.jdbcjobstore.JobStoreTX
+      org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+      # 在调度流程的第一步，也就是拉取待即将触发的triggers时，是上锁的状态，即不会同时存在多个线程拉取到相同的trigger的情况，也就避免的重复调度的危险。参考：https://segmentfault.com/a/1190000015492260
+      org.quartz.jobStore.acquireTriggersWithinLock: true
 
   task:
     execution:
@@ -62,8 +75,8 @@ server:
       worker: 128
 
 mybatis-plus:
-  mapper-locations: classpath:mapper/**/*.xml
-  type-aliases-package: com.qezhhnjy.antq.entity
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.qezhhnjy.antq.quartz.entity
   global-config:
     db-config:
       id-type: assign_id

@@ -1,6 +1,6 @@
 package com.qezhhnjy.antq.quartz.mapper;
 
-import com.qezhhnjy.antq.quartz.entity.domain.JobAndTrigger;
+import com.qezhhnjy.antq.quartz.entity.JobAndTrigger;
 
 import java.util.List;
 
