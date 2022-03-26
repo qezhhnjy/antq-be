@@ -56,7 +56,6 @@ public class JobServiceImpl implements JobService {
 
     /**
      * 删除定时任务
-     * @param info
      */
     @Override
     public void deleteJob(JobAndTrigger jobAndTrigger) throws SchedulerException {
@@ -68,7 +67,6 @@ public class JobServiceImpl implements JobService {
 
     /**
      * 暂停定时任务
-     * @param info
      */
     @Override
     public void pauseJob(JobAndTrigger jobAndTrigger) throws SchedulerException {
@@ -77,7 +75,6 @@ public class JobServiceImpl implements JobService {
 
     /**
      * 恢复定时任务
-     * @param info
      */
     @Override
     public void resumeJob(JobAndTrigger jobAndTrigger) throws SchedulerException {
@@ -86,7 +83,6 @@ public class JobServiceImpl implements JobService {
 
     /**
      * 重新配置定时任务
-     * @param info
      */
     @Override
     public void cronJob(JobAndTrigger jobAndTrigger) throws Exception {
