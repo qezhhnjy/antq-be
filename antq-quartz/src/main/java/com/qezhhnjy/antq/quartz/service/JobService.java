@@ -21,7 +21,7 @@ public interface JobService {
      * @param form 表单参数 {@link JobInfo}
      * @throws Exception 异常
      */
-    void addJob(JobInfo form) throws Exception;
+    void addJob(JobInfo info) throws Exception;
 
     /**
      * 删除定时任务
@@ -29,7 +29,7 @@ public interface JobService {
      * @param form 表单参数 {@link JobInfo}
      * @throws SchedulerException 异常
      */
-    void deleteJob(JobInfo form) throws SchedulerException;
+    void deleteJob(JobAndTrigger jobAndTrigger) throws SchedulerException;
 
     /**
      * 暂停定时任务
@@ -37,7 +37,7 @@ public interface JobService {
      * @param form 表单参数 {@link JobInfo}
      * @throws SchedulerException 异常
      */
-    void pauseJob(JobInfo form) throws SchedulerException;
+    void pauseJob(JobAndTrigger jobAndTrigger) throws SchedulerException;
 
     /**
      * 恢复定时任务
@@ -45,7 +45,7 @@ public interface JobService {
      * @param form 表单参数 {@link JobInfo}
      * @throws SchedulerException 异常
      */
-    void resumeJob(JobInfo form) throws SchedulerException;
+    void resumeJob(JobAndTrigger jobAndTrigger) throws SchedulerException;
 
     /**
      * 重新配置定时任务
@@ -53,7 +53,7 @@ public interface JobService {
      * @param form 表单参数 {@link JobInfo}
      * @throws Exception 异常
      */
-    void cronJob(JobInfo form) throws Exception;
+    void cronJob(JobAndTrigger jobAndTrigger) throws Exception;
 
     /**
      * 查询定时任务列表
@@ -62,7 +62,7 @@ public interface JobService {
      * @param pageSize    每页条数
      * @return 定时任务列表
      */
-    PageInfo<JobAndTrigger> list(Query query);
+    PageInfo<JobAndTrigger> query(Query query);
 
     void test(String name);
 }

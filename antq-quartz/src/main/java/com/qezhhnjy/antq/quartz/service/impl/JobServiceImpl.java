@@ -56,39 +56,43 @@ public class JobServiceImpl implements JobService {
 
     /**
      * 删除定时任务
+     * @param info
      */
     @Override
-    public void deleteJob(JobInfo info) throws SchedulerException {
-        TriggerKey triggerKey = info.triggerKey();
+    public void deleteJob(JobAndTrigger jobAndTrigger) throws SchedulerException {
+        TriggerKey triggerKey = jobAndTrigger.triggerKey();
         scheduler.pauseTrigger(triggerKey);
         scheduler.unscheduleJob(triggerKey);
-        scheduler.deleteJob(info.jobKey());
+        scheduler.deleteJob(jobAndTrigger.jobKey());
     }
 
     /**
      * 暂停定时任务
+     * @param info
      */
     @Override
-    public void pauseJob(JobInfo info) throws SchedulerException {
-        scheduler.pauseJob(info.jobKey());
+    public void pauseJob(JobAndTrigger jobAndTrigger) throws SchedulerException {
+        scheduler.pauseJob(jobAndTrigger.jobKey());
     }
 
     /**
      * 恢复定时任务
+     * @param info
      */
     @Override
-    public void resumeJob(JobInfo info) throws SchedulerException {
-        scheduler.resumeJob(info.jobKey());
+    public void resumeJob(JobAndTrigger jobAndTrigger) throws SchedulerException {
+        scheduler.resumeJob(jobAndTrigger.jobKey());
     }
 
     /**
      * 重新配置定时任务
+     * @param info
      */
     @Override
-    public void cronJob(JobInfo info) throws Exception {
-        TriggerKey triggerKey = info.triggerKey();
+    public void cronJob(JobAndTrigger jobAndTrigger) throws Exception {
+        TriggerKey triggerKey = jobAndTrigger.triggerKey();
         // 表达式调度构建器
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(info.getCronExpression());
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(jobAndTrigger.getCronExpression());
         CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
         // 根据Cron表达式构建一个Trigger
         trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
@@ -100,9 +104,10 @@ public class JobServiceImpl implements JobService {
      * 查询定时任务列表
      */
     @Override
-    public PageInfo<JobAndTrigger> list(Query query) {
+    public PageInfo<JobAndTrigger> query(Query query) {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
         List<JobAndTrigger> list = jobMapper.list();
+        log.info("query list=>{}", list.size());
         return new PageInfo<>(list);
     }
 

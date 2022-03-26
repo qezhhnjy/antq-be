@@ -1,8 +1,8 @@
 package com.qezhhnjy.antq.quartz.entity;
 
 import lombok.Data;
-
-import java.math.BigInteger;
+import org.quartz.JobKey;
+import org.quartz.TriggerKey;
 
 /**
  * <p>
@@ -37,11 +37,11 @@ public class JobAndTrigger {
     /**
      * 重复间隔
      */
-    private BigInteger repeatInterval;
+    private Integer repeatInterval;
     /**
      * 触发次数
      */
-    private BigInteger timesTriggered;
+    private Integer timesTriggered;
     /**
      * cron 表达式
      */
@@ -54,4 +54,12 @@ public class JobAndTrigger {
      * 定时任务状态
      */
     private String triggerState;
+
+    public JobKey jobKey() {
+        return JobKey.jobKey(jobName, jobGroup);
+    }
+
+    public TriggerKey triggerKey() {
+        return TriggerKey.triggerKey(triggerName, triggerGroup);
+    }
 }

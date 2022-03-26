@@ -41,7 +41,6 @@ public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
                 exchange = exchange.mutate().request(request).build();
                 return chain.filter(exchange);
             }
-            log.info("uri=>{}", uri);
         }
         return chain.filter(exchange);
     }

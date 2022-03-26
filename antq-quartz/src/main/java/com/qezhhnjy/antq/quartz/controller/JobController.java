@@ -38,15 +38,15 @@ public class JobController {
     @PostMapping("add")
     public BaseResult<?> addJob(@RequestBody @Valid JobInfo info) throws Exception {
         jobService.addJob(info);
-        return BaseResult.success(info);
+        return BaseResult.success();
     }
 
     /**
      * 删除定时任务
      */
     @PostMapping("delete")
-    public BaseResult<?> deleteJob(@RequestBody @Valid JobInfo info) throws SchedulerException {
-        jobService.deleteJob(info);
+    public BaseResult<?> deleteJob(@RequestBody JobAndTrigger jobAndTrigger) throws SchedulerException {
+        jobService.deleteJob(jobAndTrigger);
         return BaseResult.success();
     }
 
@@ -54,8 +54,8 @@ public class JobController {
      * 暂停定时任务
      */
     @PostMapping("pause")
-    public BaseResult<?> pauseJob(@RequestBody @Valid JobInfo info) throws SchedulerException {
-        jobService.pauseJob(info);
+    public BaseResult<?> pauseJob(@RequestBody JobAndTrigger jobAndTrigger) throws SchedulerException {
+        jobService.pauseJob(jobAndTrigger);
         return BaseResult.success();
     }
 
@@ -63,8 +63,8 @@ public class JobController {
      * 恢复定时任务
      */
     @PostMapping("resume")
-    public BaseResult<?> resumeJob(@RequestBody @Valid JobInfo info) throws SchedulerException {
-        jobService.resumeJob(info);
+    public BaseResult<?> resumeJob(@RequestBody JobAndTrigger jobAndTrigger) throws SchedulerException {
+        jobService.resumeJob(jobAndTrigger);
         return BaseResult.success();
     }
 
@@ -72,14 +72,14 @@ public class JobController {
      * 修改定时任务，定时时间
      */
     @PostMapping("cron")
-    public BaseResult<?> cronJob(@RequestBody @Valid JobInfo info) throws Exception {
-        jobService.cronJob(info);
+    public BaseResult<?> cronJob(@RequestBody JobAndTrigger jobAndTrigger) throws Exception {
+        jobService.cronJob(jobAndTrigger);
         return BaseResult.success();
     }
 
-    @PostMapping("list")
-    public BaseResult<PageInfo<JobAndTrigger>> jobList(Query query) {
-        PageInfo<JobAndTrigger> pageInfo = jobService.list(query);
+    @PostMapping("query")
+    public BaseResult<PageInfo<JobAndTrigger>> query(Query query) {
+        PageInfo<JobAndTrigger> pageInfo = jobService.query(query);
         return BaseResult.success(pageInfo);
     }
 

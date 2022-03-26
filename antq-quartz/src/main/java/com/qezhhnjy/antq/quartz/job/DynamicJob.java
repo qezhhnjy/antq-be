@@ -4,11 +4,12 @@ import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
+import cn.hutool.json.JSONUtil;
 import com.qezhhnjy.antq.quartz.entity.JobInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
+import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import java.lang.reflect.Method;
 
@@ -17,10 +18,10 @@ import java.lang.reflect.Method;
  * @date 2022/3/26-22:16
  */
 @Slf4j
-public class DynamicJob implements Job {
+public class DynamicJob extends QuartzJobBean {
 
     @Override
-    public void execute(JobExecutionContext context) {
+    public void executeInternal(JobExecutionContext context) {
         JobDataMap dataMap = context.getMergedJobDataMap();
         String className = dataMap.get(JobInfo.DataTag.CLASS.name()).toString();
         String methodName = dataMap.get(JobInfo.DataTag.METHOD.name()).toString();
@@ -30,7 +31,7 @@ public class DynamicJob implements Job {
         if (StrUtil.isBlank(arg)) ReflectUtil.invoke(bean, method);
         else {
             Class<?>[] params = method.getParameterTypes();
-            Object argValue = null;
+            Object argValue;
             Class<?> param = params[0];
             if (param == String.class) {
                 argValue = arg;
@@ -48,6 +49,8 @@ public class DynamicJob implements Job {
                 argValue = Short.valueOf(arg);
             } else if (param == Byte.class) {
                 argValue = Byte.valueOf(arg);
+            } else {
+                argValue = JSONUtil.toBean(arg, param);
             }
             ReflectUtil.invoke(bean, method, argValue);
         }
