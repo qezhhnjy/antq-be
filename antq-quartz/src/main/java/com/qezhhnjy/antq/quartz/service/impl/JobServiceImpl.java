@@ -1,12 +1,12 @@
 package com.qezhhnjy.antq.quartz.service.impl;
 
+import cn.hutool.core.util.ClassUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.quartz.entity.domain.JobAndTrigger;
-import com.qezhhnjy.antq.quartz.entity.form.JobForm;
+import com.qezhhnjy.antq.quartz.entity.form.JobInfo;
 import com.qezhhnjy.antq.quartz.mapper.JobMapper;
 import com.qezhhnjy.antq.quartz.service.JobService;
-import com.qezhhnjy.antq.quartz.util.JobUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.springframework.stereotype.Service;
@@ -34,82 +34,76 @@ public class JobServiceImpl implements JobService {
     /**
      * 添加并启动定时任务
      *
-     * @param form 表单参数 {@link JobForm}
+     * @param info 表单参数 {@link JobInfo}
      * @return {@link JobDetail}
      * @throws Exception 异常
      */
     @Override
-    public void addJob(JobForm form) throws Exception {
+    public void addJob(JobInfo info) throws Exception {
         // 启动调度器
         scheduler.start();
-
         // 构建Job信息
-        JobDetail jobDetail = JobBuilder.newJob(JobUtil.getClass(form.getJobClassName()).getClass())
-                .withIdentity(form.getJobClassName(), form.getJobGroupName())
+        String identify = info.identify();
+        JobDetail jobDetail = JobBuilder.newJob(ClassUtil.loadClass(info.getJobClassName()))
+                .withIdentity(identify, info.getJobGroupName())
+                .setJobData(info.data())
                 .build();
-
         // Cron表达式调度构建器(即任务执行的时间)
-        CronScheduleBuilder cron = CronScheduleBuilder.cronSchedule(form.getCronExpression());
-
+        CronScheduleBuilder cron = CronScheduleBuilder.cronSchedule(info.getCronExpression());
         //根据Cron表达式构建一个Trigger
-        CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(form.getJobClassName(), form.getJobGroupName()).withSchedule(cron).build();
-
-        try {
-            scheduler.scheduleJob(jobDetail, trigger);
-        } catch (SchedulerException e) {
-            log.error("【定时任务】创建失败！", e);
-            throw new Exception("【定时任务】创建失败！");
-        }
-
+        CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(identify, info.getJobGroupName())
+                .withSchedule(cron)
+                .build();
+        scheduler.scheduleJob(jobDetail, trigger);
     }
 
     /**
      * 删除定时任务
      *
-     * @param form 表单参数 {@link JobForm}
+     * @param info 表单参数 {@link JobInfo}
      * @throws SchedulerException 异常
      */
     @Override
-    public void deleteJob(JobForm form) throws SchedulerException {
-        scheduler.pauseTrigger(TriggerKey.triggerKey(form.getJobClassName(), form.getJobGroupName()));
-        scheduler.unscheduleJob(TriggerKey.triggerKey(form.getJobClassName(), form.getJobGroupName()));
-        scheduler.deleteJob(JobKey.jobKey(form.getJobClassName(), form.getJobGroupName()));
+    public void deleteJob(JobInfo info) throws SchedulerException {
+        scheduler.pauseTrigger(TriggerKey.triggerKey(info.getJobClassName(), info.getJobGroupName()));
+        scheduler.unscheduleJob(TriggerKey.triggerKey(info.getJobClassName(), info.getJobGroupName()));
+        scheduler.deleteJob(JobKey.jobKey(info.getJobClassName(), info.getJobGroupName()));
     }
 
     /**
      * 暂停定时任务
      *
-     * @param form 表单参数 {@link JobForm}
+     * @param info 表单参数 {@link JobInfo}
      * @throws SchedulerException 异常
      */
     @Override
-    public void pauseJob(JobForm form) throws SchedulerException {
-        scheduler.pauseJob(JobKey.jobKey(form.getJobClassName(), form.getJobGroupName()));
+    public void pauseJob(JobInfo info) throws SchedulerException {
+        scheduler.pauseJob(JobKey.jobKey(info.getJobClassName(), info.getJobGroupName()));
     }
 
     /**
      * 恢复定时任务
      *
-     * @param form 表单参数 {@link JobForm}
+     * @param info 表单参数 {@link JobInfo}
      * @throws SchedulerException 异常
      */
     @Override
-    public void resumeJob(JobForm form) throws SchedulerException {
-        scheduler.resumeJob(JobKey.jobKey(form.getJobClassName(), form.getJobGroupName()));
+    public void resumeJob(JobInfo info) throws SchedulerException {
+        scheduler.resumeJob(JobKey.jobKey(info.getJobClassName(), info.getJobGroupName()));
     }
 
     /**
      * 重新配置定时任务
      *
-     * @param form 表单参数 {@link JobForm}
+     * @param info 表单参数 {@link JobInfo}
      * @throws Exception 异常
      */
     @Override
-    public void cronJob(JobForm form) throws Exception {
+    public void cronJob(JobInfo info) throws Exception {
         try {
-            TriggerKey triggerKey = TriggerKey.triggerKey(form.getJobClassName(), form.getJobGroupName());
+            TriggerKey triggerKey = TriggerKey.triggerKey(info.getJobClassName(), info.getJobGroupName());
             // 表达式调度构建器
-            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(form.getCronExpression());
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(info.getCronExpression());
 
             CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
 
@@ -136,5 +130,10 @@ public class JobServiceImpl implements JobService {
         PageHelper.startPage(currentPage, pageSize);
         List<JobAndTrigger> list = jobMapper.list();
         return new PageInfo<>(list);
+    }
+
+    @Override
+    public void test(String name) {
+        log.info("test name=>{}", name);
     }
 }

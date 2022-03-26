@@ -1,8 +1,10 @@
 package com.qezhhnjy.antq.quartz;
 
+import cn.hutool.extra.spring.SpringUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
 /**
  * <p>
@@ -14,6 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan(basePackages = "com.qezhhnjy.antq.quartz.mapper")
+@Import(SpringUtil.class)
 public class AntqQuartzApplication {
 
     public static void main(String[] args) {

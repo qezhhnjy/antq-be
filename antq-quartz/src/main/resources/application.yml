@@ -42,7 +42,7 @@ pagehelper:
   params: count=countSql
 
 mybatis-plus:
-  mapper-locations: classpath:mappers/*.xml
+  mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.qezhhnjy.antq.quartz.entity
   global-config:
     db-config:

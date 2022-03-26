@@ -2,7 +2,7 @@ package com.qezhhnjy.antq.quartz.service;
 
 import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.quartz.entity.domain.JobAndTrigger;
-import com.qezhhnjy.antq.quartz.entity.form.JobForm;
+import com.qezhhnjy.antq.quartz.entity.form.JobInfo;
 import org.quartz.SchedulerException;
 
 /**
@@ -17,42 +17,42 @@ public interface JobService {
     /**
      * 添加并启动定时任务
      *
-     * @param form 表单参数 {@link JobForm}
+     * @param form 表单参数 {@link JobInfo}
      * @throws Exception 异常
      */
-    void addJob(JobForm form) throws Exception;
+    void addJob(JobInfo form) throws Exception;
 
     /**
      * 删除定时任务
      *
-     * @param form 表单参数 {@link JobForm}
+     * @param form 表单参数 {@link JobInfo}
      * @throws SchedulerException 异常
      */
-    void deleteJob(JobForm form) throws SchedulerException;
+    void deleteJob(JobInfo form) throws SchedulerException;
 
     /**
      * 暂停定时任务
      *
-     * @param form 表单参数 {@link JobForm}
+     * @param form 表单参数 {@link JobInfo}
      * @throws SchedulerException 异常
      */
-    void pauseJob(JobForm form) throws SchedulerException;
+    void pauseJob(JobInfo form) throws SchedulerException;
 
     /**
      * 恢复定时任务
      *
-     * @param form 表单参数 {@link JobForm}
+     * @param form 表单参数 {@link JobInfo}
      * @throws SchedulerException 异常
      */
-    void resumeJob(JobForm form) throws SchedulerException;
+    void resumeJob(JobInfo form) throws SchedulerException;
 
     /**
      * 重新配置定时任务
      *
-     * @param form 表单参数 {@link JobForm}
+     * @param form 表单参数 {@link JobInfo}
      * @throws Exception 异常
      */
-    void cronJob(JobForm form) throws Exception;
+    void cronJob(JobInfo form) throws Exception;
 
     /**
      * 查询定时任务列表
@@ -62,4 +62,6 @@ public interface JobService {
      * @return 定时任务列表
      */
     PageInfo<JobAndTrigger> list(Integer currentPage, Integer pageSize);
+
+    void test(String name);
 }

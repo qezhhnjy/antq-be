@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.quartz.common.ApiResponse;
 import com.qezhhnjy.antq.quartz.entity.domain.JobAndTrigger;
-import com.qezhhnjy.antq.quartz.entity.form.JobForm;
+import com.qezhhnjy.antq.quartz.entity.form.JobInfo;
 import com.qezhhnjy.antq.quartz.service.JobService;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.SchedulerException;
@@ -40,14 +40,13 @@ public class JobController {
      * 保存定时任务
      */
     @PostMapping
-    public ResponseEntity<ApiResponse> addJob(@Valid JobForm form) {
+    public ResponseEntity<ApiResponse> addJob(@RequestBody @Valid JobInfo info) {
         try {
-            jobService.addJob(form);
+            jobService.addJob(info);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return new ResponseEntity<>(ApiResponse.msg(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
         return new ResponseEntity<>(ApiResponse.msg("操作成功"), HttpStatus.CREATED);
     }
 
@@ -55,7 +54,7 @@ public class JobController {
      * 删除定时任务
      */
     @DeleteMapping
-    public ResponseEntity<ApiResponse> deleteJob(JobForm form) throws SchedulerException {
+    public ResponseEntity<ApiResponse> deleteJob(JobInfo form) throws SchedulerException {
         if (StrUtil.hasBlank(form.getJobGroupName(), form.getJobClassName())) {
             return new ResponseEntity<>(ApiResponse.msg("参数不能为空"), HttpStatus.BAD_REQUEST);
         }
@@ -68,7 +67,7 @@ public class JobController {
      * 暂停定时任务
      */
     @PutMapping(params = "pause")
-    public ResponseEntity<ApiResponse> pauseJob(JobForm form) throws SchedulerException {
+    public ResponseEntity<ApiResponse> pauseJob(JobInfo form) throws SchedulerException {
         if (StrUtil.hasBlank(form.getJobGroupName(), form.getJobClassName())) {
             return new ResponseEntity<>(ApiResponse.msg("参数不能为空"), HttpStatus.BAD_REQUEST);
         }
@@ -81,7 +80,7 @@ public class JobController {
      * 恢复定时任务
      */
     @PutMapping(params = "resume")
-    public ResponseEntity<ApiResponse> resumeJob(JobForm form) throws SchedulerException {
+    public ResponseEntity<ApiResponse> resumeJob(JobInfo form) throws SchedulerException {
         if (StrUtil.hasBlank(form.getJobGroupName(), form.getJobClassName())) {
             return new ResponseEntity<>(ApiResponse.msg("参数不能为空"), HttpStatus.BAD_REQUEST);
         }
@@ -94,7 +93,7 @@ public class JobController {
      * 修改定时任务，定时时间
      */
     @PutMapping(params = "cron")
-    public ResponseEntity<ApiResponse> cronJob(@Valid JobForm form) {
+    public ResponseEntity<ApiResponse> cronJob(@Valid JobInfo form) {
         try {
             jobService.cronJob(form);
         } catch (Exception e) {
