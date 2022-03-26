@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>antq-algorihtm</artifactId>
+  <artifactId>antq-algorithm</artifactId>
 
   <properties>
     <maven.compiler.source>14</maven.compiler.source>
