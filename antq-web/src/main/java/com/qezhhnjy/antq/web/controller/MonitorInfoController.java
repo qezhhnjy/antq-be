@@ -1,8 +1,9 @@
 package com.qezhhnjy.antq.web.controller;
 
-import cn.hutool.json.JSONUtil;
+import cn.hutool.core.collection.CollUtil;
 import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.common.vo.sys.MemoryInfo;
+import com.qezhhnjy.antq.entity.RedisInfo;
 import com.qezhhnjy.antq.web.feign.GatewayService;
 import com.qezhhnjy.antq.web.feign.MonitorService;
 import com.qezhhnjy.antq.web.feign.OauthService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -54,17 +56,16 @@ public class MonitorInfoController {
     }
 
     @GetMapping("/redis")
-    public BaseResult<?> redis() {
+    public BaseResult<List<RedisInfo>> redis() {
         RedisConnectionFactory factory = redisTemplate.getConnectionFactory();
         if (factory != null) {
             Properties info = factory.getConnection().info();
-            return BaseResult.success(info);
+            if (CollUtil.isNotEmpty(info)) {
+                List<RedisInfo> result = new ArrayList<>();
+                info.forEach((prop, value) -> result.add(RedisInfo.populate(prop, value)));
+                return BaseResult.success(result);
+            }
         }
         return BaseResult.error("Redis连接异常");
-    }
-
-    public static void main(String[] args) {
-        SystemInfo info = SystemInfo.info();
-        System.out.println(JSONUtil.toJsonPrettyStr(info));
     }
 }

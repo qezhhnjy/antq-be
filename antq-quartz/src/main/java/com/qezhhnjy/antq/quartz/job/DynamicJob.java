@@ -35,7 +35,6 @@ public class DynamicJob extends QuartzJobBean {
             quartzLog.setJobGroup(jobKey.getGroup());
             quartzLog.setJobName(jobKey.getName());
             watch.start();
-            log.info("this=>{}", this);
             JobDataMap dataMap = context.getMergedJobDataMap();
             String className = dataMap.get(JobInfo.DataTag.CLASS.name()).toString();
             String methodName = dataMap.get(JobInfo.DataTag.METHOD.name()).toString();
