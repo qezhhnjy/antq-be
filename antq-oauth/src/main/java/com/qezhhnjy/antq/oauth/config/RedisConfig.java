@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.qezhhnjy.antq.common.consts.Const;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -16,7 +18,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
@@ -37,6 +38,7 @@ import java.util.Arrays;
  */
 @Configuration
 @EnableCaching
+@AutoConfigureAfter(RedisAutoConfiguration.class)
 public class RedisConfig extends CachingConfigurerSupport {
 
     /**
@@ -46,7 +48,37 @@ public class RedisConfig extends CachingConfigurerSupport {
     public RedisTemplate<String, Serializable> redisTemplate(LettuceConnectionFactory factory) {
         RedisTemplate<String, Serializable> template = new RedisTemplate<>();
         template.setConnectionFactory(factory);
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 
+        template.setKeySerializer(stringRedisSerializer);
+        template.setValueSerializer(genericJackson2JsonRedisSerializer());
+
+        template.setHashKeySerializer(stringRedisSerializer);
+        template.setHashValueSerializer(genericJackson2JsonRedisSerializer());
+        return template;
+    }
+
+    /**
+     * 配置使用注解的时候缓存配置，默认是序列化反序列化的形式，加上此配置则为 json 形式
+     */
+    @Bean
+    public CacheManager cacheManager(LettuceConnectionFactory factory) {
+        // 配置序列化
+        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(600))
+                .computePrefixWith((name) -> String.format("%s::%s::", Const.COMPANY_ID, name))
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(genericJackson2JsonRedisSerializer()));
+        return RedisCacheManager.builder(factory).cacheDefaults(redisCacheConfiguration).build();
+    }
+
+    @Override
+    public KeyGenerator keyGenerator() {
+        return (o, method, args) ->
+                String.format("%s#%s#%s", o.getClass().getSimpleName(), method.getName(), Arrays.toString(args));
+    }
+
+    public static GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer() {
         // 解决jackson2无法反序列化LocalDateTime的问题
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
@@ -55,44 +87,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,
                 ObjectMapper.DefaultTyping.NON_FINAL,
                 JsonTypeInfo.As.WRAPPER_ARRAY);
-
-        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-        GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer(om);
-
-        template.setKeySerializer(stringRedisSerializer);
-        template.setValueSerializer(genericJackson2JsonRedisSerializer);
-
-        template.setHashKeySerializer(stringRedisSerializer);
-        template.setHashValueSerializer(genericJackson2JsonRedisSerializer);
-        return template;
-    }
-
-    /**
-     * 配置使用注解的时候缓存配置，默认是序列化反序列化的形式，加上此配置则为 json 形式
-     */
-    @Bean
-    public CacheManager cacheManager(RedisConnectionFactory factory) {
-        // 配置序列化
-        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
-        // 解决jackson2无法反序列化LocalDateTime的问题
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        om.registerModule(new JavaTimeModule());
-        om.activateDefaultTyping(om.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-
-        RedisCacheConfiguration redisCacheConfiguration = config
-                .entryTtl(Duration.ofSeconds(600))
-                .computePrefixWith((name) -> String.format("%s::%s::", Const.COMPANY_ID, name))
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer(om)));
-        return RedisCacheManager.builder(factory).cacheDefaults(redisCacheConfiguration).build();
-    }
-
-    @Override
-    public KeyGenerator keyGenerator() {
-        return (o, method, args) ->
-                String.format("%s#%s#%s", o.getClass().getSimpleName(), method.getName(), Arrays.toString(args));
+        return new GenericJackson2JsonRedisSerializer(om);
     }
 
 }

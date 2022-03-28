@@ -7,6 +7,10 @@ import com.qezhhnjy.antq.entity.sys.Blog;
 import com.qezhhnjy.antq.entity.sys.User;
 import com.qezhhnjy.antq.oauth.holder.LoginUserHolder;
 import com.qezhhnjy.antq.service.sys.BlogService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/blog")
+@CacheConfig(cacheNames = "blog")
 public class BlogController {
 
     @Resource
@@ -27,6 +32,7 @@ public class BlogController {
     private LoginUserHolder loginUserHolder;
 
     @PostMapping("/add")
+    @CachePut(key = "#blog.id")
     public BaseResult<Void> add(@RequestBody Blog blog) {
         blog.setEditTime(LocalDateTime.now());
         blogService.lambdaQuery().eq(Blog::getTitle, blog.getTitle())
@@ -44,12 +50,14 @@ public class BlogController {
     }
 
     @DeleteMapping("/delete")
+    @CacheEvict(beforeInvocation = true, key = "#id")
     public BaseResult<Void> delete(Long id) {
         blogService.removeById(id);
         return BaseResult.success();
     }
 
     @PutMapping("/update")
+    @CacheEvict(beforeInvocation = true, key = "#blog.id")
     public BaseResult<Void> update(@RequestBody Blog blog) {
         blog.setEditTime(LocalDateTime.now());
         blogService.updateById(blog);
@@ -71,7 +79,8 @@ public class BlogController {
     }
 
     @GetMapping("/detail")
-    public BaseResult<Blog> detail(String id) {
+    @Cacheable(key = "#id")
+    public BaseResult<Blog> detail(Long id) {
         return BaseResult.success(blogService.getById(id));
     }
 
