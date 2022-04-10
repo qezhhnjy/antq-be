@@ -220,4 +220,5 @@ vim    /etc/fstab
 
 - [ ] `seata`分布式事务处理器
 - [ ] `druid`监控
+- [ ] [easy rule](https://github.com/j-easy/easy-rules) 规则引擎
 - [ ] 其他...

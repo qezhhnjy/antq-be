@@ -63,6 +63,7 @@ public class MonitorInfoController {
             if (CollUtil.isNotEmpty(info)) {
                 List<RedisInfo> result = new ArrayList<>();
                 info.forEach((prop, value) -> result.add(RedisInfo.populate(prop, value)));
+                result.sort((o1, o2) -> o1.getProp().compareToIgnoreCase(o2.getProp()));
                 return BaseResult.success(result);
             }
         }

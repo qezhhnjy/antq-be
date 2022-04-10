@@ -17,12 +17,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 /**
- * <p>
  * Job Controller
- * </p>
- *
- * @author yangkai.shen
- * @date Created in 2018-11-26 13:23
  */
 @RestController
 @RequestMapping("/job")

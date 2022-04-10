@@ -36,6 +36,7 @@
     <minio.version>8.0.3</minio.version>
     <jimureport.version>1.4.2</jimureport.version>
     <arthas.version>3.5.6</arthas.version>
+    <ip2region.version>1.7.2</ip2region.version>
   </properties>
 
   <dependencyManagement>
@@ -156,6 +157,11 @@
         <groupId>com.taobao.arthas</groupId>
         <artifactId>arthas-spring-boot-starter</artifactId>
         <version>${arthas.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.lionsoul</groupId>
+        <artifactId>ip2region</artifactId>
+        <version>${ip2region.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

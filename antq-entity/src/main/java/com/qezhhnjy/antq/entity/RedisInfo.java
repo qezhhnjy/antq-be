@@ -113,7 +113,7 @@ public class RedisInfo {
 
     public static RedisInfo populate(Object prop, Object value) {
         RedisInfo info = new RedisInfo();
-        info.setProp(String.valueOf(prop));
+        info.setProp(String.valueOf(prop).toUpperCase());
         info.setValue(String.valueOf(value));
         info.setDesc(MAP.get(String.valueOf(prop)));
         return info;

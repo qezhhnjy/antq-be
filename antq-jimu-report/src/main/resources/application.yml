@@ -1,32 +1,32 @@
 server:
-  port: 10001
+  port: 11005
 
 spring:
-  #配置静态资源
-  mvc:
-    static-path-pattern: /**
-  resource:
-    static-locations: classpath:/static/
+#  #配置静态资源
+#  mvc:
+#    static-path-pattern: /**
+#  resource:
+#    static-locations: classpath:/static/
   #配置数据库
   datasource:
     url: jdbc:mysql://120.26.168.94:3306/antq?serverTimezone=Asia/Shanghai&useUnicode=true&useSSL=false&characterEncoding=utf8
     username: root
     password: Fu214849135sl
     driver-class-name: com.mysql.cj.jdbc.Driver
-#JimuReport[minidao配置]
-minidao:
-  base-package: org.jeecg.modules.jmreport.desreport.dao*
-  db-type: mysql
-#JimuReport[上传配置]
-jeecg:
-  jmreport:
-    # 自动保存
-    autoSave: true
-    # 单位毫秒 默认5*60*1000
-    interval: 10000
-  # local|minio|alioss
-  uploadType: local
-  # local
-  path:
-    #文件路径
-    upload: D:\images
+##JimuReport[minidao配置]
+#minidao:
+#  base-package: org.jeecg.modules.jmreport.desreport.dao*
+#  db-type: mysql
+##JimuReport[上传配置]
+#jeecg:
+#  jmreport:
+#    # 自动保存
+#    autoSave: true
+#    # 单位毫秒 默认5*60*1000
+#    interval: 10000
+#  # local|minio|alioss
+#  uploadType: local
+#  # local
+#  path:
+#    #文件路径
+#    upload: D:\images

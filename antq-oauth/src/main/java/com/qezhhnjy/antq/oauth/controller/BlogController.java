@@ -9,7 +9,6 @@ import com.qezhhnjy.antq.oauth.holder.LoginUserHolder;
 import com.qezhhnjy.antq.service.sys.BlogService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +31,6 @@ public class BlogController {
     private LoginUserHolder loginUserHolder;
 
     @PostMapping("/add")
-    @CachePut(key = "#blog.id")
     public BaseResult<Void> add(@RequestBody Blog blog) {
         blog.setEditTime(LocalDateTime.now());
         blogService.lambdaQuery().eq(Blog::getTitle, blog.getTitle())
