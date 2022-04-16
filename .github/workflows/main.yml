@@ -40,13 +40,15 @@ jobs:
           mv ./antq-oauth/target/antq-oauth-1.0-SNAPSHOT.jar ./compress/
           mv ./antq-web/target/antq-web-1.0-SNAPSHOT.jar ./compress/
           tar -zcvf compress.tar.gz compress/
+          echo ${{secrets.ECS_IP}}
+          echo ${{ secrets.ECS_IP }}
       - name: Scp file to aliyun
         uses: appleboy/scp-action@master
         with:
-          host: ${{secrets.ECS_IP}}
-          port: ${{secrets.ECS_SSH_PORT}}
-          username: ${{secrets.ECS_USER}}
-          password: ${{secrets.ECS_PASSWORD}}
+          host: ${{ secrets.ECS_IP }}
+          port: ${{ secrets.ECS_SSH_PORT }}
+          username: ${{ secrets.ECS_USER }}
+          password: ${{ secrets.ECS_PASSWORD }}
           source: "compress.tar.gz"
           target: "/data"
 
