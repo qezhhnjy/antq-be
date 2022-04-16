@@ -1,0 +1,52 @@
+# 用于定义一个workflow的名词，如果省略该字段，默认为workflow的文件名
+name: antq-main CI/CD
+# 指的是触发workflow的条件，通常是指某些事件，比如 pull，push，pull request，start，fork等，都可以触发我们的workflow.
+# 例如下面代码是项目 master分支有push提交时触发
+on:
+  push:
+    branches:
+      - main
+# workflow文件的主体是由一个个job构成，表示要执行的一个或多个任务
+# jobs字段中，需要写出每一项任务的job_id
+jobs:
+  Explore-GitHub-Actions:
+  #  main_job:
+#    name: Main Job
+# runs-on字段表示运行所需的虚拟机环境，它是一个必填字段，目前有如下可以提供
+# ubuntu-latest，ubuntu-18.04或ubuntu-16.04
+# windows-latest，windows-2019或windows-2016
+# macOS-latest或macOS-10.14
+    runs-on: ubuntu-latest
+# steps字段指定了每个job的运行步骤，可以包含多个步骤，并且每个步骤都可以指定以下字段
+# steps.name：步骤名称
+# steps.run：步骤运行的命令或者action
+# steps.env：步骤所需的环境变量
+    steps:
+      - uses: actions/checkout@main
+        with:
+          ref: main
+      - name: Set up JDK 1.14
+        uses: actions@setup-java@v1
+        with:
+          java-version: 1.14
+      - name: jar package
+        run: |
+          mvn clean install
+      - name: move and compress jar
+        run: |
+          mkdir -p compress
+          mv ./antq_gateway/target/antq_gateway-0.0.1-SNAPSHOT.jar ./compress/
+          mv ./antq_monitor/target/antq_monitor-0.0.1-SNAPSHOT.jar ./compress/
+          mv ./antq_oauth/target/antq_oauth-0.0.1-SNAPSHOT.jar ./compress/
+          mv ./antq_web/target/antq_web-0.0.1-SNAPSHOT.jar ./compress/
+          tar -zcvf compress.tar.gz compress/
+      - name: Scp file to aliyun
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{secrets.ECS_IP}}
+          port: ${{secrets.ECS_SSH_PORT}}
+          username: ${{secrets.ECS_USER}}
+          password: ${{secrets.ECS_PASSWORD}}
+          source: "compress.tar.gz"
+          target: "/data"
+
