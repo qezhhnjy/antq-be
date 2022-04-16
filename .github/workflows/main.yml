@@ -57,6 +57,7 @@ jobs:
           username: ${{ secrets.ECS_USER }}
           password: ${{ secrets.ECS_PASSWORD }}
           script: |
+            cd /data
             echo "jar backup begin==============================================="
             if [ -f "/data/antq-gateway-1.0-SNAPSHOT.jar" ];then
               mv /data/antq-gateway-1.0-SNAPSHOT.jar /data/antq-gateway-1.0-SNAPSHOT.jar.bak
