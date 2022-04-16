@@ -81,4 +81,5 @@ jobs:
             nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-oauth-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
             nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-web-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
             nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-monitor-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
+            ps -ef | grep antq
 
