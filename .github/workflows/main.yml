@@ -37,7 +37,7 @@ jobs:
           mkdir -p compress
           mv ./antq-gateway/target/antq-gateway-1.0-SNAPSHOT.jar ./compress/
           mv ./antq-monitor/target/antq-monitor-1.0-SNAPSHOT.jar ./compress/
-          mv ./antq-auth/target/antq-oauth-1.0-SNAPSHOT.jar ./compress/
+          mv ./antq-oauth/target/antq-oauth-1.0-SNAPSHOT.jar ./compress/
           mv ./antq-web/target/antq-web-1.0-SNAPSHOT.jar ./compress/
           tar -zcvf compress.tar.gz compress/
       - name: Scp file to aliyun
