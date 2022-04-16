@@ -9,9 +9,9 @@ on:
 # workflow文件的主体是由一个个job构成，表示要执行的一个或多个任务
 # jobs字段中，需要写出每一项任务的job_id
 jobs:
-  Explore-GitHub-Actions:
-  #  main_job:
-#    name: Main Job
+#  Explore-GitHub-Actions:
+  main_job:
+    name: Main Job
 # runs-on字段表示运行所需的虚拟机环境，它是一个必填字段，目前有如下可以提供
 # ubuntu-latest，ubuntu-18.04或ubuntu-16.04
 # windows-latest，windows-2019或windows-2016
@@ -26,7 +26,7 @@ jobs:
         with:
           ref: main
       - name: Set up JDK 1.14
-        uses: actions@setup-java@v1
+        uses: actions/setup-java@v1
         with:
           java-version: 1.14
       - name: jar package
