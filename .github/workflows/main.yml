@@ -31,7 +31,7 @@ jobs:
           java-version: 1.14
       - name: jar package
         run: |
-          mvn clean install
+          mvn clean install -DskipTests
       - name: move and compress jar
         run: |
           mkdir -p compress
