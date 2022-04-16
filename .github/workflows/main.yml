@@ -72,6 +72,7 @@ jobs:
               mv antq-web-1.0-SNAPSHOT.jar antq-web-1.0-SNAPSHOT.jar.bak
             fi
             tar -zxvf compress.tar.gz
+            mv compress/* ./
             ps -ef | grep antq-gateway | grep -v grep | awk '{print $2}' | xargs kill -9
             ps -ef | grep antq-oauth   | grep -v grep | awk '{print $2}' | xargs kill -9
             ps -ef | grep antq-web     | grep -v grep | awk '{print $2}' | xargs kill -9
@@ -81,5 +82,6 @@ jobs:
             nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-oauth-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
             nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-web-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
             nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-monitor-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
-            ps -ef | grep antq
+            rm -rf compress
+            rm -f compress.tar.gz
 
