@@ -50,7 +50,7 @@ jobs:
           source: "compress.tar.gz"
           target: "/data"
       - name: Distribution and Backup
-        uses: appleboy/scp-action@master
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.ECS_IP }}
           port: ${{ secrets.ECS_SSH_PORT }}
@@ -59,20 +59,26 @@ jobs:
           script: |
             cd /data
             echo "jar backup begin==============================================="
-            if [ -f "/data/antq-gateway-1.0-SNAPSHOT.jar" ];then
-              mv /data/antq-gateway-1.0-SNAPSHOT.jar /data/antq-gateway-1.0-SNAPSHOT.jar.bak
+            if [ -f "antq-gateway-1.0-SNAPSHOT.jar" ];then
+              mv antq-gateway-1.0-SNAPSHOT.jar antq-gateway-1.0-SNAPSHOT.jar.bak
             fi
-            if [ -f "/data/antq-oauth-1.0-SNAPSHOT.jar" ];then
-              mv /data/antq-oauth-1.0-SNAPSHOT.jar /data/antq-oauth-1.0-SNAPSHOT.jar.bak
+            if [ -f "antq-oauth-1.0-SNAPSHOT.jar" ];then
+              mv antq-oauth-1.0-SNAPSHOT.jar antq-oauth-1.0-SNAPSHOT.jar.bak
             fi
-            if [ -f "/data/antq-monitor-1.0-SNAPSHOT.jar" ];then
-              mv /data/antq-monitor-1.0-SNAPSHOT.jar /data/antq-monitor-1.0-SNAPSHOT.jar.bak
+            if [ -f "antq-monitor-1.0-SNAPSHOT.jar" ];then
+              mv antq-monitor-1.0-SNAPSHOT.jar antq-monitor-1.0-SNAPSHOT.jar.bak
             fi
-            if [ -f "/data/antq-web-1.0-SNAPSHOT.jar" ];then
-              mv /data/antq-web-1.0-SNAPSHOT.jar /data/antq-web-1.0-SNAPSHOT.jar.bak
+            if [ -f "antq-web-1.0-SNAPSHOT.jar" ];then
+              mv antq-web-1.0-SNAPSHOT.jar antq-web-1.0-SNAPSHOT.jar.bak
             fi
-            tar -zxvf /data/compress.tar.gz
-            /bin/bash /data/nohup.sh
-            ps -ef | grep antq
-
+            tar -zxvf compress.tar.gz
+            ps -ef | grep antq-gateway | grep -v grep | awk '{print $2}' | xargs kill -9
+            ps -ef | grep antq-oauth   | grep -v grep | awk '{print $2}' | xargs kill -9
+            ps -ef | grep antq-web     | grep -v grep | awk '{print $2}' | xargs kill -9
+            ps -ef | grep antq-monitor | grep -v grep | awk '{print $2}' | xargs kill -9
+            sleep 2s
+            nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-gateway-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
+            nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-oauth-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
+            nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-web-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
+            nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-monitor-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
 
