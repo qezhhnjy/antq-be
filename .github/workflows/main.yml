@@ -57,22 +57,21 @@ jobs:
           username: ${{ secrets.ECS_USER }}
           password: ${{ secrets.ECS_PASSWORD }}
           script: |
-            cd /data
             echo "jar backup begin==============================================="
-            if [ -f "antq-gateway-1.0-SNAPSHOT.jar" ];then
-              mv antq-gateway-1.0-SNAPSHOT.jar antq-gateway-1.0-SNAPSHOT.jar.bak
+            if [ -f "/data/antq-gateway-1.0-SNAPSHOT.jar" ];then
+              mv /data/antq-gateway-1.0-SNAPSHOT.jar /data/antq-gateway-1.0-SNAPSHOT.jar.bak
             fi
-            if [ -f "antq-oauth-1.0-SNAPSHOT.jar" ];then
-              mv antq-oauth-1.0-SNAPSHOT.jar antq-oauth-1.0-SNAPSHOT.jar.bak
+            if [ -f "/data/antq-oauth-1.0-SNAPSHOT.jar" ];then
+              mv /data/antq-oauth-1.0-SNAPSHOT.jar /data/antq-oauth-1.0-SNAPSHOT.jar.bak
             fi
-            if [ -f "antq-monitor-1.0-SNAPSHOT.jar" ];then
-              mv antq-monitor-1.0-SNAPSHOT.jar antq-monitor-1.0-SNAPSHOT.jar.bak
+            if [ -f "/data/antq-monitor-1.0-SNAPSHOT.jar" ];then
+              mv /data/antq-monitor-1.0-SNAPSHOT.jar /data/antq-monitor-1.0-SNAPSHOT.jar.bak
             fi
-            if [ -f "antq-web-1.0-SNAPSHOT.jar" ];then
-              mv antq-web-1.0-SNAPSHOT.jar antq-web-1.0-SNAPSHOT.jar.bak
+            if [ -f "/data/antq-web-1.0-SNAPSHOT.jar" ];then
+              mv /data/antq-web-1.0-SNAPSHOT.jar /data/antq-web-1.0-SNAPSHOT.jar.bak
             fi
-            tar -zxvf compress.tar.gz
-            ./nohup.sh
+            tar -zxvf /data/compress.tar.gz
+            /bin/bash /data/nohup.sh
             ps -ef | grep antq
 
 
