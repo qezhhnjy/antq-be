@@ -22,6 +22,7 @@
     <module>antq-jimu-report</module>
     <module>antq-flowable</module>
     <module>antq-quartz</module>
+    <module>antq-IM</module>
   </modules>
 
   <properties>
@@ -37,6 +38,8 @@
     <jimureport.version>1.4.2</jimureport.version>
     <arthas.version>3.5.6</arthas.version>
     <ip2region.version>1.7.2</ip2region.version>
+    <netty.version>4.1.76.Final</netty.version>
+    <netty.socketio.version>1.7.19</netty.socketio.version>
   </properties>
 
   <dependencyManagement>
@@ -139,6 +142,11 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
+        <groupId>com.qezhhnjy</groupId>
+        <artifactId>antq-IM</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
         <groupId>com.github.oshi</groupId>
         <artifactId>oshi-core</artifactId>
         <version>${oshi.version}</version>
@@ -162,6 +170,16 @@
         <groupId>org.lionsoul</groupId>
         <artifactId>ip2region</artifactId>
         <version>${ip2region.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>${netty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.corundumstudio.socketio</groupId>
+        <artifactId>netty-socketio</artifactId>
+        <version>${netty.socketio.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

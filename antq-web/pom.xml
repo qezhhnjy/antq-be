@@ -71,6 +71,10 @@
       <groupId>com.qezhhnjy</groupId>
       <artifactId>antq-quartz</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.qezhhnjy</groupId>
+      <artifactId>antq-IM</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

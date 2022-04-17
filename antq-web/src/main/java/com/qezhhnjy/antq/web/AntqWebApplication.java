@@ -1,7 +1,10 @@
 package com.qezhhnjy.antq.web;
 
 import cn.hutool.extra.spring.SpringUtil;
+import com.qezhhnjy.antq.im.server.NioWebSocketServer;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -17,9 +20,15 @@ import org.springframework.context.annotation.Import;
 @EnableDiscoveryClient
 @EnableFeignClients
 @Import(SpringUtil.class)
-public class AntqWebApplication {
+@Slf4j
+public class AntqWebApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(AntqWebApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        NioWebSocketServer.init();
     }
 }
