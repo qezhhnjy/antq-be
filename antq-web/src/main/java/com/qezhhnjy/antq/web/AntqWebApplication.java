@@ -1,7 +1,6 @@
 package com.qezhhnjy.antq.web;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.qezhhnjy.antq.im.server.NioWebSocketServer;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
@@ -29,6 +28,5 @@ public class AntqWebApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        NioWebSocketServer.init();
     }
 }

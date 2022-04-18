@@ -1,5 +1,9 @@
 package com.qezhhnjy.antq.im.server;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qezhhnjy.antq.entity.im.Message;
+import com.qezhhnjy.antq.service.im.MessageService;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
@@ -10,23 +14,29 @@ import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @author zhaoyangfu
  * @date 2022/4/17-18:34
  */
 @Slf4j
+@Component
 public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
 
     private WebSocketServerHandshaker handShaker;
+    @Resource
+    private MessageService            messageService;
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.info("收到消息："+msg);
-        if (msg instanceof FullHttpRequest){
+        log.info("收到消息：" + msg);
+        if (msg instanceof FullHttpRequest) {
             //以http请求形式接入，但是走的是websocket
             handleHttpRequest(ctx, (FullHttpRequest) msg);
-        }else if (msg instanceof  WebSocketFrame){
+        } else if (msg instanceof WebSocketFrame) {
             //处理websocket客户端的消息
             handlerWebSocketFrame(ctx, (WebSocketFrame) msg);
         }
@@ -35,14 +45,14 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         //添加连接
-        log.info("客户端加入连接："+ctx.channel());
+        log.info("客户端加入连接：" + ctx.channel());
         ChannelSupervise.addChannel(ctx.channel());
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         //断开连接
-        log.info("客户端断开连接："+ctx.channel());
+        log.info("客户端断开连接：" + ctx.channel());
         ChannelSupervise.removeChannel(ctx.channel());
     }
 
@@ -50,7 +60,8 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         ctx.flush();
     }
-    private void handlerWebSocketFrame(ChannelHandlerContext ctx, WebSocketFrame frame){
+
+    private void handlerWebSocketFrame(ChannelHandlerContext ctx, WebSocketFrame frame) {
         // 判断是否关闭链路的指令
         if (frame instanceof CloseWebSocketFrame) {
             handShaker.close(ctx.channel(), (CloseWebSocketFrame) frame.retain());
@@ -71,15 +82,18 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
         // 返回应答消息
         String request = ((TextWebSocketFrame) frame).text();
         log.info("服务端收到：" + request);
+        Message message = parse(request, Message.class);
+        messageService.save(message);
         TextWebSocketFrame tws = new TextWebSocketFrame(request);
         // 群发
         ChannelSupervise.send2All(tws);
         // 返回【谁发的发给谁】
         // ctx.channel().writeAndFlush(tws);
     }
+
     /**
      * 唯一的一次http请求，用于创建websocket
-     * */
+     */
     private void handleHttpRequest(ChannelHandlerContext ctx,
                                    FullHttpRequest req) {
         //要求Upgrade为websocket，过滤掉get/Post
@@ -100,9 +114,10 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
             handShaker.handshake(ctx.channel(), req);
         }
     }
+
     /**
      * 拒绝不合法的请求，并返回错误信息
-     * */
+     */
     private static void sendHttpResponse(ChannelHandlerContext ctx,
                                          FullHttpRequest req, DefaultFullHttpResponse res) {
         // 返回应答给客户端
@@ -117,5 +132,24 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
         if (!HttpUtil.isKeepAlive(req) || res.status().code() != 200) {
             f.addListener(ChannelFutureListener.CLOSE);
         }
+    }
+
+    private static final ObjectMapper mapper = new ObjectMapper();
+    private static <T> T parse(String json, Class<T> clazz) {
+        try {
+            return mapper.readValue(json, clazz);
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
+    private static <T> String format(T t) {
+        try {
+            return mapper.writeValueAsString(t);
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage(), e);
+        }
+        return null;
     }
 }

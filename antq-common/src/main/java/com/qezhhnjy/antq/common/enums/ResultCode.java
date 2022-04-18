@@ -16,7 +16,8 @@ public enum ResultCode {
     ACCOUNT_EXPIRED(1005, "该账号已过期，请联系管理员!"),
     PERMISSION_DENIED(1006, "没有访问权限，请联系管理员!"),
 
-    DATA_NOT_EXIST(2000, "data not exist"),
+    DATA_NOT_EXIST(2000, "数据不存在"),
+    ILLEGAL_ARG(20001, "非法参数"),
     FAILED(9999, "响应失败");
 
     public final int    code;

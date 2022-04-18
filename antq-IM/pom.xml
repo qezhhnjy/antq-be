@@ -23,7 +23,7 @@
     </dependency>
     <dependency>
       <groupId>com.qezhhnjy</groupId>
-      <artifactId>antq-common</artifactId>
+      <artifactId>antq-service</artifactId>
     </dependency>
     <dependency>
       <groupId>com.corundumstudio.socketio</groupId>
