@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
 /**
@@ -21,26 +22,30 @@ public class NioWebSocketServer {
     @Resource
     private NioWebSocketChannelInitializer nioWebSocketChannelInitializer;
 
+    private final NioEventLoopGroup boss = new NioEventLoopGroup();
+    private final NioEventLoopGroup work = new NioEventLoopGroup();
+
+    private Channel channel;
+
     @PostConstruct
-    public void init() {
+    public void init() throws InterruptedException {
         log.info("正在启动websocket服务器");
-        NioEventLoopGroup boss = new NioEventLoopGroup();
-        NioEventLoopGroup work = new NioEventLoopGroup();
-        try {
-            ServerBootstrap bootstrap = new ServerBootstrap();
-            bootstrap.group(boss, work);
-            bootstrap.channel(NioServerSocketChannel.class);
-            bootstrap.childHandler(nioWebSocketChannelInitializer);
-            Channel channel = bootstrap.bind(11009).sync().channel();
-            log.info("webSocket服务器启动成功：" + channel);
-            channel.closeFuture().sync();
-        } catch (InterruptedException e) {
-            log.error(e.getMessage(), e);
-        } finally {
-            boss.shutdownGracefully();
-            work.shutdownGracefully();
-            log.info("websocket服务器已关闭");
+        ServerBootstrap bootstrap = new ServerBootstrap();
+        bootstrap.group(boss, work);
+        bootstrap.channel(NioServerSocketChannel.class);
+        bootstrap.childHandler(nioWebSocketChannelInitializer);
+        channel = bootstrap.bind(11009).sync().channel();
+        log.info("webSocket服务器启动成功：" + channel);
+    }
+
+    @PreDestroy
+    public void shutdown() {
+        if (channel != null) {
+            channel.close();
         }
+        boss.shutdownGracefully();
+        work.shutdownGracefully();
+        log.info("websocket服务器已关闭");
     }
 
 }

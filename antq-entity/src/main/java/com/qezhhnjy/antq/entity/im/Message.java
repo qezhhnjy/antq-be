@@ -15,6 +15,7 @@ import lombok.EqualsAndHashCode;
 @TableName("im_message")
 public class Message extends BaseEntity {
 
+    private Long   id;
     @TableField("message_from")
     private String  from;
     @TableField("message_to")

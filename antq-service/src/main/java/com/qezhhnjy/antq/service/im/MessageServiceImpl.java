@@ -5,12 +5,10 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qezhhnjy.antq.common.query.MessageQuery;
 import com.qezhhnjy.antq.entity.im.Message;
-import com.qezhhnjy.antq.entity.sys.User;
 import com.qezhhnjy.antq.mapper.im.MessageMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 

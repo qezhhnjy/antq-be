@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 @TableName("finance_optional")
 public class FinanceOptional extends BaseEntity {
 
-    private long   id;
+    private Long   id;
     private String username;
 
     @NotBlank(message = "股票代码不能为空")

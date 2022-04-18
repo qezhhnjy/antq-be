@@ -14,5 +14,6 @@ import lombok.EqualsAndHashCode;
 @TableName("im_group")
 public class Group extends BaseEntity {
 
+    private Long   id;
     private String name;
 }

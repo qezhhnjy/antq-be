@@ -1,34 +1,29 @@
 package com.qezhhnjy.antq.im.server;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qezhhnjy.antq.entity.im.Message;
 import com.qezhhnjy.antq.service.im.MessageService;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * @author zhaoyangfu
  * @date 2022/4/17-18:34
  */
 @Slf4j
-@Component
 public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
 
+    private static final MessageService messageService = SpringUtil.getBean(MessageService.class);
+
     private WebSocketServerHandshaker handShaker;
-    @Resource
-    private MessageService            messageService;
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -46,7 +41,6 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         //添加连接
         log.info("客户端加入连接：" + ctx.channel());
-        ChannelSupervise.addChannel(ctx.channel());
     }
 
     @Override
@@ -84,7 +78,7 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
         log.info("服务端收到：" + request);
         Message message = parse(request, Message.class);
         messageService.save(message);
-        TextWebSocketFrame tws = new TextWebSocketFrame(request);
+        TextWebSocketFrame tws = new TextWebSocketFrame(format(message));
         // 群发
         ChannelSupervise.send2All(tws);
         // 返回【谁发的发给谁】
@@ -104,6 +98,7 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
                     HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
             return;
         }
+        ChannelSupervise.addChannel(req.uri().replace("/", ""), ctx.channel());
         WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(
                 "ws://localhost:11009/websocket", null, false);
         handShaker = wsFactory.newHandshaker(req);
@@ -135,6 +130,11 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     private static final ObjectMapper mapper = new ObjectMapper();
+
+    static{
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
     private static <T> T parse(String json, Class<T> clazz) {
         try {
             return mapper.readValue(json, clazz);

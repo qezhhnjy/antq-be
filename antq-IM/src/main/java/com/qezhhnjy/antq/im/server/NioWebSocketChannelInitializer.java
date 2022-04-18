@@ -7,17 +7,12 @@ import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-
 /**
  * @author zhaoyangfu
  * @date 2022/4/17-18:33
  */
 @Component
 public class NioWebSocketChannelInitializer extends ChannelInitializer<SocketChannel> {
-
-    @Resource
-    private NioWebSocketHandler nioWebSocketHandler;
 
     @Override
     protected void initChannel(SocketChannel ch) {
@@ -30,6 +25,6 @@ public class NioWebSocketChannelInitializer extends ChannelInitializer<SocketCha
         // 用于大数据的分区传输
         ch.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
         // 自定义的业务handler
-        ch.pipeline().addLast("handler", nioWebSocketHandler);
+        ch.pipeline().addLast("handler", new NioWebSocketHandler());
     }
 }

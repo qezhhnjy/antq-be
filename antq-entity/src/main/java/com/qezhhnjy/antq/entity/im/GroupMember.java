@@ -14,6 +14,7 @@ import lombok.EqualsAndHashCode;
 @TableName("im_group_member")
 public class GroupMember extends BaseEntity {
 
+    private Long   id;
     private String groupName;
     private Long   groupId;
     private String username;

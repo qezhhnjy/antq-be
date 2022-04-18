@@ -77,7 +77,7 @@ jobs:
             ps -ef | grep antq-oauth   | grep -v grep | awk '{print $2}' | xargs kill -9
             ps -ef | grep antq-web     | grep -v grep | awk '{print $2}' | xargs kill -9
             ps -ef | grep antq-monitor | grep -v grep | awk '{print $2}' | xargs kill -9
-            sleep 2s
+            sleep 5s
             nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-gateway-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
             nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-oauth-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
             nohup jdk-14/bin/java -jar -Xms120m -Xmx120m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-web-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
