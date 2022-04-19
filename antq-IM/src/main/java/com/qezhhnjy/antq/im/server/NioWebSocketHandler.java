@@ -1,14 +1,15 @@
 package com.qezhhnjy.antq.im.server;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qezhhnjy.antq.entity.im.Message;
+import com.qezhhnjy.antq.im.util.ConvertUtil;
 import com.qezhhnjy.antq.service.im.MessageService;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
@@ -47,7 +48,7 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         //断开连接
         log.info("客户端断开连接：" + ctx.channel());
-        ChannelSupervise.removeChannel(ctx.channel());
+        ChannelManager.removeChannel(ctx.channel());
     }
 
     @Override
@@ -76,13 +77,11 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
         // 返回应答消息
         String request = ((TextWebSocketFrame) frame).text();
         log.info("服务端收到：" + request);
-        Message message = parse(request, Message.class);
-        messageService.save(message);
-        TextWebSocketFrame tws = new TextWebSocketFrame(format(message));
-        // 群发
-        ChannelSupervise.send2All(tws);
-        // 返回【谁发的发给谁】
-        // ctx.channel().writeAndFlush(tws);
+        Message message = ConvertUtil.parse(request, Message.class);
+        if (message != null) {
+            messageService.save(message);
+            ChannelManager.send(message);
+        }
     }
 
     /**
@@ -98,7 +97,7 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
                     HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
             return;
         }
-        ChannelSupervise.addChannel(req.uri().replace("/", ""), ctx.channel());
+        ChannelManager.addChannel(req.uri().replace("/", ""), ctx.channel());
         WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(
                 "ws://localhost:11009/websocket", null, false);
         handShaker = wsFactory.newHandshaker(req);
@@ -129,27 +128,4 @@ public class NioWebSocketHandler extends SimpleChannelInboundHandler<Object> {
         }
     }
 
-    private static final ObjectMapper mapper = new ObjectMapper();
-
-    static{
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    }
-
-    private static <T> T parse(String json, Class<T> clazz) {
-        try {
-            return mapper.readValue(json, clazz);
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
-    }
-
-    private static <T> String format(T t) {
-        try {
-            return mapper.writeValueAsString(t);
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
-    }
 }

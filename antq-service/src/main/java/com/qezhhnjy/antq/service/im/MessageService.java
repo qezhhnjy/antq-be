@@ -1,10 +1,9 @@
 package com.qezhhnjy.antq.service.im;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.query.MessageQuery;
 import com.qezhhnjy.antq.entity.im.Message;
-
-import java.util.List;
 
 /**
  * @author zhaoyangfu
@@ -12,5 +11,5 @@ import java.util.List;
  */
 public interface MessageService extends IService<Message> {
 
-    List<Message> message(MessageQuery query);
+    PageInfo<Message> message(MessageQuery query);
 }

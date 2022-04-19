@@ -3,6 +3,8 @@ package com.qezhhnjy.antq.service.im;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.query.MessageQuery;
 import com.qezhhnjy.antq.entity.im.Message;
 import com.qezhhnjy.antq.mapper.im.MessageMapper;
@@ -24,16 +26,24 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
      * 获取私聊/群组的历史聊天记录
      */
     @Override
-    public List<Message> message(MessageQuery query) {
-        String from = query.getFrom();
-        String to = query.getTo();
+    public PageInfo<Message> message(MessageQuery query) {
+        String send = query.getSend();
+        String receive = query.getReceive();
         Long groupId = query.getGroupId();
         LocalDateTime time = query.getTime();
-        return lambdaQuery()
-                .eq(StrUtil.isNotBlank(from), Message::getFrom, from)
-                .eq(StrUtil.isNotBlank(to), Message::getTo, to)
+        String search = query.getSearch();
+        boolean isSearch = StrUtil.isNotBlank(search);
+
+        PageHelper.startPage(query.getPageNum(), query.getPageSize());
+        List<Message> list = lambdaQuery()
+                .eq(StrUtil.isNotBlank(send), Message::getSend, send)
+                .eq(StrUtil.isNotBlank(receive), Message::getReceive, receive)
                 .eq(ObjectUtil.isNotNull(groupId), Message::getGroupId, groupId)
+                .and(isSearch, i -> i.like(Message::getSend, search).or().like(Message::getReceive, search)
+                        .or().like(Message::getContent, search))
                 .ge(ObjectUtil.isNotNull(time), Message::getCreateTime, time)
+                .orderByDesc(Message::getId)
                 .list();
+        return new PageInfo<>(list);
     }
 }

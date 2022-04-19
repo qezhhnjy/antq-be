@@ -1,5 +1,6 @@
 package com.qezhhnjy.antq.web.controller.im;
 
+import com.github.pagehelper.PageInfo;
 import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.common.query.MessageQuery;
 import com.qezhhnjy.antq.entity.im.Message;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @author zhaoyangfu
@@ -27,9 +27,9 @@ public class MessageController {
     private MessageService messageService;
 
     @PostMapping("/list")
-    public BaseResult<List<Message>> list(@RequestBody @Valid MessageQuery query) {
-        List<Message> list = messageService.message(query);
-        return BaseResult.success(list);
+    public BaseResult<PageInfo<Message>> list(@RequestBody @Valid MessageQuery query) {
+        PageInfo<Message> info = messageService.message(query);
+        return BaseResult.success(info);
     }
 
 }
