@@ -24,8 +24,8 @@ public class MyLock {
 
     public static void main(String[] args) {
         new Thread(() -> print(CONDITION, CONDITION, "A", 1), "t-a").start();
-        new Thread(() -> print(CONDITION, CONDITION, "BB", 2), "t-b").start();
         new Thread(() -> print(CONDITION, CONDITION, "CCC", 3), "t-c").start();
+        new Thread(() -> print(CONDITION, CONDITION, "BB", 2), "t-b").start();
         ThreadUtil.sleep(1000);
     }
 
@@ -48,5 +48,70 @@ public class MyLock {
                 count++;
             }
         }
+    }
+}
+
+class ProducerAndConsumer {
+    private static final ReentrantLock LOCK      = new ReentrantLock();
+    private static final Condition     CONDITION = LOCK.newCondition();
+
+    public static int data = 0;
+
+    public static void main(String[] args) {
+        new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    LOCK.lock();
+                    while (data == 1) CONDITION.await();
+                    data++;
+                    System.out.println("生产者生产数据完成=>" + data);
+                    Thread.sleep(1000);
+                    CONDITION.signal();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    LOCK.unlock();
+                }
+            }
+        }, "producer").start();
+        new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    LOCK.lock();
+                    while (data == 0) CONDITION.await();
+                    data--;
+                    System.out.println("消费者消费数据完成=>" + data);
+                    Thread.sleep(1000);
+                    CONDITION.signal();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    LOCK.unlock();
+                }
+            }
+        }, "consumer").start();
+    }
+}
+
+class Max {
+
+    public static int result = Integer.MIN_VALUE;
+
+    public static void main(String[] args) {
+        max(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4});
+        result = Integer.MIN_VALUE;
+        max(new int[]{-1, -2, -3});
+    }
+
+    public static void max(int[] data) {
+        int sum = 0, max = Integer.MIN_VALUE;
+        for (int datum : data) {
+            sum += datum;
+            if (sum <= 0) sum = 0;
+            max = Math.max(max, datum);
+            result = Math.max(result, sum);
+        }
+        if (max <= 0) System.out.println(max);
+        else System.out.println(result);
     }
 }

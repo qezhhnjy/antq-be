@@ -47,7 +47,8 @@ public class ChannelManager {
         String to = message.getReceive();
         if (StrUtil.isAllNotBlank(from, to)) {
             findChannel(from).ifPresent(channel -> channel.writeAndFlush(new TextWebSocketFrame(ConvertUtil.format(message))));
-            findChannel(to).ifPresent(channel -> channel.writeAndFlush(new TextWebSocketFrame(ConvertUtil.format(message))));
+            if (!StrUtil.equals(from, to))
+                findChannel(to).ifPresent(channel -> channel.writeAndFlush(new TextWebSocketFrame(ConvertUtil.format(message))));
         } else {
             CHANNEL_GROUP.writeAndFlush(new TextWebSocketFrame(ConvertUtil.format(message)));
         }

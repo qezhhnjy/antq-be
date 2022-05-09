@@ -23,6 +23,7 @@
     <module>antq-flowable</module>
     <module>antq-quartz</module>
     <module>antq-IM</module>
+    <module>antq-xxl-job</module>
   </modules>
 
   <properties>
@@ -40,6 +41,7 @@
     <ip2region.version>1.7.2</ip2region.version>
     <netty.version>4.1.76.Final</netty.version>
     <netty.socketio.version>1.7.19</netty.socketio.version>
+    <xxl.job.version>2.3.0</xxl.job.version>
   </properties>
 
   <dependencyManagement>
@@ -180,6 +182,12 @@
         <groupId>com.corundumstudio.socketio</groupId>
         <artifactId>netty-socketio</artifactId>
         <version>${netty.socketio.version}</version>
+      </dependency>
+      <!-- http://repo1.maven.org/maven2/com/xuxueli/xxl-job-core/ -->
+      <dependency>
+        <groupId>com.xuxueli</groupId>
+        <artifactId>xxl-job-core</artifactId>
+        <version>${xxl.job.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
