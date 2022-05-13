@@ -30,10 +30,17 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     @Transactional(rollbackFor = Exception.class)
     public void add(GroupVO groupVO) {
         Group group = new Group();
-        group.setName(groupVO.getGroupName());
+        String groupName = groupVO.getGroupName();
+        group.setName(groupName);
         save(group);
         List<String> userList = groupVO.getUserList();
-
+        for (String username : userList) {
+            GroupMember member = new GroupMember();
+            member.setGroupId(group.getId());
+            member.setGroupName(groupName);
+            member.setUsername(username);
+            groupMemberService.save(member);
+        }
     }
 
     @Override

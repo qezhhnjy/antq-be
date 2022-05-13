@@ -32,9 +32,9 @@ public class ChannelManager {
 
     public static void removeChannel(Channel channel) {
         if (channel != null) {
-            channel.close();
             CHANNEL_GROUP.remove(channel);
             USERNAME_MAP.remove(channel.attr(AttributeKey.valueOf(ATTR)).get().toString());
+            channel.close();
         }
     }
 
