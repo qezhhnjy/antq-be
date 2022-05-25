@@ -21,7 +21,7 @@ import java.util.Arrays;
  */
 
 @Configuration
-@ConfigurationProperties(prefix = "xxl.job")
+@ConfigurationProperties(prefix = "xxl.admin")
 @Data
 public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
 

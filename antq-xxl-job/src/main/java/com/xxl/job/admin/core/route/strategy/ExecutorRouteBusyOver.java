@@ -7,13 +7,15 @@ import com.xxl.job.core.biz.ExecutorBiz;
 import com.xxl.job.core.biz.model.IdleBeatParam;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.biz.model.TriggerParam;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 /**
  * Created by xuxueli on 17/3/10.
  */
-public class ExecutorRouteBusyover extends ExecutorRouter {
+@Slf4j
+public class ExecutorRouteBusyOver extends ExecutorRouter {
 
     @Override
     public ReturnT<String> route(TriggerParam triggerParam, List<String> addressList) {
@@ -25,8 +27,8 @@ public class ExecutorRouteBusyover extends ExecutorRouter {
                 ExecutorBiz executorBiz = XxlJobScheduler.getExecutorBiz(address);
                 idleBeatResult = executorBiz.idleBeat(new IdleBeatParam(triggerParam.getJobId()));
             } catch (Exception e) {
-                logger.error(e.getMessage(), e);
-                idleBeatResult = new ReturnT<String>(ReturnT.FAIL_CODE, "" + e);
+                log.error(e.getMessage(), e);
+                idleBeatResult = new ReturnT<>(ReturnT.FAIL_CODE, "" + e);
             }
             idleBeatResultSB.append((idleBeatResultSB.length() > 0) ? "<br><br>" : "")
                     .append(I18nUtil.getString("jobconf_idleBeat")).append("：")

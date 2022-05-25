@@ -25,13 +25,13 @@ public interface XxlJobGroupDao {
     public XxlJobGroup load(@Param("id") int id);
 
     public List<XxlJobGroup> pageList(@Param("offset") int offset,
-                                      @Param("pagesize") int pagesize,
-                                      @Param("appname") String appname,
+                                      @Param("pageSize") int pageSize,
+                                      @Param("appName") String appName,
                                       @Param("title") String title);
 
     public int pageListCount(@Param("offset") int offset,
-                             @Param("pagesize") int pagesize,
-                             @Param("appname") String appname,
+                             @Param("pageSize") int pageSize,
+                             @Param("appName") String appName,
                              @Param("title") String title);
 
 }

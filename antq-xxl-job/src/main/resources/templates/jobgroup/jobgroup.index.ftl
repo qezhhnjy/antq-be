@@ -29,7 +29,7 @@
                 <div class="col-xs-3">
                     <div class="input-group">
                         <span class="input-group-addon">AppName</span>
-                        <input type="text" class="form-control" id="appname"
+                        <input type="text" class="form-control" id="appName"
                                placeholder="${I18n.system_please_input}AppName">
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                                 <thead>
                                 <tr>
                                     <th name="id">ID</th>
-                                    <th name="appname">AppName</th>
+                                    <th name="appName">AppName</th>
                                     <th name="title">${I18n.jobgroup_field_title}</th>
                                     <th name="addressType">${I18n.jobgroup_field_addressType}</th>
                                     <th name="registryList">OnLine ${I18n.jobgroup_field_registryList}</th>
@@ -84,7 +84,7 @@
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">AppName<font
                                         color="red">*</font></label>
-                            <div class="col-sm-10"><input type="text" class="form-control" name="appname"
+                            <div class="col-sm-10"><input type="text" class="form-control" name="appName"
                                                           placeholder="${I18n.system_please_input}AppName"
                                                           maxlength="64"></div>
                         </div>
@@ -141,7 +141,7 @@
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">AppName<font
                                         color="red">*</font></label>
-                            <div class="col-sm-10"><input type="text" class="form-control" name="appname"
+                            <div class="col-sm-10"><input type="text" class="form-control" name="appName"
                                                           placeholder="${I18n.system_please_input}AppName"
                                                           maxlength="64"></div>
                         </div>

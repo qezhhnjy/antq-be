@@ -44,11 +44,11 @@ public class JobGroupController {
     public Map<String, Object> pageList(HttpServletRequest request,
                                         @RequestParam(required = false, defaultValue = "0") int start,
                                         @RequestParam(required = false, defaultValue = "10") int length,
-                                        String appname, String title) {
+                                        String appName, String title) {
 
         // page query
-        List<XxlJobGroup> list = xxlJobGroupDao.pageList(start, length, appname, title);
-        int list_count = xxlJobGroupDao.pageListCount(start, length, appname, title);
+        List<XxlJobGroup> list = xxlJobGroupDao.pageList(start, length, appName, title);
+        int list_count = xxlJobGroupDao.pageListCount(start, length, appName, title);
 
         // package result
         Map<String, Object> maps = new HashMap<String, Object>();
@@ -154,8 +154,8 @@ public class JobGroupController {
         if (list != null) {
             for (XxlJobRegistry item : list) {
                 if (RegistryConfig.RegistType.EXECUTOR.name().equals(item.getRegistryGroup())) {
-                    String appname = item.getRegistryKey();
-                    List<String> registryList = appAddressMap.get(appname);
+                    String appName = item.getRegistryKey();
+                    List<String> registryList = appAddressMap.get(appName);
                     if (registryList == null) {
                         registryList = new ArrayList<>();
                     }
@@ -163,7 +163,7 @@ public class JobGroupController {
                     if (!registryList.contains(item.getRegistryValue())) {
                         registryList.add(item.getRegistryValue());
                     }
-                    appAddressMap.put(appname, registryList);
+                    appAddressMap.put(appName, registryList);
                 }
             }
         }

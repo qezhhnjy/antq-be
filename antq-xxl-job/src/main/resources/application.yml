@@ -34,9 +34,18 @@ mybatis-plus:
   mapper-locations: classpath:/mybatis-mapper/*Mapper.xml
 
 xxl:
-  job:
+  admin:
     trigger-pool-fast-max: 200
     trigger-pool-slow-max: 200
     log-retention-days: 30
-    accessToken:
+    access-token: antq
     email-from: qezhhnjy
+  job:
+    admin-address: http://127.0.0.1:8080/xxl-job-admin
+    access-token: antq
+    app-name: antq-xxl-job
+    address:
+    ip:
+    port: 8081
+    log-path: E:\\antq-xxl-job
+    log-retention-days: 30

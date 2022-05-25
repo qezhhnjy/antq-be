@@ -65,8 +65,8 @@ public class JobRegistryHelper {
                         if (list != null) {
                             for (XxlJobRegistry item : list) {
                                 if (RegistryConfig.RegistType.EXECUTOR.name().equals(item.getRegistryGroup())) {
-                                    String appname = item.getRegistryKey();
-                                    List<String> registryList = appAddressMap.get(appname);
+                                    String appName = item.getRegistryKey();
+                                    List<String> registryList = appAddressMap.get(appName);
                                     if (registryList == null) {
                                         registryList = new ArrayList<>();
                                     }
@@ -74,7 +74,7 @@ public class JobRegistryHelper {
                                     if (!registryList.contains(item.getRegistryValue())) {
                                         registryList.add(item.getRegistryValue());
                                     }
-                                    appAddressMap.put(appname, registryList);
+                                    appAddressMap.put(appName, registryList);
                                 }
                             }
                         }
