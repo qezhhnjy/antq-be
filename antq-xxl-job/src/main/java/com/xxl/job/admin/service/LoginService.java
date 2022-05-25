@@ -26,12 +26,13 @@ public class LoginService {
     private XxlJobUserDao xxlJobUserDao;
 
 
-    private String makeToken(XxlJobUser xxlJobUser){
+    private String makeToken(XxlJobUser xxlJobUser) {
         String tokenJson = JacksonUtil.writeValueAsString(xxlJobUser);
-        String tokenHex = new BigInteger(tokenJson.getBytes()).toString(16);
-        return tokenHex;
+        assert tokenJson != null;
+        return new BigInteger(tokenJson.getBytes()).toString(16);
     }
-    private XxlJobUser parseToken(String tokenHex){
+
+    private XxlJobUser parseToken(String tokenHex) {
         XxlJobUser xxlJobUser = null;
         if (tokenHex != null) {
             String tokenJson = new String(new BigInteger(tokenHex, 16).toByteArray());      // username_password(md5)
@@ -41,21 +42,21 @@ public class LoginService {
     }
 
 
-    public ReturnT<String> login(HttpServletRequest request, HttpServletResponse response, String username, String password, boolean ifRemember){
+    public ReturnT<String> login(HttpServletRequest request, HttpServletResponse response, String username, String password, boolean ifRemember) {
 
         // param
-        if (username==null || username.trim().length()==0 || password==null || password.trim().length()==0){
-            return new ReturnT<String>(500, I18nUtil.getString("login_param_empty"));
+        if (username == null || username.trim().length() == 0 || password == null || password.trim().length() == 0) {
+            return new ReturnT<>(500, I18nUtil.getString("login_param_empty"));
         }
 
         // valid passowrd
         XxlJobUser xxlJobUser = xxlJobUserDao.loadByUserName(username);
         if (xxlJobUser == null) {
-            return new ReturnT<String>(500, I18nUtil.getString("login_param_unvalid"));
+            return new ReturnT<>(500, I18nUtil.getString("login_param_unvalid"));
         }
         String passwordMd5 = DigestUtils.md5DigestAsHex(password.getBytes());
         if (!passwordMd5.equals(xxlJobUser.getPassword())) {
-            return new ReturnT<String>(500, I18nUtil.getString("login_param_unvalid"));
+            return new ReturnT<>(500, I18nUtil.getString("login_param_unvalid"));
         }
 
         String loginToken = makeToken(xxlJobUser);
@@ -67,22 +68,16 @@ public class LoginService {
 
     /**
      * logout
-     *
-     * @param request
-     * @param response
      */
-    public ReturnT<String> logout(HttpServletRequest request, HttpServletResponse response){
+    public ReturnT<String> logout(HttpServletRequest request, HttpServletResponse response) {
         CookieUtil.remove(request, response, LOGIN_IDENTITY_KEY);
         return ReturnT.SUCCESS;
     }
 
     /**
      * logout
-     *
-     * @param request
-     * @return
      */
-    public XxlJobUser ifLogin(HttpServletRequest request, HttpServletResponse response){
+    public XxlJobUser ifLogin(HttpServletRequest request, HttpServletResponse response) {
         String cookieToken = CookieUtil.getValue(request, LOGIN_IDENTITY_KEY);
         if (cookieToken != null) {
             XxlJobUser cookieUser = null;

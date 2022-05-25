@@ -1,0 +1,42 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /xxl-job-admin
+
+spring:
+  mvc:
+    servlet:
+      load-on-startup: 0
+    static-path-pattern: /static/**
+
+  resources:
+    static-locations: classpath:/static/
+
+  freemarker:
+    suffix: .ftl
+    request-context-attribute: request
+    settings:
+      number_format: 0.####
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: aims2016
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  mail:
+    host: smtp.qq.com
+    port: 25
+    username: xxx@qq.com
+    password: xxx
+
+mybatis-plus:
+  mapper-locations: classpath:/mybatis-mapper/*Mapper.xml
+
+xxl:
+  job:
+    trigger-pool-fast-max: 200
+    trigger-pool-slow-max: 200
+    log-retention-days: 30
+    accessToken:
+    email-from: qezhhnjy

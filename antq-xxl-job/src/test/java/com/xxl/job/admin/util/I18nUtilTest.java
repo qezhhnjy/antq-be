@@ -13,10 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class I18nUtilTest {
 
     @Test
-    public void test(){
+    public void test() {
         System.out.println(I18nUtil.getString("admin_name"));
-        System.out.println(I18nUtil.getMultString("admin_name", "admin_name_full"));
-        System.out.println(I18nUtil.getMultString());
+        System.out.println(I18nUtil.getMultiString("admin_name", "admin_name_full"));
+        System.out.println(I18nUtil.getMultiString());
     }
 
 }
