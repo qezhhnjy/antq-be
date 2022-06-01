@@ -78,10 +78,10 @@ jobs:
             ps -ef | grep antq-web     | grep -v grep | awk '{print $2}' | xargs kill -9
             ps -ef | grep antq-monitor | grep -v grep | awk '{print $2}' | xargs kill -9
             sleep 5s
-            nohup jdk-17/bin/java -jar -Xms200m -Xmx200m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-gateway-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
-            nohup jdk-17/bin/java -jar -Xms200m -Xmx200m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-oauth-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
-            nohup jdk-17/bin/java -jar -Xms200m -Xmx200m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-web-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
-            nohup jdk-17/bin/java -jar -Xms200m -Xmx200m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler antq-monitor-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
+            nohup jdk-17/bin/java -jar -Xms200m -Xmx200m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions antq-gateway-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
+            nohup jdk-17/bin/java -jar -Xms200m -Xmx200m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions antq-oauth-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
+            nohup jdk-17/bin/java -jar -Xms200m -Xmx200m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions antq-web-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
+            nohup jdk-17/bin/java -jar -Xms200m -Xmx200m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=130m -XX:+UnlockExperimentalVMOptions antq-monitor-1.0-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &
             rm -rf compress
             rm -f compress.tar.gz
 
