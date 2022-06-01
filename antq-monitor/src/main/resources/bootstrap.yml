@@ -16,7 +16,7 @@ spring:
         server-addr: localhost:8848
         group: antq
         file-extension: yaml
-      username: nacos
+      username: qezhhnjy
       password: Fu214849135sl
 
 management:
