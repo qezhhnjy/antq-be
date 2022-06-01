@@ -42,7 +42,6 @@
     <netty.version>4.1.76.Final</netty.version>
     <netty.socketio.version>1.7.19</netty.socketio.version>
     <xxl.job.version>2.3.0</xxl.job.version>
-    <lombok.version>1.8.20</lombok.version>
   </properties>
 
   <dependencyManagement>
