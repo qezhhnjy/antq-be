@@ -13,6 +13,9 @@ systemctl start docker
 systemctl enable docker
 // 取消自启动
 systemctl disable docker
+
+// docker添加容器自启动
+docker update --restart=always <容器名>
 ```
 
 - 防火墙
@@ -113,7 +116,20 @@ mkdir -p /docker-data/nacos/init.d
 mkdir -p /docker-data/nacos/logs
 touch /docker-data/nacos/init.d/custom.properties
 
-docker run -p 8848:8848 --name nacos -e JVM_XMS=256m -e JVM_XMX=256m -e JVM_XMN=80m -e MODE=standalone -e PREFER_HOST_MODE=hostname -v /docker-data/nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties -v /docker-data/nacos/logs:/home/nacos/logs --restart=always -d nacos/nacos-server
+vim /docker-data/nacos/init.d/custom.properties
+添加以下内容
+management.endpoints.web.exposure.include=*
+
+docker run -p 8848:8848 --name nacos -e JVM_XMS=256m -e JVM_XMX=256m -e JVM_XMN=80m -e MODE=standalone \
+-e PREFER_HOST_MODE=hostname \
+-e SPRING_DATASOURCE_PLATFORM=mysql \
+-e MYSQL_SERVICE_HOST=127.0.0.1 \
+-e MYSQL_SERVICE_PORT=3306 \
+-e MYSQL_SERVICE_DB_NAME=nacos_config \
+-e MYSQL_SERVICE_USER=root \
+-e MYSQL_SERVICE_PASSWORD=Fu214849135sl \
+-e MYSQL_DATABASE_NUM=1 \
+-v /docker-data/nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties -v /docker-data/nacos/logs:/home/nacos/logs --restart=always -d nacos/nacos-server
 ```
 
 - nginx
