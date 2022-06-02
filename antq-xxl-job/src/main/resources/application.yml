@@ -44,8 +44,7 @@ xxl:
     admin-address: http://127.0.0.1:8080/xxl-job-admin
     access-token: antq
     app-name: antq-xxl-job
-    address:
-    ip:
+    ip: localhost
     port: 8081
     log-path: E:\\antq-xxl-job
     log-retention-days: 30
