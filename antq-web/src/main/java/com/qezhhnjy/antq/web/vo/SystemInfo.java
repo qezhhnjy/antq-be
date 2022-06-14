@@ -12,6 +12,7 @@ import oshi.hardware.GlobalMemory;
 import oshi.hardware.Sensors;
 import oshi.hardware.VirtualMemory;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 @Data
 @Slf4j
-public class SystemInfo {
+public class SystemInfo implements Serializable {
 
     private String           system;
     private String           username;

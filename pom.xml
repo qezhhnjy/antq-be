@@ -42,6 +42,7 @@
     <netty.version>4.1.76.Final</netty.version>
     <netty.socketio.version>1.7.19</netty.socketio.version>
     <xxl.job.version>2.3.1</xxl.job.version>
+    <redisson.version>3.17.3</redisson.version>
   </properties>
 
   <dependencyManagement>
@@ -188,6 +189,11 @@
         <groupId>com.xuxueli</groupId>
         <artifactId>xxl-job-core</artifactId>
         <version>${xxl.job.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.redisson</groupId>
+        <artifactId>redisson</artifactId>
+        <version>${redisson.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
