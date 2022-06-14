@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhaoyangfu
@@ -57,7 +58,7 @@ public class MonitorInfoController {
         jvmList.add(oauthService.info().getData());
         jvmList.add(monitorService.info().getData());
         jvmList.add(gatewayService.info().getData());
-        redisson.getBucket(SYSTEM_INFO).set(info);
+        redisson.getBucket(SYSTEM_INFO).set(info, 15L, TimeUnit.SECONDS);
     }
 
     @GetMapping

@@ -2,12 +2,14 @@ package com.qezhhnjy.antq.common.vo.sys;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author zhaoyangfu
  * @date 2022/1/14-20:55
  */
 @Data
-public class DiskInfo {
+public class DiskInfo implements Serializable {
 
     private String  name;
     private Integer total;

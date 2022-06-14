@@ -4,12 +4,14 @@ import cn.hutool.system.SystemUtil;
 import com.qezhhnjy.antq.common.util.CapacityUtil;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author zhaoyangfu
  * @date 2022/1/15-22:23
  */
 @Data
-public class MemoryInfo {
+public class MemoryInfo implements Serializable {
 
     private String  name;
     private Integer total;

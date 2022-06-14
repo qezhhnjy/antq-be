@@ -112,44 +112,25 @@ docker exec -it redis redis-cli
 ```sh
 docker pull nacos/nacos-server
 
-mkdir -p /docker-data/nacos/init.d
 mkdir -p /docker-data/nacos/logs
-touch /docker-data/nacos/init.d/custom.properties
+#配置application.properties文件
 
-vim /docker-data/nacos/init.d/custom.properties
-添加以下内容
-server.contextPath=/nacos
-server.servlet.contextPath=/nacos
-server.port=8848
- 
-spring.datasource.platform=mysql
-db.num=1
-db.url.0=jdbc:mysql://localhost:3306/nacos_config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true
-db.user=root
-db.password=Fu214849135sl
- 
-nacos.cmdb.dumpTaskInterval=3600
-nacos.cmdb.eventTaskInterval=10
-nacos.cmdb.labelTaskInterval=300
-nacos.cmdb.loadDataAtStart=false
-management.metrics.export.elastic.enabled=false
-management.metrics.export.influx.enabled=false
-server.tomcat.accesslog.enabled=true
-server.tomcat.accesslog.pattern=%h %l %u %t "%r" %s %b %D %{User-Agent}i
-nacos.security.ignore.urls=/,/**/*.css,/**/*.js,/**/*.html,/**/*.map,/**/*.svg,/**/*.png,/**/*.ico,/console-fe/public/**,/v1/auth/login,/v1/console/health/**,/v1/cs/**,/v1/ns/**,/v1/cmdb/**,/actuator/**,/v1/console/server/**
-nacos.naming.distro.taskDispatchThreadCount=1
-nacos.naming.distro.taskDispatchPeriod=200
-nacos.naming.distro.batchSyncKeyCount=1000
-nacos.naming.distro.initDataRatio=0.9
-nacos.naming.distro.syncRetryDelay=5000
-nacos.naming.data.warmup=true
-nacos.naming.expireInstance=true
-
-docker run -p 8848:8848 --name nacos -e JVM_XMS=256m -e JVM_XMX=256m -e JVM_XMN=80m -e MODE=standalone \
+docker  run \
+--name nacos -d \
+-p 8848:8848 \
+--restart=always \
+-e JVM_XMS=200m \
+-e JVM_XMX=200m \
+-e MODE=standalone \
 -e PREFER_HOST_MODE=hostname \
---privileged=true \
--v /docker-data/nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties \
--v /docker-data/nacos/logs:/home/nacos/logs --restart=always -d nacos/nacos-server
+-v /docker-data/nacos/logs:/home/nacos/logs \
+-v /docker-data/nacos/conf/application.properties:/home/nacos/conf/application.properties \
+nacos/nacos-server
+
+# nacos新版本增加了以下字段
+ALTER TABLE config_info ADD COLUMN `encrypted_data_key` text NOT NULL COMMENT '秘钥';
+ALTER TABLE config_info_beta ADD COLUMN `encrypted_data_key` text NOT NULL COMMENT '秘钥';
+ALTER TABLE his_config_info ADD COLUMN `encrypted_data_key` text NOT NULL COMMENT '秘钥';
 ```
 
 - nginx
