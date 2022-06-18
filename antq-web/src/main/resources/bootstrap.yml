@@ -95,11 +95,11 @@ ribbon:
   MaxAutoRetriesNextServer: 0 #重试切换实例的次数，默认1
 
 minio:
-  endpoint: http://120.26.168.94:11007
+  endpoint: http://43.142.106.115:11007
   access-key: qezhhnjy
   secret-key: Fu214849135sl
   bucket: antq
-  prefix: http://120.26.168.94:11007/
+  prefix: http://43.142.106.115:11007/
 
 management:
   endpoints:
