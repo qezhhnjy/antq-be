@@ -164,6 +164,18 @@ docker run --privileged -p 11006:9000 -p 11007:9090 --name minio --restart=alway
 --privileged=true -d minio/minio server /data --console-address ":9000" --address ":9090" 
 ```
 
+- rabbitmq
+```shell
+docker pull rabbitmq
+docker run -d --name rabbitmq --restart=always -p 5672:5672 -p 15672:15672 -p 1883:1883 -p 15675:15675 -v /docker-data/rabbitmq:/var/lib/rabbitmq rabbitmq
+// 开启web服务
+docker exec -it rabbitmq rabbitmq-plugins enable rabbitmq_management
+// 开启mqtt功能 端口1883
+docker exec -it rabbitmq rabbitmq-plugins enable rabbitmq_mqtt
+// 开启mqtt-over-websocket 端口15675
+docker exec -it rabbitmq rabbitmq-plugins enable rabbitmq_web_mqtt
+```
+
 - `Centos`增加虚拟内存
 
 http://www.moguit.cn/#/info?blogUid=36ee5efa56314807a9b6f1c1db508871
