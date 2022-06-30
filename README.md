@@ -241,13 +241,14 @@ vim    /etc/fstab
 
 ### 接下来的开发计划
 
-- [ ] `jimureport`报表
+- [x] `jimureport`报表
 - [ ] [jeecg](https://gitee.com/jeecg/jeecg-boot.git) 仿照`jeecg`的开发功能
 - [ ] [skywalking](https://skywalking.apache.org/zh/2020-04-19-skywalking-quick-start/) `skywalking`分布式链路追踪
-- [ ] `flowable`工作流开发工具
-- [ ] `quartz`定时任务
+- [x] `flowable`工作流开发工具
+- [x] `quartz`定时任务
 
 - [ ] `seata`分布式事务处理器
-- [ ] `druid`监控
+- [x] `druid`监控
 - [ ] [easy rule](https://github.com/j-easy/easy-rules) 规则引擎
+- [x] rabbit和基于rabbit实现的mqtt  
 - [ ] 其他...
