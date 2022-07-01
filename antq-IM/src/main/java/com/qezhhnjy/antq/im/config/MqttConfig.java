@@ -21,6 +21,7 @@ import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
+import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessageHeaders;
@@ -37,28 +38,20 @@ import org.springframework.messaging.MessageHeaders;
 @ConfigurationProperties(prefix = "mqtt")
 public class MqttConfig {
 
-    private String username;
-
-    private String password;
-
-    private String url;
-
-    private String clientId;
-
-    private String outTopic;
-
-    private String inTopic;
-
-    private int timeout;   //连接超时
-
-    private int qos;
-
-    private int keepAlive;
+    private String  username;
+    private String  password;
+    private String  url;
+    private String  clientId;
+    private String  outTopic;
+    private String  inTopic;
+    private Integer timeout;
+    private Integer qos;
+    private Integer keepAlive;
 
     @Bean
-    public MqttConnectOptions getMqttConnectOptions() {
+    public MqttConnectOptions mqttConnectOptions() {
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
-        mqttConnectOptions.setCleanSession(true);
+        mqttConnectOptions.setCleanSession(false);
         mqttConnectOptions.setConnectionTimeout(10);
         mqttConnectOptions.setKeepAliveInterval(90);
         mqttConnectOptions.setAutomaticReconnect(true);
@@ -66,23 +59,24 @@ public class MqttConfig {
         mqttConnectOptions.setPassword(password.toCharArray());
         mqttConnectOptions.setServerURIs(new String[]{url});
         mqttConnectOptions.setKeepAliveInterval(keepAlive);
-        mqttConnectOptions.setMaxInflight(100000);
+        mqttConnectOptions.setMaxInflight(10000);
         return mqttConnectOptions;
     }
 
     @Bean
-    public MqttPahoClientFactory mqttClientFactory() {
+    public MqttPahoClientFactory mqttClientFactory(MqttConnectOptions mqttConnectOptions) {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
-        factory.setConnectionOptions(getMqttConnectOptions());
+        factory.setConnectionOptions(mqttConnectOptions);
         return factory;
     }
 
     @Bean
     @ServiceActivator(inputChannel = "mqttOutboundChannel")
-    public MessageHandler mqttOutbound() {
-        MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(clientId + "_outbound", mqttClientFactory());
+    public MessageHandler mqttOutbound(MqttPahoClientFactory mqttClientFactory) {
+        MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(clientId + "-out", mqttClientFactory);
         messageHandler.setAsync(true);
         messageHandler.setDefaultTopic(outTopic);
+        messageHandler.setDefaultQos(qos);
         return messageHandler;
     }
 
@@ -99,15 +93,14 @@ public class MqttConfig {
 
     //配置client,监听的topic
     @Bean
-    public MessageProducer inbound(MqttPahoClientFactory mqttClientFactory) {
+    public MessageProducer inbound(MqttPahoClientFactory mqttClientFactory, MessageChannel mqttInputChannel) {
         MqttPahoMessageDrivenChannelAdapter adapter =
-                new MqttPahoMessageDrivenChannelAdapter(clientId + "_inbound", mqttClientFactory,
-                        inTopic);
+                new MqttPahoMessageDrivenChannelAdapter(clientId + "-in", mqttClientFactory, inTopic);
         adapter.setCompletionTimeout(timeout);
         // 默认转换器,可不配置
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(qos);
-        adapter.setOutputChannel(mqttInputChannel());
+        adapter.setOutputChannel(mqttInputChannel);
         return adapter;
     }
 
@@ -118,7 +111,7 @@ public class MqttConfig {
         return message -> {
             Object payload = message.getPayload();
             MessageHeaders headers = message.getHeaders();
-            String topic = (String) headers.get("mqtt_receivedTopic");
+            String topic = (String) headers.get(MqttHeaders.RECEIVED_TOPIC);
             log.info("topic->{},data->{}", topic, payload);
         };
     }

@@ -171,8 +171,8 @@ docker run -d --name rabbitmq --restart=always -p 5672:5672 -p 15672:15672 -p 18
 // 开启web服务
 docker exec -it rabbitmq rabbitmq-plugins enable rabbitmq_management
 // 开启mqtt功能 端口1883
-docker exec -it rabbitmq rabbitmq-plugins enable rabbitmq_mqtt
 // 开启mqtt-over-websocket 端口15675
+docker exec -it rabbitmq rabbitmq-plugins enable rabbitmq_mqtt
 docker exec -it rabbitmq rabbitmq-plugins enable rabbitmq_web_mqtt
 ```
 

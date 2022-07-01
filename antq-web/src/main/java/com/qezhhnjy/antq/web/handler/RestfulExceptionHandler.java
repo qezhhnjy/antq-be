@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.common.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -34,5 +36,14 @@ public class RestfulExceptionHandler {
     public <T> BaseResult<T> exceptionHandler(Exception e) {
         log.error(e.getMessage(), e);
         return BaseResult.error(e.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public <T> BaseResult<T> methodArgumentNotValidException(MethodArgumentNotValidException e) {
+        String message = e.getMessage();
+        log.error(message, e);
+        FieldError error = e.getBindingResult().getFieldError();
+        if (error != null) message = error.getDefaultMessage();
+        return BaseResult.error(message);
     }
 }
