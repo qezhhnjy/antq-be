@@ -22,12 +22,14 @@ public class HikingTrailController {
 
     @PostMapping("/save")
     public BaseResult<HikingTrail> save(@RequestBody HikingTrail hikingTrail) {
+        HikingTrail.handler(hikingTrail);
         hikingTrailService.save(hikingTrail);
         return BaseResult.success(hikingTrail);
     }
 
     @PostMapping("/update")
     public BaseResult<HikingTrail> update(@RequestBody HikingTrail hikingTrail) {
+        HikingTrail.handler(hikingTrail);
         hikingTrailService.updateById(hikingTrail);
         return BaseResult.success(hikingTrail);
     }

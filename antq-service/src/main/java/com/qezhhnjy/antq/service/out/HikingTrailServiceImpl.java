@@ -25,9 +25,12 @@ public class HikingTrailServiceImpl extends ServiceImpl<HikingTrailMapper, Hikin
     public PageInfo<HikingTrail> list(Query query) {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
         String search = query.getSearch();
+        String order = query.getOrder();
+        String orderColumn = query.getOrderBy();
         List<HikingTrail> list = lambdaQuery().and(StrUtil.isNotBlank(search), i -> i.like(HikingTrail::getTitle, search)
                 .or().like(HikingTrail::getSummary, search)
                 .or().like(HikingTrail::getTags, search))
+                .last(StrUtil.isAllNotBlank(order, orderColumn), String.format("ORDER BY %s %s", orderColumn, order))
                 .list();
         return new PageInfo<>(list);
     }
