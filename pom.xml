@@ -24,6 +24,7 @@
     <module>antq-quartz</module>
     <module>antq-IM</module>
     <module>antq-xxl-job</module>
+    <module>antq-outdoor</module>
   </modules>
 
   <properties>
@@ -148,6 +149,11 @@
       <dependency>
         <groupId>com.qezhhnjy</groupId>
         <artifactId>antq-IM</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.qezhhnjy</groupId>
+        <artifactId>antq-outdoor</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

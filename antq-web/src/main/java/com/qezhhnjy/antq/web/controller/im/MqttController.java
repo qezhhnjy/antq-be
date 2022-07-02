@@ -5,7 +5,6 @@ import com.qezhhnjy.antq.common.consts.BaseResult;
 import com.qezhhnjy.antq.entity.im.MqttMessage;
 import com.qezhhnjy.antq.im.mqtt.MqttComm;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +40,7 @@ public class MqttController {
 
     public static int i = 0;
 
-    @Scheduled(fixedRate = 1000)
+    // @Scheduled(fixedRate = 1000)
     public void publish() {
         mqttComm.publish("antq", 1, String.format("%s:%s", i++, "Amy"));
     }
