@@ -7,10 +7,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: localhost
+        server-addr: localhost:8848
         group: antq
       config:
-        server-addr: localhost
+        server-addr: localhost:8848
         group: antq
         file-extension: yaml
       username: qezhhnjy
@@ -100,6 +100,12 @@ minio:
   secret-key: Fu214849135sl
   bucket: antq
   prefix: http://43.142.106.115:11007/
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: false
+  params: count=countSql
 
 management:
   endpoints:

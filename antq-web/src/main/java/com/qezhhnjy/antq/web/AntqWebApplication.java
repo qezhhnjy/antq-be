@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Import;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author zhaoyangfu
@@ -20,6 +21,7 @@ import org.springframework.context.annotation.Import;
 @EnableFeignClients
 @Import(SpringUtil.class)
 @Slf4j
+@EnableScheduling
 public class AntqWebApplication implements CommandLineRunner {
 
     public static void main(String[] args) {

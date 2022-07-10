@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    druid:
+      initial-size: 8
+      min-idle: 4
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 30000
+      validationQuery: select 1
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      username: root
+      password: Fu214849135sl
+      url: jdbc:mysql://43.142.106.115:3306/antq?serverTimezone=Asia/Shanghai&useUnicode=true&useSSL=false&characterEncoding=utf8
+      driver-class-name: com.mysql.cj.jdbc.Driver

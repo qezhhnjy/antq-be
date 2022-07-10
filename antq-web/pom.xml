@@ -75,6 +75,14 @@
       <groupId>com.qezhhnjy</groupId>
       <artifactId>antq-IM</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.qezhhnjy</groupId>
+      <artifactId>antq-outdoor</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.redisson</groupId>
+      <artifactId>redisson</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
