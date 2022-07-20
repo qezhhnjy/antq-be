@@ -25,6 +25,7 @@
     <module>antq-IM</module>
     <module>antq-xxl-job</module>
     <module>antq-outdoor</module>
+    <module>antq-easy-rules</module>
   </modules>
 
   <properties>
@@ -45,6 +46,7 @@
     <xxl.job.version>2.3.1</xxl.job.version>
     <redisson.version>3.17.3</redisson.version>
     <flowable.version>6.7.2</flowable.version>
+    <easy.rules.version>4.1.0</easy.rules.version>
   </properties>
 
   <dependencyManagement>
@@ -206,6 +208,11 @@
         <groupId>org.flowable</groupId>
         <artifactId>flowable-spring-boot-starter</artifactId>
         <version>${flowable.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jeasy</groupId>
+        <artifactId>easy-rules-core</artifactId>
+        <version>${easy.rules.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
