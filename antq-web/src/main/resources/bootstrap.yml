@@ -112,3 +112,8 @@ management:
     web:
       exposure:
         include: "*"
+
+# 配置了@FeignClient的fallback才能生效
+feign:
+  hystrix:
+    enabled: true

@@ -1,10 +1,8 @@
 package com.qezhhnjy.antq.web.util;
 
-/**
- * @author zhaoyangfu
- * @date 2022/1/18-14:24
- */
-
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
+import com.qezhhnjy.antq.entity.pic.Album;
 import com.qezhhnjy.antq.web.config.MinioConfig;
 import io.minio.*;
 import io.minio.http.Method;
@@ -20,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -83,12 +82,23 @@ public class MinioUtil {
     public String upload(MultipartFile file) throws Exception {
         // 按月存储
         String month = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
-        String fileName = month + "/" + file.getOriginalFilename();
+        String fileName = month + StrUtil.SLASH + file.getOriginalFilename();
         PutObjectArgs objectArgs = PutObjectArgs.builder().bucket(minioConfig.getBucket()).object(fileName)
                 .stream(file.getInputStream(), file.getSize(), -1)
                 .contentType(file.getContentType()).build();
         minioClient.putObject(objectArgs);
-        return minioConfig.getPrefix() + minioConfig.getBucket() + "/" + fileName;
+        return minioConfig.getPrefix() + minioConfig.getBucket() + StrUtil.SLASH + fileName;
+    }
+
+    public String upload(String dir, String name, Album album) throws Exception {
+        String station = album.getStation();
+        String title = album.getTitle();
+        String fileName = station + StrUtil.SLASH + title + StrUtil.SLASH + name;
+        File file = FileUtil.file(dir, name);
+        minioClient.putObject(PutObjectArgs.builder().bucket(minioConfig.getBucket()).object(fileName)
+                .stream(FileUtil.getInputStream(file), FileUtil.size(file), -1)
+                .build());
+        return minioConfig.getPrefix() + minioConfig.getBucket() + StrUtil.SLASH + fileName;
     }
 
     /**
