@@ -95,6 +95,12 @@ public class AlbumController {
     public BaseResult<PicInfo> addPic(MultipartFile file, Long albumId) throws Exception {
         Album album = albumService.getById(albumId);
         String url = minioUtil.upload(file, album);
+        picInfoService.lambdaQuery().eq(PicInfo::getUrl, url)
+                .last("LIMIT 1")
+                .oneOpt()
+                .ifPresent(exist -> {
+                    throw new BizException(ResultCode.DATA_EXIST, "图片重复");
+                });
         PicInfo info = new PicInfo().setAlbumId(albumId).setUrl(url);
         picInfoService.lambdaQuery().eq(PicInfo::getAlbumId, albumId)
                 .orderByDesc(PicInfo::getSequence)
