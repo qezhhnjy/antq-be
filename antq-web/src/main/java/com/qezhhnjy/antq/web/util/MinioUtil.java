@@ -11,6 +11,7 @@ import io.minio.messages.DeleteError;
 import io.minio.messages.DeleteObject;
 import io.minio.messages.Item;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,6 +37,8 @@ public class MinioUtil {
     private MinioClient minioClient;
     @Resource
     private MinioConfig minioConfig;
+    @Value("#{minioConfig.prefix+minioConfig.bucket}")
+    private String      prefix;
 
     /**
      * 查看存储bucket是否存在
@@ -87,7 +90,7 @@ public class MinioUtil {
                 .stream(file.getInputStream(), file.getSize(), -1)
                 .contentType(file.getContentType()).build();
         minioClient.putObject(objectArgs);
-        return minioConfig.getPrefix() + minioConfig.getBucket() + StrUtil.SLASH + fileName;
+        return prefix + StrUtil.SLASH + fileName;
     }
 
     public String upload(String dir, String name, Album album) throws Exception {
@@ -98,7 +101,19 @@ public class MinioUtil {
         minioClient.putObject(PutObjectArgs.builder().bucket(minioConfig.getBucket()).object(fileName)
                 .stream(FileUtil.getInputStream(file), FileUtil.size(file), -1)
                 .build());
-        return minioConfig.getPrefix() + minioConfig.getBucket() + StrUtil.SLASH + fileName;
+        return prefix + StrUtil.SLASH + fileName;
+    }
+
+    public String upload(MultipartFile file, Album album) throws Exception {
+        String name = file.getOriginalFilename();
+        String station = album.getStation();
+        String title = album.getTitle();
+        String fileName = station + StrUtil.SLASH + title + StrUtil.SLASH + name;
+        minioClient.putObject(PutObjectArgs.builder().bucket(minioConfig.getBucket()).object(fileName)
+                .stream(file.getInputStream(), file.getSize(), -1)
+                .contentType(file.getContentType())
+                .build());
+        return prefix + StrUtil.SLASH + fileName;
     }
 
     /**
@@ -106,8 +121,13 @@ public class MinioUtil {
      */
     public String preview(String fileName) throws Exception {
         // 查看文件地址
-        GetPresignedObjectUrlArgs build = GetPresignedObjectUrlArgs.builder().bucket(minioConfig.getBucket()).object(fileName).method(Method.GET).build();
+        GetPresignedObjectUrlArgs build = GetPresignedObjectUrlArgs.builder().bucket(minioConfig.getBucket())
+                .object(sub(fileName)).method(Method.GET).build();
         return minioClient.getPresignedObjectUrl(build);
+    }
+
+    private String sub(String fileName) {
+        return fileName.replace(prefix, StrUtil.EMPTY);
     }
 
     /**
@@ -117,6 +137,7 @@ public class MinioUtil {
      * @param res      response
      */
     public void download(String fileName, HttpServletResponse res) {
+        fileName = sub(fileName);
         GetObjectArgs objectArgs = GetObjectArgs.builder().bucket(minioConfig.getBucket())
                 .object(fileName).build();
         try (GetObjectResponse response = minioClient.getObject(objectArgs)) {
@@ -166,6 +187,8 @@ public class MinioUtil {
      * 删除
      */
     public void remove(String fileName) throws Exception {
+        fileName = sub(fileName);
+        log.info("fileName=>{}", fileName);
         minioClient.removeObject(RemoveObjectArgs.builder().bucket(minioConfig.getBucket()).object(fileName).build());
     }
 
@@ -174,9 +197,13 @@ public class MinioUtil {
      *
      * @param objects 对象名称集合
      */
-    public Iterable<Result<DeleteError>> removeObjects(List<String> objects) {
-        List<DeleteObject> dos = objects.stream().map(DeleteObject::new).collect(Collectors.toList());
-        return minioClient.removeObjects(RemoveObjectsArgs.builder().bucket(minioConfig.getBucket()).objects(dos).build());
+    public void removeObjects(List<String> objects) throws Exception {
+        List<DeleteObject> dos = objects.stream().map(fileName -> new DeleteObject(sub(fileName))).collect(Collectors.toList());
+        Iterable<Result<DeleteError>> errors = minioClient.removeObjects(RemoveObjectsArgs.builder().bucket(minioConfig.getBucket()).objects(dos).build());
+        // 好像必须要get才能删除...
+        for (Result<DeleteError> error : errors) {
+            error.get();
+        }
     }
 
 }

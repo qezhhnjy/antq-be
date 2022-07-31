@@ -28,6 +28,7 @@ public class Album extends BaseEntity {
     private String  tag;
     private String  author;
     private String  model;
+    private String  summary;
 
     @TableField(exist = false)
     private List<PicInfo> infoList;

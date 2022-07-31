@@ -17,6 +17,7 @@ public enum ResultCode {
     PERMISSION_DENIED(1006, "没有访问权限，请联系管理员!"),
 
     DATA_NOT_EXIST(2000, "数据不存在"),
+    DATA_EXIST(2001, "数据已存在"),
     ILLEGAL_ARG(20001, "非法参数"),
     FAILED(9999, "响应失败");
 
