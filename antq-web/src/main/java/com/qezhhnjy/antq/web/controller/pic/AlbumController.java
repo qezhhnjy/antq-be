@@ -15,6 +15,9 @@ import com.qezhhnjy.antq.service.pic.AlbumService;
 import com.qezhhnjy.antq.service.pic.PicInfoService;
 import com.qezhhnjy.antq.web.util.MinioUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +37,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/album")
 @Slf4j
+@CacheConfig(cacheNames = "album")
 public class AlbumController {
 
     @Resource
@@ -45,6 +49,7 @@ public class AlbumController {
 
     @PostMapping("/upload")
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(beforeInvocation = true, allEntries = true)
     public BaseResult<?> upload(MultipartFile file, Album album) throws Exception {
         log.info("album=>{}", album);
         String station = album.getStation();
@@ -92,6 +97,7 @@ public class AlbumController {
 
     @PostMapping("/add-pic")
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(beforeInvocation = true, allEntries = true)
     public BaseResult<PicInfo> addPic(MultipartFile file, Long albumId) throws Exception {
         Album album = albumService.getById(albumId);
         String url = minioUtil.upload(file, album);
@@ -118,6 +124,7 @@ public class AlbumController {
 
     @DeleteMapping("/delete")
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(beforeInvocation = true, allEntries = true)
     public BaseResult<?> delete(Long id) throws Exception {
         Album album = albumService.getById(id);
         Objects.requireNonNull(album, "图集不存在");
@@ -134,6 +141,7 @@ public class AlbumController {
 
     @DeleteMapping("/delete-pic")
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(beforeInvocation = true, allEntries = true)
     public BaseResult<?> deletePic(Long id) throws Exception {
         PicInfo pic = picInfoService.getById(id);
         minioUtil.remove(pic.getUrl());
@@ -147,6 +155,7 @@ public class AlbumController {
     }
 
     @PostMapping("/album-page")
+    @Cacheable
     public BaseResult<PageInfo<Album>> albumPage(@RequestBody AlbumQuery query) {
         String search = query.getSearch();
         boolean notBlank = StrUtil.isNotBlank(search);
@@ -164,6 +173,7 @@ public class AlbumController {
     }
 
     @PostMapping("/info-page")
+    @Cacheable
     public BaseResult<PageInfo<PicInfo>> infoPage(@RequestBody AlbumQuery query) {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
         List<PicInfo> list = picInfoService.lambdaQuery()
