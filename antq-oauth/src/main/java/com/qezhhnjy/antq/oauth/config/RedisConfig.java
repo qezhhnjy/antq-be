@@ -2,6 +2,7 @@ package com.qezhhnjy.antq.oauth.config;
 
 import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,8 +70,8 @@ public class RedisConfig extends CachingConfigurerSupport {
     public CacheManager cacheManager(LettuceConnectionFactory factory) {
         // 配置序列化
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(600))
-                .computePrefixWith((name) -> String.format("%s::%s::", Const.COMPANY_ID, name))
+                .entryTtl(Duration.ofSeconds(1200))
+                .computePrefixWith((name) -> String.format("%s:%s:", Const.COMPANY_ID, name))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(genericJackson2JsonRedisSerializer()));
         return RedisCacheManager.builder(factory).cacheDefaults(redisCacheConfiguration).build();
@@ -84,13 +85,12 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     public static GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer() {
         // 解决jackson2无法反序列化LocalDateTime的问题
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        om.registerModule(new JavaTimeModule());
-        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,
-                ObjectMapper.DefaultTyping.NON_FINAL,
-                JsonTypeInfo.As.WRAPPER_ARRAY);
+        ObjectMapper om = new ObjectMapper()
+                .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY)
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .registerModule(new JavaTimeModule())
+                .activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.WRAPPER_ARRAY);
         return new GenericJackson2JsonRedisSerializer(om);
     }
 
