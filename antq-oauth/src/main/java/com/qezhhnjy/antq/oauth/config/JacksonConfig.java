@@ -47,6 +47,7 @@ public class JacksonConfig {
             simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
 
             builder.serializerByType(Long.TYPE, ToStringSerializer.instance)
+                    .serializationInclusion(JsonInclude.Include.NON_NULL)
                     .locale(Locale.CHINA)
                     .timeZone(TimeZone.getTimeZone(ZoneId.systemDefault()))
                     .serializationInclusion(JsonInclude.Include.NON_NULL)

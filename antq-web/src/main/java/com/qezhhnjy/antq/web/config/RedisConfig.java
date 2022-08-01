@@ -1,5 +1,6 @@
 package com.qezhhnjy.antq.web.config;
 
+import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -25,7 +26,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.io.Serializable;
 import java.time.Duration;
-import java.util.Arrays;
 
 /**
  * <p>
@@ -92,7 +92,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Override
     public KeyGenerator keyGenerator() {
         return (o, method, args) ->
-                String.format("%s#%s#%s", o.getClass().getSimpleName(), method.getName(), Arrays.toString(args));
+                String.format("%s#%s#%s", o.getClass().getSimpleName(), method.getName(), JSONUtil.toJsonStr(args));
     }
 
 }
